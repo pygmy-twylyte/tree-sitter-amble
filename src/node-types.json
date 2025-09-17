@@ -1,8 +1,67 @@
 [
   {
+    "type": "barred_msg",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "barred_stmt",
+    "named": true,
+    "fields": {
+      "msg": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "barred_msg",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "exit_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "exit_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "exit_dir",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "exit_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "barred_stmt",
+          "named": true
+        },
+        {
+          "type": "required_flags_stmt",
+          "named": true
+        },
+        {
+          "type": "required_items_stmt",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "goal_block",
@@ -173,6 +232,38 @@
     }
   },
   {
+    "type": "required_flags_stmt",
+    "named": true,
+    "fields": {
+      "flag_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "required_items_stmt",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "room_block",
     "named": true,
     "fields": {},
@@ -253,6 +344,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "exit_block",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -531,6 +632,10 @@
     "named": false
   },
   {
+    "type": "barred",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true
@@ -590,6 +695,14 @@
   {
     "type": "npc_id",
     "named": true
+  },
+  {
+    "type": "required_flags",
+    "named": false
+  },
+  {
+    "type": "required_items",
+    "named": false
   },
   {
     "type": "room",

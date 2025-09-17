@@ -82,13 +82,35 @@ module.exports = grammar({
     room_visited: ($) =>
       seq("visited", field("visited", alias($.boolean, $.room_visited))),
 
+    // --- room exits ---
     room_exit: ($) =>
       seq(
         "exit",
         field("dir", alias(choice($.identifier, $.string), $.exit_dir)),
         "->",
         field("dest", alias($.identifier, $.exit_dest)),
+        optional($.exit_block),
       ),
+
+    exit_block: ($) => seq("{", repeat($.exit_stmt), "}"),
+    exit_stmt: ($) =>
+      choice($.required_items_stmt, $.required_flags_stmt, $.barred_stmt),
+    required_items_stmt: ($) =>
+      seq(
+        "required_items",
+        "(",
+        sep1(field("item_id", $.identifier), ","),
+        ")",
+      ),
+    required_flags_stmt: ($) =>
+      seq(
+        "required_flags",
+        "(",
+        sep1(field("flag_id", $.identifier), ","),
+        ")",
+      ),
+    barred_stmt: ($) =>
+      seq("barred", field("msg", alias($.string, $.barred_msg))),
 
     //
     // ITEM DEFINITIONS
