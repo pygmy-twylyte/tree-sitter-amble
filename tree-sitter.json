@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "amble",
+      "camelcase": "Amble",
+      "title": "Amble",
+      "scope": "source.amble",
+      "file-types": [
+        "amble"
+      ],
+      "injection-regex": "^amble$",
+      "class-name": "TreeSitterAmble"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "DSL for the Amble game engine.",
+    "authors": [
+      {
+        "name": "djvb",
+        "email": "djvbmd@protonmail.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/pygmy-twylyte/tree-sitter-amble.git"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
