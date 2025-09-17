@@ -1,0 +1,363 @@
+// PEST Grammar for the Amble DSL (used for the DSL compiler)
+// Included here as reference while creating the tree-sitter rules.
+
+COMMENT    = _{ "#" ~ (!NEWLINE ~ ANY)* }
+WHITESPACE = _{ " " | "\t" | NEWLINE | COMMENT }
+NEWLINE    = _{ "\n" | "\r\n" }
+boolean    =  { "true" | "false" }
+
+// Reserved keywords that cannot be used as identifiers
+keyword = {
+    "trigger"
+  | "when"
+  | "only"
+  | "once"
+  | "always"
+  | "enter"
+  | "leave"
+  | "room"
+  | "take"
+  | "drop"
+  | "look"
+  | "at"
+  | "ability"
+  | "on"
+  | "interaction"
+  | "act"
+  | "give"
+  | "to"
+  | "from"
+  | "insert"
+  | "into"
+  | "talk"
+  | "npc"
+  | "player"
+  | "if"
+  | "do"
+  | "show"
+  | "add"
+  | "wedge"
+  | "width"
+  | "spinner"
+  | "replace"
+  | "with"
+  | "remove"
+  | "award"
+  | "points"
+  | "schedule"
+  | "lock"
+  | "exit"
+  | "direction"
+  | "reveal"
+  | "push"
+  | "set"
+  | "description"
+  | "random"
+  | "refuse"
+  | "state"
+  | "deny"
+  | "restrict"
+  | "barred"
+  | "message"
+  | "container"
+  | "has"
+  | "missing"
+  | "visited"
+  | "progress"
+  | "complete"
+  | "with"
+  | "in"
+  | "rooms"
+  | "chance"
+  | "ambient"
+  | "any"
+  | "all"
+  | "note"
+  | "onFalse"
+  | "overlay"
+  | "text"
+  | "present"
+  | "absent"
+  | "custom"
+  | "here"
+  | // container state literals
+  "closed"
+  | "locked"
+  | "transparentClosed"
+  | "transparentLocked"
+  | "none"
+}
+
+ident_char = _{ ASCII_ALPHANUMERIC | "-" | ":" | "_" | "#" }
+// Disallow exact keywords, but allow identifiers that merely start with a keyword (e.g., "readable")
+ident = @{ !(keyword ~ !ident_char) ~ ident_char+ }
+
+number = @{ "-"* ~ ASCII_DIGIT+ }
+
+// Quoted strings with common escape sequences: \n, \r, \t, \", \\
+escape      = _{ "\\" ~ ("n" | "r" | "t" | "\\" | "\"") }
+string_char = _{ escape | (!("\\" | "\"") ~ ANY) }
+quoted      = @{ "\"" ~ string_char* ~ "\"" }
+// Raw strings: r"..." (no escapes, cannot contain ")
+raw_quoted = @{ "r\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+// Hashed raw strings like Rust: r#"..."# up to 5 hashes
+raw_quoted_h1 = @{ "r#\"" ~ (!("\"#") ~ ANY)* ~ "\"#" }
+raw_quoted_h2 = @{ "r##\"" ~ (!("\"##") ~ ANY)* ~ "\"##" }
+raw_quoted_h3 = @{ "r###\"" ~ (!("\"###") ~ ANY)* ~ "\"###" }
+raw_quoted_h4 = @{ "r####\"" ~ (!("\"####") ~ ANY)* ~ "\"####" }
+raw_quoted_h5 = @{ "r#####\"" ~ (!("\"#####") ~ ANY)* ~ "\"#####" }
+// Triple-quoted strings: """ ... """ (allow newlines; supports escapes like quoted)
+triple_char   = _{ escape | !("\"\"\"") ~ ANY }
+triple_quoted = @{ "\"\"\"" ~ triple_char* ~ "\"\"\"" }
+// Unified string literal
+// Single-quoted strings: '...'
+single_quoted = @{ "'" ~ (escape | (!("\\" | "'") ~ ANY))* ~ "'" }
+string        = @{ triple_quoted | raw_quoted_h5 | raw_quoted_h4 | raw_quoted_h3 | raw_quoted_h2 | raw_quoted_h1 | raw_quoted | quoted | single_quoted }
+
+program = { SOI ~ (set_decl | trigger | room_def | item_def | spinner_def | npc_def | goal_def)+ ~ EOI }
+
+set_decl = { "let" ~ "set" ~ ident ~ "=" ~ set_list }
+set_list = { "(" ~ ident ~ ("," ~ ident)* ~ ")" }
+
+only_once_kw = { "only" ~ "once" }
+note_kw      = { "note" ~ string }
+// Allow optional modifiers (only once, note) in any order before 'when'
+trigger = { "trigger" ~ string ~ (only_once_kw | note_kw)* ~ "when" ~ when_cond ~ block }
+
+// Event ("when") conditions supported in this iteration
+when_cond        = { always_event | enter_room | leave_room | look_at_item | open_item | use_item_on_item | use_item | give_to_npc | take_from_npc | insert_item_into | take_item | drop_item | unlock_item | talk_to_npc | act_on_item }
+always_event     = { "always" }
+enter_room       = { "enter" ~ "room" ~ ident }
+take_item        = { "take" ~ "item" ~ ident }
+talk_to_npc      = { "talk" ~ "to" ~ "npc" ~ ident }
+open_item        = { "open" ~ "item" ~ ident }
+leave_room       = { "leave" ~ "room" ~ ident }
+look_at_item     = { "look" ~ "at" ~ "item" ~ ident }
+use_item         = { "use" ~ "item" ~ ident ~ "ability" ~ ident }
+give_to_npc      = { "give" ~ "item" ~ ident ~ "to" ~ "npc" ~ ident }
+use_item_on_item = { "use" ~ "item" ~ ident ~ "on" ~ "item" ~ ident ~ "interaction" ~ ident }
+act_on_item      = { "act" ~ ident ~ "on" ~ "item" ~ ident }
+take_from_npc    = { "take" ~ "item" ~ ident ~ "from" ~ "npc" ~ ident }
+insert_item_into = { "insert" ~ "item" ~ ident ~ "into" ~ "item" ~ ident }
+drop_item        = { "drop" ~ "item" ~ ident }
+unlock_item      = { "unlock" ~ "item" ~ ident }
+
+block = { "{" ~ stmt_block ~ "}" }
+
+// Allow multiple if-blocks and/or plain do statements at top-level
+stmt_block = { (if_block | do_stmt)+ }
+
+if_block = { "if" ~ cond ~ block_inner }
+
+block_inner = { "{" ~ (do_stmt)+ ~ "}" }
+
+do_stmt = { "do" ~ do_action }
+
+// Helper rule for balanced braces - handles nested { } pairs properly
+balanced_braces  = { "{" ~ balanced_content ~ "}" }
+balanced_content = { (balanced_braces | (!("}") ~ ANY))* }
+
+do_action = {
+    ("show" ~ string)
+  | ("add" ~ "wedge" ~ string ~ ("width" ~ number)? ~ "spinner" ~ ident)
+  | ("add" ~ "seq" ~ "flag" ~ ident ~ ("limit" ~ number)?)
+  | ("replace" ~ "item" ~ ident ~ "with" ~ ident)
+  | ("replace" ~ "drop" ~ "item" ~ ident ~ "with" ~ ident)
+  | ("add" ~ "flag" ~ ident)
+  | ("reset" ~ "flag" ~ ident)
+  | ("advance" ~ "flag" ~ ident)
+  | ("remove" ~ "flag" ~ ident)
+  | ("spawn" ~ "item" ~ ident ~ "into" ~ "room" ~ ident)
+  | ("spawn" ~ "item" ~ ident ~ "into" ~ "container" ~ ident)
+  | ("spawn" ~ "item" ~ ident ~ "in" ~ "container" ~ ident)
+  | ("spawn" ~ "item" ~ ident ~ "in" ~ "inventory")
+  | ("spawn" ~ "item" ~ ident ~ "in" ~ "current" ~ "room")
+  | ("despawn" ~ "item" ~ ident)
+  | ("award" ~ "points" ~ number)
+  | ("schedule" ~ (!"{" ~ ANY)* ~ balanced_braces)
+  | ("lock" ~ "item" ~ ident)
+  | ("unlock" ~ "item" ~ ident)
+  | ("lock" ~ "exit" ~ "from" ~ ident ~ "direction" ~ (ident | string))
+  | ("unlock" ~ "exit" ~ "from" ~ ident ~ "direction" ~ (ident | string))
+  | ("reveal" ~ "exit" ~ "from" ~ ident ~ "to" ~ ident ~ "direction" ~ (ident | string))
+  | ("push" ~ "player" ~ "to" ~ ident)
+  | ("set" ~ "item" ~ "description" ~ ident ~ string)
+  | ("npc" ~ "random" ~ "dialogue" ~ ident)
+  | ("npc" ~ "says" ~ ident ~ string)
+  | ("npc" ~ "refuse" ~ "item" ~ ident ~ string)
+  | ("set" ~ "npc" ~ "state" ~ ident ~ ident)
+  | ("deny" ~ "read" ~ string)
+  | ("restrict" ~ "item" ~ ident)
+  | ("give" ~ "item" ~ ident ~ "to" ~ "player" ~ "from" ~ "npc" ~ ident)
+  | ("set" ~ "barred" ~ "message" ~ "from" ~ ident ~ "to" ~ ident ~ string)
+  | ("set" ~ "container" ~ "state" ~ ident ~ ("open" | "closed" | "locked" | "transparentClosed" | "transparentLocked" | "none"))
+  | ("spinner" ~ "message" ~ ident)
+}
+
+// Conditions
+cond = {
+    any_group
+  | all_group
+  | in_rooms
+  | has_flag
+  | missing_flag
+  | has_item
+  | missing_item
+  | has_visited_room
+  | flag_in_progress
+  | flag_complete
+  | with_npc
+  | npc_has_item
+  | npc_in_state
+  | player_in_room
+  | container_has_item
+  | chance_cond
+  | ambient_cond
+}
+
+has_flag         = { "has" ~ "flag" ~ ident }
+missing_flag     = { "missing" ~ "flag" ~ ident }
+has_item         = { "has" ~ "item" ~ ident }
+missing_item     = { "missing" ~ "item" ~ ident }
+has_visited_room = { "has" ~ "visited" ~ "room" ~ ident }
+flag_in_progress = { "flag" ~ "in" ~ "progress" ~ ident }
+flag_complete    = { "flag" ~ "complete" ~ ident }
+with_npc         = { "with" ~ "npc" ~ ident }
+// Note: DSL shape here matches parser's simple split: "npc has item <npc> <item>"
+npc_has_item   = { "npc" ~ "has" ~ "item" ~ ident ~ ident }
+npc_in_state   = { "npc" ~ "in" ~ "state" ~ ident ~ ident }
+player_in_room = { "player" ~ "in" ~ "room" ~ ident }
+// DSL phrasing: "container <container> has item <item>"
+container_has_item = { "container" ~ ident ~ "has" ~ "item" ~ ident }
+chance_cond        = { "chance" ~ number ~ "%" }
+ambient_cond       = { "ambient" ~ ident ~ ("in" ~ "rooms" ~ ident ~ ("," ~ ident)*)? }
+// Preferred shorthand for ambient room gating: "in rooms a,b,c"
+in_rooms = { "in" ~ "rooms" ~ ident ~ ("," ~ ident)* }
+
+all_group = { "all" ~ "(" ~ cond_list ~ ")" }
+any_group = { "any" ~ "(" ~ cond_list ~ ")" }
+cond_list = { cond ~ ("," ~ cond)* }
+
+// -----------------
+// Rooms (minimal)
+// -----------------
+
+room_def     = { "room" ~ ident ~ room_block }
+room_block   = { "{" ~ room_stmt* ~ "}" }
+room_stmt    = { room_name | room_desc | room_visited | exit_stmt | overlay_stmt | overlay_flag_pair_stmt | overlay_item_pair_stmt | overlay_npc_pair_stmt | overlay_npc_states_stmt }
+room_name    = { "name" ~ string }
+room_desc    = { ("desc" | "description") ~ string }
+room_visited = { "visited" ~ boolean }
+// Exits: exit <direction> -> <room_id>
+// Allow quoted or bare direction names
+exit_stmt = { "exit" ~ (ident | string) ~ "->" ~ ident ~ exit_opts? }
+exit_opts = { "{" ~ (exit_opt ~ ("," ~ exit_opt)*)? ~ "}" }
+exit_opt  = {
+    "hidden"
+  | "locked"
+  | ("barred" ~ string)
+  | ("required_flags" ~ "(" ~ (flag_req | ident) ~ ("," ~ (flag_req | ident))* ~ ")")
+  | ("required_items" ~ "(" ~ ident ~ ("," ~ ident)* ~ ")")
+}
+
+flag_req = { ("simple" ~ ident) | ("seq" ~ ident ~ ("limit" ~ number)?) }
+
+// Overlays
+// Allow optional parentheses around the overlay condition list for cleaner syntax
+overlay_stmt      = { "overlay" ~ "if" ~ (overlay_cond_list | "(" ~ overlay_cond_list ~ ")") ~ overlay_block }
+overlay_block     = { "{" ~ "text" ~ string ~ "}" }
+overlay_cond_list = { overlay_cond ~ ("," ~ overlay_cond)* }
+overlay_cond      = {
+    ("flag" ~ "set" ~ ident)
+  | ("flag" ~ "unset" ~ ident)
+  | ("flag" ~ "complete" ~ ident)
+  | ("item" ~ "present" ~ ident)
+  | ("item" ~ "absent" ~ ident)
+  | ("player" ~ "has" ~ "item" ~ ident)
+  | ("player" ~ "missing" ~ "item" ~ ident)
+  | ("npc" ~ "present" ~ ident)
+  | ("npc" ~ "absent" ~ ident)
+  | ("npc" ~ "in" ~ "state" ~ ident ~ (ident | ("custom" ~ string)))
+  | ("item" ~ "in" ~ "room" ~ ident ~ ident)
+}
+
+overlay_flag_pair_stmt      = { "overlay" ~ "if" ~ "flag" ~ ident ~ overlay_flag_pair_block }
+overlay_flag_pair_block     = { "{" ~ "set" ~ string ~ "unset" ~ string ~ "}" }
+overlay_item_pair_stmt      = { "overlay" ~ "if" ~ "item" ~ ident ~ overlay_presence_pair_block }
+overlay_npc_pair_stmt       = { "overlay" ~ "if" ~ "npc" ~ ident ~ overlay_presence_pair_block }
+overlay_presence_pair_block = { "{" ~ "present" ~ string ~ "absent" ~ string ~ "}" }
+
+// Overlay sugar: collapse multiple NPC state overlays into one block.
+// Example:
+// overlay if npc emh here {
+// normal "..."
+// happy "..."
+// custom(want-emitter) "..."
+// }
+overlay_npc_states_stmt  = { "overlay" ~ "if" ~ "npc" ~ ident ~ "here" ~ overlay_npc_states_block }
+overlay_npc_states_block = { "{" ~ overlay_npc_state_line+ ~ "}" }
+overlay_npc_state_line   = { (ident ~ string) | ("custom" ~ "(" ~ ident ~ ")" ~ string) }
+
+// -----------------
+// Items
+// -----------------
+
+item_def             = { "item" ~ ident ~ item_block }
+item_block           = { "{" ~ (item_name | item_desc | item_portable | item_location | item_container_state | item_ability | item_text | item_restricted | item_requires)* ~ "}" }
+item_name            = { "name" ~ string }
+item_desc            = { ("desc" | "description") ~ string }
+item_portable        = { "portable" ~ boolean }
+item_location        = { "location" ~ (inventory_loc | room_loc | npc_loc | chest_loc | nowhere_loc) }
+player_kw            = { "player" }
+inventory_loc        = { "inventory" ~ (ident | player_kw) }
+room_loc             = { "room" ~ ident }
+npc_loc              = { "npc" ~ ident }
+chest_loc            = { "chest" ~ ident }
+nowhere_loc          = { "nowhere" ~ string }
+item_container_state = { "container" ~ "state" ~ ("open" | "closed" | "locked" | "transparentClosed" | "transparentLocked" | "none") }
+item_ability         = { "ability" ~ ident ~ ident? }
+item_text            = { "text" ~ string }
+item_restricted      = { "restricted" ~ boolean }
+// Change syntax to: requires <ability> to <interaction>
+item_requires = { "requires" ~ ident ~ "to" ~ ident }
+
+// -----------------
+// Spinners
+// -----------------
+
+spinner_def   = { "spinner" ~ ident ~ spinner_block }
+spinner_block = { "{" ~ wedge_stmt+ ~ "}" }
+wedge_stmt    = { "wedge" ~ string ~ ("width" ~ number)? }
+
+// -----------------
+// NPCs
+// -----------------
+
+npc_def            = { "npc" ~ ident ~ npc_block }
+npc_block          = { "{" ~ npc_stmt* ~ "}" }
+npc_stmt           = { npc_name | npc_desc | npc_location | npc_state | npc_movement | npc_dialogue_block }
+npc_name           = { "name" ~ string }
+npc_desc           = { ("desc" | "description") ~ string }
+npc_location       = { "location" ~ (("room" ~ ident) | ("nowhere" ~ string)) }
+npc_state          = { "state" ~ (ident | ("custom" ~ ident)) }
+npc_movement       = { "movement" ~ ("random" | "route") ~ "rooms" ~ "(" ~ ident ~ ("," ~ ident)* ~ ")" ~ ("timing" ~ ident)? ~ ("active" ~ boolean)? }
+npc_dialogue_block = { "dialogue" ~ (ident | ("custom" ~ ident)) ~ "{" ~ string+ ~ "}" }
+
+// -----------------
+// Goals
+// -----------------
+
+goal_def   = { "goal" ~ ident ~ string ~ NEWLINE* ~ goal_desc ~ NEWLINE* ~ goal_group ~ NEWLINE* ~ goal_start? ~ NEWLINE* ~ goal_done }
+goal_desc  = { "desc" ~ string }
+goal_group = { "group" ~ ("required" | "optional" | "status-effect") }
+goal_start = { "start" ~ "when" ~ goal_cond }
+goal_done  = { "done" ~ "when" ~ goal_cond }
+goal_cond  = {
+    ("has" ~ "flag" ~ ident)
+  | ("missing" ~ "flag" ~ ident)
+  | ("has" ~ "item" ~ ident)
+  | ("reached" ~ "room" ~ ident)
+  | ("goal" ~ "complete" ~ ident)
+  | ("flag" ~ "in" ~ "progress" ~ ident)
+  | ("flag" ~ "complete" ~ ident)
+}
