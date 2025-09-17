@@ -232,6 +232,127 @@
     }
   },
   {
+    "type": "overlay_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ovl_block",
+          "named": true
+        },
+        {
+          "type": "ovl_cond_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ovl_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ovl_text_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ovl_cond",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ovl_flag_set",
+          "named": true
+        },
+        {
+          "type": "ovl_flag_unset",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ovl_cond_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ovl_cond",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ovl_flag_set",
+    "named": true,
+    "fields": {
+      "flag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "flag_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ovl_flag_unset",
+    "named": true,
+    "fields": {
+      "flag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "flag_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ovl_text",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "ovl_text_stmt",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ovl_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "required_flags_stmt",
     "named": true,
     "fields": {
@@ -380,6 +501,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "overlay_stmt",
+          "named": true
+        },
         {
           "type": "room_desc",
           "named": true
@@ -661,6 +786,14 @@
     "named": false
   },
   {
+    "type": "flag",
+    "named": false
+  },
+  {
+    "type": "flag_name",
+    "named": true
+  },
+  {
     "type": "goal",
     "named": false
   },
@@ -671,6 +804,10 @@
   {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "if",
+    "named": false
   },
   {
     "type": "item",
@@ -697,6 +834,10 @@
     "named": true
   },
   {
+    "type": "overlay",
+    "named": false
+  },
+  {
     "type": "required_flags",
     "named": false
   },
@@ -721,11 +862,19 @@
     "named": false
   },
   {
+    "type": "text",
+    "named": false
+  },
+  {
     "type": "trigger",
     "named": false
   },
   {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "unset",
     "named": false
   },
   {

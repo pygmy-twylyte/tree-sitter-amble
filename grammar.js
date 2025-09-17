@@ -69,7 +69,13 @@ module.exports = grammar({
     room_block: ($) => seq("{", repeat($.room_stmt), "}"),
 
     room_stmt: ($) =>
-      choice($.room_name, $.room_desc, $.room_visited, $.room_exit),
+      choice(
+        $.room_name,
+        $.room_desc,
+        $.room_visited,
+        $.room_exit,
+        $.overlay_stmt,
+      ),
 
     room_name: ($) => seq("name", field("name", alias($.string, $.room_name))),
 
@@ -82,7 +88,7 @@ module.exports = grammar({
     room_visited: ($) =>
       seq("visited", field("visited", alias($.boolean, $.room_visited))),
 
-    // --- room exits ---
+    // ----------------- room exits ----------------
     room_exit: ($) =>
       seq(
         "exit",
@@ -111,6 +117,23 @@ module.exports = grammar({
       ),
     barred_stmt: ($) =>
       seq("barred", field("msg", alias($.string, $.barred_msg))),
+
+    // --------------------- room overlays ---------------------
+    overlay_stmt: ($) => seq("overlay", "if", $.ovl_cond_list, $.ovl_block),
+
+    ovl_block: ($) => seq("{", $.ovl_text_stmt, "}"),
+
+    ovl_text_stmt: ($) =>
+      seq("text", field("text", alias($.string, $.ovl_text))),
+
+    ovl_cond_list: ($) =>
+      choice($.ovl_cond, seq("(", sep1($.ovl_cond, ","), ")")),
+
+    ovl_cond: ($) => choice($.ovl_flag_set, $.ovl_flag_unset),
+    ovl_flag_set: ($) =>
+      seq("flag", "set", field("flag", alias($.identifier, $.flag_name))),
+    ovl_flag_unset: ($) =>
+      seq("flag", "unset", field("flag", alias($.identifier, $.flag_name))),
 
     //
     // ITEM DEFINITIONS
