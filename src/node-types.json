@@ -49,6 +49,32 @@
     "fields": {}
   },
   {
+    "type": "flag_binary_block",
+    "named": true,
+    "fields": {
+      "set_text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "unset_text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "goal_block",
     "named": true,
     "fields": {},
@@ -311,6 +337,32 @@
     }
   },
   {
+    "type": "ovl_flag_binary",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "flag_binary_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ovl_flag_status",
     "named": true,
     "fields": {
@@ -489,6 +541,10 @@
       "types": [
         {
           "type": "overlay_stmt",
+          "named": true
+        },
+        {
+          "type": "ovl_flag_binary",
           "named": true
         },
         {

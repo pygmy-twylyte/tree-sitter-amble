@@ -1,0 +1,15 @@
+# ----------------------------------------
+# ROOM WITH OVERLAY SETS
+# ----------------------------------------
+
+room busy-place {
+    name "Busy Place"
+    desc "A bustling area."
+    visited false
+    exit from_here -> eternity
+
+    # Paired set/unset flag overlay syntax:
+    overlay if flag some-flag-name {
+        set "That flag is set!"
+        unset "Aww, that flag is unset."
+    }

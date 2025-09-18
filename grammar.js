@@ -75,6 +75,7 @@ module.exports = grammar({
         $.room_visited,
         $.room_exit,
         $.overlay_stmt,
+        $.ovl_flag_binary,
       ),
 
     room_name: ($) => seq("name", field("name", alias($.string, $.room_name))),
@@ -180,6 +181,24 @@ module.exports = grammar({
         "room",
         field("item_id", $.identifier),
         field("room_id", $.identifier),
+      ),
+
+    ovl_flag_binary: ($) =>
+      seq(
+        "overlay",
+        "if",
+        "flag",
+        field("flag_name", $.identifier),
+        $.flag_binary_block,
+      ),
+    flag_binary_block: ($) =>
+      seq(
+        "{",
+        "set",
+        field("set_text", $.string),
+        "unset",
+        field("unset_text", $.string),
+        "}",
       ),
 
     //
