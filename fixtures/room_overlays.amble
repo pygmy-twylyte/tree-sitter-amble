@@ -7,11 +7,15 @@ room bathroom {
     visited true
     exit out -> bedroom
 
-    overlay if flag set foo {
+    overlay if flag complete foo {
         text "bar"
     }
 
-    overlay if (flag unset foo, flag complete bar) {
+    overlay if (flag unset foo, flag set bar) {
         text "baz"
+    }
+
+    overlay if (item present thing_1, item absent thing_2) {
+        text "Thing 2 has been stolen!"
     }
 }

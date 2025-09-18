@@ -129,14 +129,17 @@ module.exports = grammar({
     ovl_cond_list: ($) =>
       choice($.ovl_cond, seq("(", sep1($.ovl_cond, ","), ")")),
 
-    ovl_cond: ($) =>
-      choice($.ovl_flag_set, $.ovl_flag_unset, $.ovl_flag_complete),
-    ovl_flag_set: ($) =>
-      seq("flag", "set", field("flag", alias($.identifier, $.flag_name))),
-    ovl_flag_unset: ($) =>
-      seq("flag", "unset", field("flag", alias($.identifier, $.flag_name))),
-    ovl_flag_complete: ($) =>
-      seq("flag", "complete", field("flag_name", $.identifier)),
+    ovl_cond: ($) => choice($.ovl_flag_status, $.ovl_item_presence),
+
+    ovl_flag_status: ($) =>
+      seq(
+        "flag",
+        choice("set", "unset", "complete"),
+        field("flag_name", $.identifier),
+      ),
+
+    ovl_item_presence: ($) =>
+      seq("item", choice("present", "absent"), field("item_id", $.identifier)),
 
     //
     // ITEM DEFINITIONS

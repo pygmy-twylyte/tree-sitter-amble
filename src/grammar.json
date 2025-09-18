@@ -747,19 +747,15 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "ovl_flag_set"
+          "name": "ovl_flag_status"
         },
         {
           "type": "SYMBOL",
-          "name": "ovl_flag_unset"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "ovl_flag_complete"
+          "name": "ovl_item_presence"
         }
       ]
     },
-    "ovl_flag_set": {
+    "ovl_flag_status": {
       "type": "SEQ",
       "members": [
         {
@@ -767,64 +763,55 @@
           "value": "flag"
         },
         {
-          "type": "STRING",
-          "value": "set"
-        },
-        {
-          "type": "FIELD",
-          "name": "flag",
-          "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "set"
             },
-            "named": true,
-            "value": "flag_name"
-          }
-        }
-      ]
-    },
-    "ovl_flag_unset": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "flag"
-        },
-        {
-          "type": "STRING",
-          "value": "unset"
-        },
-        {
-          "type": "FIELD",
-          "name": "flag",
-          "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
+            {
+              "type": "STRING",
+              "value": "unset"
             },
-            "named": true,
-            "value": "flag_name"
-          }
-        }
-      ]
-    },
-    "ovl_flag_complete": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "flag"
-        },
-        {
-          "type": "STRING",
-          "value": "complete"
+            {
+              "type": "STRING",
+              "value": "complete"
+            }
+          ]
         },
         {
           "type": "FIELD",
           "name": "flag_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "ovl_item_presence": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "present"
+            },
+            {
+              "type": "STRING",
+              "value": "absent"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"

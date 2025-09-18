@@ -274,15 +274,11 @@
       "required": true,
       "types": [
         {
-          "type": "ovl_flag_complete",
+          "type": "ovl_flag_status",
           "named": true
         },
         {
-          "type": "ovl_flag_set",
-          "named": true
-        },
-        {
-          "type": "ovl_flag_unset",
+          "type": "ovl_item_presence",
           "named": true
         }
       ]
@@ -304,7 +300,7 @@
     }
   },
   {
-    "type": "ovl_flag_complete",
+    "type": "ovl_flag_status",
     "named": true,
     "fields": {
       "flag_name": {
@@ -320,31 +316,15 @@
     }
   },
   {
-    "type": "ovl_flag_set",
+    "type": "ovl_item_presence",
     "named": true,
     "fields": {
-      "flag": {
+      "item_id": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "flag_name",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "ovl_flag_unset",
-    "named": true,
-    "fields": {
-      "flag": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "flag_name",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -777,6 +757,10 @@
     "named": false
   },
   {
+    "type": "absent",
+    "named": false
+  },
+  {
     "type": "barred",
     "named": false
   },
@@ -812,10 +796,6 @@
   {
     "type": "flag",
     "named": false
-  },
-  {
-    "type": "flag_name",
-    "named": true
   },
   {
     "type": "goal",
@@ -859,6 +839,10 @@
   },
   {
     "type": "overlay",
+    "named": false
+  },
+  {
+    "type": "present",
     "named": false
   },
   {
