@@ -19,11 +19,23 @@ room bathroom {
         text "Thing 2 has been stolen!"
     }
 
+    overlay if (player has item thing_2, player missing item thing_1) {
+        text "The thief was only 50% efficient."
+    }
+
+    overlay if (npc present bob, npc absent alice) {
+        text "Bob is wandering around looking for Alice."
+    }
+
     overlay if npc in state bob mad {
         text "Bob fumes in the corner."
     }
 
     overlay if (npc in state bob custom "feisty") {
         text "Bob is getting feisty."
+    }
+
+    overlay if (item in room some_item some-room) {
+        text "Some item is in some room, so something else happens here."
     }
 }

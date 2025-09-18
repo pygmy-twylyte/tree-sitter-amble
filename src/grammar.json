@@ -764,6 +764,10 @@
         {
           "type": "SYMBOL",
           "name": "ovl_npc_state"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ovl_item_in_room"
         }
       ]
     },
@@ -983,6 +987,39 @@
           "content": {
             "type": "SYMBOL",
             "name": "string"
+          }
+        }
+      ]
+    },
+    "ovl_item_in_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
           }
         }
       ]

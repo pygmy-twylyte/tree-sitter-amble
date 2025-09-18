@@ -136,6 +136,7 @@ module.exports = grammar({
         $.ovl_item_posession,
         $.ovl_npc_presence,
         $.ovl_npc_state,
+        $.ovl_item_in_room,
       ),
 
     ovl_flag_status: ($) =>
@@ -171,6 +172,15 @@ module.exports = grammar({
     npc_state_builtin: ($) =>
       choice("normal", "happy", "bored", "tired", "sad", "mad"),
     npc_state_custom: ($) => seq("custom", field("custom_state", $.string)),
+
+    ovl_item_in_room: ($) =>
+      seq(
+        "item",
+        "in",
+        "room",
+        field("item_id", $.identifier),
+        field("room_id", $.identifier),
+      ),
 
     //
     // ITEM DEFINITIONS

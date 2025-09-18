@@ -273,6 +273,10 @@
           "named": true
         },
         {
+          "type": "ovl_item_in_room",
+          "named": true
+        },
+        {
           "type": "ovl_item_posession",
           "named": true
         },
@@ -311,6 +315,32 @@
     "named": true,
     "fields": {
       "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ovl_item_in_room",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "room_id": {
         "multiple": false,
         "required": true,
         "types": [
