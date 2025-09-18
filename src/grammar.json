@@ -337,7 +337,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_overlay_stmt"
+          "name": "overlay_stmt"
         }
       ]
     },
@@ -635,7 +635,7 @@
         }
       ]
     },
-    "_overlay_stmt": {
+    "overlay_stmt": {
       "type": "SEQ",
       "members": [
         {

@@ -257,6 +257,41 @@
     }
   },
   {
+    "type": "overlay_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ovl_block",
+          "named": true
+        },
+        {
+          "type": "ovl_flag_status",
+          "named": true
+        },
+        {
+          "type": "ovl_item_posession",
+          "named": true
+        },
+        {
+          "type": "ovl_item_presence",
+          "named": true
+        },
+        {
+          "type": "ovl_npc_presence",
+          "named": true
+        },
+        {
+          "type": "ovl_npc_state",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ovl_block",
     "named": true,
     "fields": {},
@@ -423,27 +458,7 @@
       "required": false,
       "types": [
         {
-          "type": "ovl_block",
-          "named": true
-        },
-        {
-          "type": "ovl_flag_status",
-          "named": true
-        },
-        {
-          "type": "ovl_item_posession",
-          "named": true
-        },
-        {
-          "type": "ovl_item_presence",
-          "named": true
-        },
-        {
-          "type": "ovl_npc_presence",
-          "named": true
-        },
-        {
-          "type": "ovl_npc_state",
+          "type": "overlay_stmt",
           "named": true
         },
         {
