@@ -752,6 +752,10 @@
         {
           "type": "SYMBOL",
           "name": "ovl_flag_unset"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ovl_flag_complete"
         }
       ]
     },
@@ -803,6 +807,27 @@
             },
             "named": true,
             "value": "flag_name"
+          }
+        }
+      ]
+    },
+    "ovl_flag_complete": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "STRING",
+          "value": "complete"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
           }
         }
       ]
