@@ -337,11 +337,15 @@
         },
         {
           "type": "SYMBOL",
-          "name": "overlay_stmt"
+          "name": "ovl_flag_binary"
         },
         {
           "type": "SYMBOL",
-          "name": "ovl_flag_binary"
+          "name": "ovl_presence_pair"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "overlay_stmt"
         }
       ]
     },
@@ -1083,6 +1087,99 @@
         {
           "type": "FIELD",
           "name": "unset_text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "ovl_presence_pair": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "overlay"
+        },
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "item"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "item_id",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "npc"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "npc_id",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "presence_pair_block"
+        }
+      ]
+    },
+    "presence_pair_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "STRING",
+          "value": "present"
+        },
+        {
+          "type": "FIELD",
+          "name": "present_text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "absent"
+        },
+        {
+          "type": "FIELD",
+          "name": "absent_text",
           "content": {
             "type": "SYMBOL",
             "name": "string"

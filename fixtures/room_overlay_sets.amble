@@ -13,3 +13,14 @@ room busy-place {
         set "That flag is set!"
         unset "Aww, that flag is unset."
     }
+
+    overlay if item some_thing {
+        present "Something is here."
+        absent "Something was here, but now it's gone."
+    }
+
+    overlay if npc zappa {
+        present "Frank is here."
+        absent "I wish Frank was here."
+    }
+}

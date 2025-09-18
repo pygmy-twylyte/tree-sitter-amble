@@ -74,8 +74,9 @@ module.exports = grammar({
         $.room_desc,
         $.room_visited,
         $.room_exit,
-        $.overlay_stmt,
         $.ovl_flag_binary,
+        $.ovl_presence_pair,
+        $.overlay_stmt,
       ),
 
     room_name: ($) => seq("name", field("name", alias($.string, $.room_name))),
@@ -198,6 +199,27 @@ module.exports = grammar({
         field("set_text", $.string),
         "unset",
         field("unset_text", $.string),
+        "}",
+      ),
+
+    ovl_presence_pair: ($) =>
+      seq(
+        "overlay",
+        "if",
+        choice(
+          seq("item", field("item_id", $.identifier)),
+          seq("npc", field("npc_id", $.identifier)),
+        ),
+        $.presence_pair_block,
+      ),
+
+    presence_pair_block: ($) =>
+      seq(
+        "{",
+        "present",
+        field("present_text", $.string),
+        "absent",
+        field("absent_text", $.string),
         "}",
       ),
 

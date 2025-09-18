@@ -479,6 +479,42 @@
     }
   },
   {
+    "type": "ovl_presence_pair",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "npc_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "presence_pair_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ovl_text",
     "named": true,
     "fields": {}
@@ -493,6 +529,32 @@
         "types": [
           {
             "type": "ovl_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "presence_pair_block",
+    "named": true,
+    "fields": {
+      "absent_text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "present_text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
             "named": true
           }
         ]
@@ -545,6 +607,10 @@
         },
         {
           "type": "ovl_flag_binary",
+          "named": true
+        },
+        {
+          "type": "ovl_presence_pair",
           "named": true
         },
         {
