@@ -74,7 +74,7 @@ module.exports = grammar({
         $.room_desc,
         $.room_visited,
         $.room_exit,
-        $._overlay_stmt,
+        $.overlay_stmt,
       ),
 
     room_name: ($) => seq("name", field("name", alias($.string, $.room_name))),
