@@ -1,5 +1,62 @@
 [
   {
+    "type": "act_on_item",
+    "named": true,
+    "fields": {
+      "action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_show",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "action_show",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "barred_msg",
     "named": true,
     "fields": {}
@@ -14,6 +71,53 @@
         "types": [
           {
             "type": "barred_msg",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "do_action",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "action_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "drop_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "enter_room",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -90,6 +194,32 @@
     }
   },
   {
+    "type": "give_to_npc",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "goal_block",
     "named": true,
     "fields": {},
@@ -146,6 +276,22 @@
     }
   },
   {
+    "type": "insert_item_into",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "item_block",
     "named": true,
     "fields": {},
@@ -199,6 +345,38 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "leave_room",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "look_at_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -356,6 +534,27 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "only_once_kw",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "open_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -989,6 +1188,64 @@
     "fields": {}
   },
   {
+    "type": "take_from_npc",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "take_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "talk_to_npc",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "trigger_block",
     "named": true,
     "fields": {},
@@ -1012,27 +1269,36 @@
         "required": true,
         "types": [
           {
-            "type": "trigger_name",
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "once": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "only_once_kw",
             "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "trigger_block",
           "named": true
+        },
+        {
+          "type": "when_cond",
+          "named": true
         }
       ]
     }
-  },
-  {
-    "type": "trigger_name",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "trigger_stmt",
@@ -1043,7 +1309,156 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "do_action",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unlock_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "use_item",
+    "named": true,
+    "fields": {
+      "ability": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "use_item_on_item",
+    "named": true,
+    "fields": {
+      "interaction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "target_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "tool_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "when_cond",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "act_on_item",
+          "named": true
+        },
+        {
+          "type": "always_event",
+          "named": true
+        },
+        {
+          "type": "drop_item",
+          "named": true
+        },
+        {
+          "type": "enter_room",
+          "named": true
+        },
+        {
+          "type": "give_to_npc",
+          "named": true
+        },
+        {
+          "type": "insert_item_into",
+          "named": true
+        },
+        {
+          "type": "leave_room",
+          "named": true
+        },
+        {
+          "type": "look_at_item",
+          "named": true
+        },
+        {
+          "type": "open_item",
+          "named": true
+        },
+        {
+          "type": "take_from_npc",
+          "named": true
+        },
+        {
+          "type": "take_item",
+          "named": true
+        },
+        {
+          "type": "talk_to_npc",
+          "named": true
+        },
+        {
+          "type": "unlock_item",
+          "named": true
+        },
+        {
+          "type": "use_item",
+          "named": true
+        },
+        {
+          "type": "use_item_on_item",
           "named": true
         }
       ]
@@ -1070,7 +1485,23 @@
     "named": false
   },
   {
+    "type": "ability",
+    "named": false
+  },
+  {
     "type": "absent",
+    "named": false
+  },
+  {
+    "type": "act",
+    "named": false
+  },
+  {
+    "type": "always_event",
+    "named": true
+  },
+  {
+    "type": "at",
     "named": false
   },
   {
@@ -1103,6 +1534,18 @@
     "named": false
   },
   {
+    "type": "do",
+    "named": false
+  },
+  {
+    "type": "drop",
+    "named": false
+  },
+  {
+    "type": "enter",
+    "named": false
+  },
+  {
     "type": "exit",
     "named": false
   },
@@ -1116,6 +1559,14 @@
   },
   {
     "type": "flag",
+    "named": false
+  },
+  {
+    "type": "from",
+    "named": false
+  },
+  {
+    "type": "give",
     "named": false
   },
   {
@@ -1155,6 +1606,18 @@
     "named": false
   },
   {
+    "type": "insert",
+    "named": false
+  },
+  {
+    "type": "interaction",
+    "named": false
+  },
+  {
+    "type": "into",
+    "named": false
+  },
+  {
     "type": "item",
     "named": false
   },
@@ -1163,11 +1626,19 @@
     "named": true
   },
   {
+    "type": "leave",
+    "named": false
+  },
+  {
     "type": "let",
     "named": false
   },
   {
     "type": "locked",
+    "named": false
+  },
+  {
+    "type": "look",
     "named": false
   },
   {
@@ -1193,6 +1664,22 @@
   {
     "type": "npc_id",
     "named": true
+  },
+  {
+    "type": "on",
+    "named": false
+  },
+  {
+    "type": "once",
+    "named": false
+  },
+  {
+    "type": "only",
+    "named": false
+  },
+  {
+    "type": "open",
+    "named": false
   },
   {
     "type": "overlay",
@@ -1231,11 +1718,23 @@
     "named": false
   },
   {
+    "type": "show",
+    "named": false
+  },
+  {
     "type": "spinner",
     "named": false
   },
   {
     "type": "state",
+    "named": false
+  },
+  {
+    "type": "take",
+    "named": false
+  },
+  {
+    "type": "talk",
     "named": false
   },
   {
@@ -1247,6 +1746,10 @@
     "named": false
   },
   {
+    "type": "to",
+    "named": false
+  },
+  {
     "type": "trigger",
     "named": false
   },
@@ -1255,11 +1758,23 @@
     "named": false
   },
   {
+    "type": "unlock",
+    "named": false
+  },
+  {
     "type": "unset",
     "named": false
   },
   {
+    "type": "use",
+    "named": false
+  },
+  {
     "type": "visited",
+    "named": false
+  },
+  {
+    "type": "when",
     "named": false
   },
   {

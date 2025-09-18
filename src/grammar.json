@@ -1418,18 +1418,521 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "string"
-            },
-            "named": true,
-            "value": "trigger_name"
+            "type": "SYMBOL",
+            "name": "string"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "once",
+              "content": {
+                "type": "SYMBOL",
+                "name": "only_once_kw"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "when"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "when_cond"
         },
         {
           "type": "SYMBOL",
           "name": "trigger_block"
+        }
+      ]
+    },
+    "only_once_kw": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "only"
+        },
+        {
+          "type": "STRING",
+          "value": "once"
+        }
+      ]
+    },
+    "when_cond": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "always_event"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enter_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "take_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "talk_to_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "open_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "leave_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "look_at_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "use_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "give_to_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "use_item_on_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "act_on_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "take_from_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "insert_item_into"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "drop_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unlock_item"
+        }
+      ]
+    },
+    "always_event": {
+      "type": "STRING",
+      "value": "always"
+    },
+    "enter_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "enter"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "take_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "take"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "talk_to_npc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "talk"
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "open_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "open"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "leave_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "leave"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "look_at_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "look"
+        },
+        {
+          "type": "STRING",
+          "value": "at"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "use_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "use"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "ability"
+        },
+        {
+          "type": "FIELD",
+          "name": "ability",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "give_to_npc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "give"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "use_item_on_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "use"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "tool_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "on"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "target_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "interaction"
+        },
+        {
+          "type": "FIELD",
+          "name": "interaction",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "act_on_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "act"
+        },
+        {
+          "type": "FIELD",
+          "name": "action",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "on"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "take_from_npc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "take"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "from"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "insert_item_into": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "insert"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "into"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "drop_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "drop"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "unlock_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "unlock"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         }
       ]
     },
@@ -1454,8 +1957,52 @@
       ]
     },
     "trigger_stmt": {
-      "type": "SYMBOL",
-      "name": "identifier"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "do_action"
+        }
+      ]
+    },
+    "do_action": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "do"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_type"
+        }
+      ]
+    },
+    "action_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "action_show"
+        }
+      ]
+    },
+    "action_show": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "show"
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
     },
     "spinner_def": {
       "type": "SEQ",

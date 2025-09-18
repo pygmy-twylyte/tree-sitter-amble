@@ -274,11 +274,104 @@ module.exports = grammar({
     trigger_def: ($) =>
       seq(
         "trigger",
-        field("name", alias($.string, $.trigger_name)),
+        field("name", $.string),
+        optional(field("once", $.only_once_kw)),
+        "when",
+        $.when_cond,
         $.trigger_block,
       ),
+    only_once_kw: ($) => seq("only", "once"),
+
+    when_cond: ($) =>
+      choice(
+        $.always_event,
+        $.enter_room,
+        $.take_item,
+        $.talk_to_npc,
+        $.open_item,
+        $.leave_room,
+        $.look_at_item,
+        $.use_item,
+        $.give_to_npc,
+        $.use_item_on_item,
+        $.act_on_item,
+        $.take_from_npc,
+        $.insert_item_into,
+        $.drop_item,
+        $.unlock_item,
+      ),
+    always_event: ($) => "always",
+    enter_room: ($) => seq("enter", "room", field("room_id", $.identifier)),
+    take_item: ($) => seq("take", "item", field("item_id", $.identifier)),
+    talk_to_npc: ($) => seq("talk", "to", "npc", field("npc_id", $.identifier)),
+    open_item: ($) => seq("open", "item", field("item_id", $.identifier)),
+    leave_room: ($) => seq("leave", "room", field("room_id", $.identifier)),
+    look_at_item: ($) =>
+      seq("look", "at", "item", field("item_id", $.identifier)),
+    use_item: ($) =>
+      seq(
+        "use",
+        "item",
+        field("item_id", $.identifier),
+        "ability",
+        field("ability", $.identifier),
+      ),
+    give_to_npc: ($) =>
+      seq(
+        "give",
+        "item",
+        field("item_id", $.identifier),
+        "to",
+        "npc",
+        field("npc_id", $.identifier),
+      ),
+    use_item_on_item: ($) =>
+      seq(
+        "use",
+        "item",
+        field("tool_id", $.identifier),
+        "on",
+        "item",
+        field("target_id", $.identifier),
+        "interaction",
+        field("interaction", $.identifier),
+      ),
+    act_on_item: ($) =>
+      seq(
+        "act",
+        field("action", $.identifier),
+        "on",
+        "item",
+        field("item_id", $.identifier),
+      ),
+    take_from_npc: ($) =>
+      seq(
+        "take",
+        "item",
+        field("item_id", $.identifier),
+        "from",
+        "npc",
+        field("npc_id", $.identifier),
+      ),
+    insert_item_into: ($) =>
+      seq(
+        "insert",
+        "item",
+        field("item_id", $.identifier),
+        "into",
+        "item",
+        field("item_id", $.identifier),
+      ),
+    drop_item: ($) => seq("drop", "item", field("item_id", $.identifier)),
+    unlock_item: ($) => seq("unlock", "item", field("item_id", $.identifier)),
+
+    // more when conditions go here
+
     trigger_block: ($) => seq("{", repeat($.trigger_stmt), "}"),
-    trigger_stmt: ($) => $.identifier,
+    trigger_stmt: ($) => choice($.do_action),
+    do_action: ($) => seq("do", $.action_type),
+    action_type: ($) => choice($.action_show),
+    action_show: ($) => seq("show", field("text", $.string)),
 
     //
     // SPINNER DEFINITIONS

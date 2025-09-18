@@ -1,0 +1,15 @@
+trigger "Basic Trigger" when enter room cheers-bar {
+    do show "The customers yell, \"Norm!\"."
+}
+
+trigger "Just Once" only once when take item some_item {
+    do show "Took some item."
+}
+
+trigger "When Always" when always {
+    do show "There will typically be an if block here after always."
+}
+
+trigger "" when talk to npc some_npc {
+    do show ""
+}
