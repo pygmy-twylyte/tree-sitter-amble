@@ -66,15 +66,15 @@ module.exports = grammar({
     room_def: ($) =>
       seq("room", field("id", alias($.identifier, $.room_id)), $.room_block),
 
-    room_block: ($) => seq("{", repeat($.room_stmt), "}"),
+    room_block: ($) => seq("{", repeat($._room_stmt), "}"),
 
-    room_stmt: ($) =>
+    _room_stmt: ($) =>
       choice(
         $.room_name,
         $.room_desc,
         $.room_visited,
         $.room_exit,
-        $.overlay_stmt,
+        $._overlay_stmt,
       ),
 
     room_name: ($) => seq("name", field("name", alias($.string, $.room_name))),
@@ -98,8 +98,8 @@ module.exports = grammar({
         optional($.exit_block),
       ),
 
-    exit_block: ($) => seq("{", repeat($.exit_stmt), "}"),
-    exit_stmt: ($) =>
+    exit_block: ($) => seq("{", repeat($._exit_stmt), "}"),
+    _exit_stmt: ($) =>
       choice($.required_items_stmt, $.required_flags_stmt, $.barred_stmt),
     required_items_stmt: ($) =>
       seq(
@@ -119,17 +119,24 @@ module.exports = grammar({
       seq("barred", field("msg", alias($.string, $.barred_msg))),
 
     // --------------------- room overlays ---------------------
-    overlay_stmt: ($) => seq("overlay", "if", $.ovl_cond_list, $.ovl_block),
+    _overlay_stmt: ($) => seq("overlay", "if", $._ovl_cond_list, $.ovl_block),
 
     ovl_block: ($) => seq("{", $.ovl_text_stmt, "}"),
 
     ovl_text_stmt: ($) =>
       seq("text", field("text", alias($.string, $.ovl_text))),
 
-    ovl_cond_list: ($) =>
-      choice($.ovl_cond, seq("(", sep1($.ovl_cond, ","), ")")),
+    _ovl_cond_list: ($) =>
+      choice($._ovl_cond, seq("(", sep1($._ovl_cond, ","), ")")),
 
-    ovl_cond: ($) => choice($.ovl_flag_status, $.ovl_item_presence),
+    _ovl_cond: ($) =>
+      choice(
+        $.ovl_flag_status,
+        $.ovl_item_presence,
+        $.ovl_item_posession,
+        $.ovl_npc_presence,
+        $.ovl_npc_state,
+      ),
 
     ovl_flag_status: ($) =>
       seq(
@@ -140,6 +147,30 @@ module.exports = grammar({
 
     ovl_item_presence: ($) =>
       seq("item", choice("present", "absent"), field("item_id", $.identifier)),
+
+    ovl_item_posession: ($) =>
+      seq(
+        "player",
+        choice("has", "missing"),
+        "item",
+        field("item_id", $.identifier),
+      ),
+
+    ovl_npc_presence: ($) =>
+      seq("npc", choice("present", "absent"), field("npc_id", $.identifier)),
+
+    ovl_npc_state: ($) =>
+      seq(
+        "npc",
+        "in",
+        "state",
+        field("npc_id", $.identifier),
+        field("npc_state", $.npc_state),
+      ),
+    npc_state: ($) => choice($.npc_state_builtin, $.npc_state_custom),
+    npc_state_builtin: ($) =>
+      choice("normal", "happy", "bored", "tired", "sad", "mad"),
+    npc_state_custom: ($) => seq("custom", field("custom_state", $.string)),
 
     //
     // ITEM DEFINITIONS

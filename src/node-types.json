@@ -29,26 +29,6 @@
       "required": false,
       "types": [
         {
-          "type": "exit_stmt",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "exit_dir",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "exit_stmt",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
           "type": "barred_stmt",
           "named": true
         },
@@ -62,6 +42,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "exit_dir",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "goal_block",
@@ -217,6 +202,46 @@
     }
   },
   {
+    "type": "npc_state",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "npc_state_builtin",
+          "named": true
+        },
+        {
+          "type": "npc_state_custom",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "npc_state_builtin",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "npc_state_custom",
+    "named": true,
+    "fields": {
+      "custom_state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "npc_stmt",
     "named": true,
     "fields": {},
@@ -232,25 +257,6 @@
     }
   },
   {
-    "type": "overlay_stmt",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "ovl_block",
-          "named": true
-        },
-        {
-          "type": "ovl_cond_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "ovl_block",
     "named": true,
     "fields": {},
@@ -260,40 +266,6 @@
       "types": [
         {
           "type": "ovl_text_stmt",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ovl_cond",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "ovl_flag_status",
-          "named": true
-        },
-        {
-          "type": "ovl_item_presence",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ovl_cond_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "ovl_cond",
           "named": true
         }
       ]
@@ -316,6 +288,22 @@
     }
   },
   {
+    "type": "ovl_item_posession",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "ovl_item_presence",
     "named": true,
     "fields": {
@@ -325,6 +313,48 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ovl_npc_presence",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ovl_npc_state",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "npc_state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "npc_state",
             "named": true
           }
         ]
@@ -393,7 +423,43 @@
       "required": false,
       "types": [
         {
-          "type": "room_stmt",
+          "type": "ovl_block",
+          "named": true
+        },
+        {
+          "type": "ovl_flag_status",
+          "named": true
+        },
+        {
+          "type": "ovl_item_posession",
+          "named": true
+        },
+        {
+          "type": "ovl_item_presence",
+          "named": true
+        },
+        {
+          "type": "ovl_npc_presence",
+          "named": true
+        },
+        {
+          "type": "ovl_npc_state",
+          "named": true
+        },
+        {
+          "type": "room_desc",
+          "named": true
+        },
+        {
+          "type": "room_exit",
+          "named": true
+        },
+        {
+          "type": "room_name",
+          "named": true
+        },
+        {
+          "type": "room_visited",
           "named": true
         }
       ]
@@ -491,37 +557,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "room_stmt",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "overlay_stmt",
-          "named": true
-        },
-        {
-          "type": "room_desc",
-          "named": true
-        },
-        {
-          "type": "room_exit",
-          "named": true
-        },
-        {
-          "type": "room_name",
-          "named": true
-        },
-        {
-          "type": "room_visited",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -676,6 +711,11 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "trigger_block",
     "named": true,
     "fields": {},
@@ -765,12 +805,20 @@
     "named": false
   },
   {
+    "type": "bored",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true
   },
   {
     "type": "complete",
+    "named": false
+  },
+  {
+    "type": "custom",
     "named": false
   },
   {
@@ -806,11 +854,23 @@
     "named": true
   },
   {
+    "type": "happy",
+    "named": false
+  },
+  {
+    "type": "has",
+    "named": false
+  },
+  {
     "type": "identifier",
     "named": true
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "in",
     "named": false
   },
   {
@@ -826,7 +886,19 @@
     "named": false
   },
   {
+    "type": "mad",
+    "named": false
+  },
+  {
+    "type": "missing",
+    "named": false
+  },
+  {
     "type": "name",
+    "named": false
+  },
+  {
+    "type": "normal",
     "named": false
   },
   {
@@ -839,6 +911,10 @@
   },
   {
     "type": "overlay",
+    "named": false
+  },
+  {
+    "type": "player",
     "named": false
   },
   {
@@ -862,6 +938,10 @@
     "named": true
   },
   {
+    "type": "sad",
+    "named": false
+  },
+  {
     "type": "set",
     "named": false
   },
@@ -870,7 +950,15 @@
     "named": false
   },
   {
+    "type": "state",
+    "named": false
+  },
+  {
     "type": "text",
+    "named": false
+  },
+  {
+    "type": "tired",
     "named": false
   },
   {

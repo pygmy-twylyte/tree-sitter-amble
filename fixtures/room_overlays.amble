@@ -18,4 +18,12 @@ room bathroom {
     overlay if (item present thing_1, item absent thing_2) {
         text "Thing 2 has been stolen!"
     }
+
+    overlay if npc in state bob mad {
+        text "Bob fumes in the corner."
+    }
+
+    overlay if (npc in state bob custom "feisty") {
+        text "Bob is getting feisty."
+    }
 }

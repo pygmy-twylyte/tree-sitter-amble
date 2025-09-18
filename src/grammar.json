@@ -307,7 +307,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "room_stmt"
+            "name": "_room_stmt"
           }
         },
         {
@@ -316,7 +316,7 @@
         }
       ]
     },
-    "room_stmt": {
+    "_room_stmt": {
       "type": "CHOICE",
       "members": [
         {
@@ -337,7 +337,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "overlay_stmt"
+          "name": "_overlay_stmt"
         }
       ]
     },
@@ -487,7 +487,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "exit_stmt"
+            "name": "_exit_stmt"
           }
         },
         {
@@ -496,7 +496,7 @@
         }
       ]
     },
-    "exit_stmt": {
+    "_exit_stmt": {
       "type": "CHOICE",
       "members": [
         {
@@ -635,7 +635,7 @@
         }
       ]
     },
-    "overlay_stmt": {
+    "_overlay_stmt": {
       "type": "SEQ",
       "members": [
         {
@@ -648,7 +648,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "ovl_cond_list"
+          "name": "_ovl_cond_list"
         },
         {
           "type": "SYMBOL",
@@ -695,12 +695,12 @@
         }
       ]
     },
-    "ovl_cond_list": {
+    "_ovl_cond_list": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "ovl_cond"
+          "name": "_ovl_cond"
         },
         {
           "type": "SEQ",
@@ -714,7 +714,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "ovl_cond"
+                  "name": "_ovl_cond"
                 },
                 {
                   "type": "REPEAT",
@@ -727,7 +727,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "ovl_cond"
+                        "name": "_ovl_cond"
                       }
                     ]
                   }
@@ -742,7 +742,7 @@
         }
       ]
     },
-    "ovl_cond": {
+    "_ovl_cond": {
       "type": "CHOICE",
       "members": [
         {
@@ -752,6 +752,18 @@
         {
           "type": "SYMBOL",
           "name": "ovl_item_presence"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ovl_item_posession"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ovl_npc_presence"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ovl_npc_state"
         }
       ]
     },
@@ -815,6 +827,162 @@
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
+          }
+        }
+      ]
+    },
+    "ovl_item_posession": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "has"
+            },
+            {
+              "type": "STRING",
+              "value": "missing"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "ovl_npc_presence": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "present"
+            },
+            {
+              "type": "STRING",
+              "value": "absent"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "ovl_npc_state": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "STRING",
+          "value": "state"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_state",
+          "content": {
+            "type": "SYMBOL",
+            "name": "npc_state"
+          }
+        }
+      ]
+    },
+    "npc_state": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "npc_state_builtin"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_state_custom"
+        }
+      ]
+    },
+    "npc_state_builtin": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "normal"
+        },
+        {
+          "type": "STRING",
+          "value": "happy"
+        },
+        {
+          "type": "STRING",
+          "value": "bored"
+        },
+        {
+          "type": "STRING",
+          "value": "tired"
+        },
+        {
+          "type": "STRING",
+          "value": "sad"
+        },
+        {
+          "type": "STRING",
+          "value": "mad"
+        }
+      ]
+    },
+    "npc_state_custom": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "custom"
+        },
+        {
+          "type": "FIELD",
+          "name": "custom_state",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
           }
         }
       ]
