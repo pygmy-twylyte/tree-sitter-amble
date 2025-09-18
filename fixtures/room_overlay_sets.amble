@@ -23,4 +23,12 @@ room busy-place {
         present "Frank is here."
         absent "I wish Frank was here."
     }
+
+    overlay if npc some_body here {
+        normal "..."
+        happy "..."
+        mad "..."
+        custom(really-hungry) "..."
+        sad "..."
+    }
 }

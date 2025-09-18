@@ -29,6 +29,26 @@
       "required": false,
       "types": [
         {
+          "type": "exit_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exit_dir",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "exit_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
           "type": "barred_stmt",
           "named": true
         },
@@ -42,11 +62,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "exit_dir",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "flag_binary_block",
@@ -268,6 +283,67 @@
     }
   },
   {
+    "type": "npc_state_set_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "npc_state_set_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "npc_state_set_custom",
+    "named": true,
+    "fields": {
+      "state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_state_set_line",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "npc_state_builtin",
+          "named": true
+        },
+        {
+          "type": "npc_state_set_custom",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "npc_stmt",
     "named": true,
     "fields": {},
@@ -479,6 +555,32 @@
     }
   },
   {
+    "type": "ovl_npc_state_set",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "npc_state_set_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ovl_presence_pair",
     "named": true,
     "fields": {
@@ -607,6 +709,10 @@
         },
         {
           "type": "ovl_flag_binary",
+          "named": true
+        },
+        {
+          "type": "ovl_npc_state_set",
           "named": true
         },
         {
@@ -1029,6 +1135,14 @@
     "named": false
   },
   {
+    "type": "here",
+    "named": false
+  },
+  {
+    "type": "hidden",
+    "named": false
+  },
+  {
     "type": "identifier",
     "named": true
   },
@@ -1050,6 +1164,10 @@
   },
   {
     "type": "let",
+    "named": false
+  },
+  {
+    "type": "locked",
     "named": false
   },
   {

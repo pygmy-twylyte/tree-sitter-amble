@@ -76,6 +76,7 @@ module.exports = grammar({
         $.room_exit,
         $.ovl_flag_binary,
         $.ovl_presence_pair,
+        $.ovl_npc_state_set,
         $.overlay_stmt,
       ),
 
@@ -100,9 +101,15 @@ module.exports = grammar({
         optional($.exit_block),
       ),
 
-    exit_block: ($) => seq("{", repeat($._exit_stmt), "}"),
-    _exit_stmt: ($) =>
-      choice($.required_items_stmt, $.required_flags_stmt, $.barred_stmt),
+    exit_block: ($) => seq("{", repeat($.exit_stmt), "}"),
+    exit_stmt: ($) =>
+      choice(
+        $.required_items_stmt,
+        $.required_flags_stmt,
+        $.barred_stmt,
+        "hidden",
+        "locked",
+      ),
     required_items_stmt: ($) =>
       seq(
         "required_items",
@@ -170,9 +177,12 @@ module.exports = grammar({
         field("npc_id", $.identifier),
         field("npc_state", $.npc_state),
       ),
+
     npc_state: ($) => choice($.npc_state_builtin, $.npc_state_custom),
+
     npc_state_builtin: ($) =>
       choice("normal", "happy", "bored", "tired", "sad", "mad"),
+
     npc_state_custom: ($) => seq("custom", field("custom_state", $.string)),
 
     ovl_item_in_room: ($) =>
@@ -184,6 +194,7 @@ module.exports = grammar({
         field("room_id", $.identifier),
       ),
 
+    // ---------------- overlay flag sets --------------------
     ovl_flag_binary: ($) =>
       seq(
         "overlay",
@@ -222,6 +233,24 @@ module.exports = grammar({
         field("absent_text", $.string),
         "}",
       ),
+
+    ovl_npc_state_set: ($) =>
+      seq(
+        "overlay",
+        "if",
+        "npc",
+        field("npc_id", $.identifier),
+        "here",
+        $.npc_state_set_block,
+      ),
+    npc_state_set_block: ($) => seq("{", repeat1($.npc_state_set_line), "}"),
+    npc_state_set_line: ($) =>
+      seq(
+        choice($.npc_state_builtin, $.npc_state_set_custom),
+        field("text", $.string),
+      ),
+    npc_state_set_custom: ($) =>
+      seq("custom", "(", field("state", $.identifier), ")"),
 
     //
     // ITEM DEFINITIONS

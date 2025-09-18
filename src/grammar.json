@@ -345,6 +345,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "ovl_npc_state_set"
+        },
+        {
+          "type": "SYMBOL",
           "name": "overlay_stmt"
         }
       ]
@@ -495,7 +499,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "_exit_stmt"
+            "name": "exit_stmt"
           }
         },
         {
@@ -504,7 +508,7 @@
         }
       ]
     },
-    "_exit_stmt": {
+    "exit_stmt": {
       "type": "CHOICE",
       "members": [
         {
@@ -518,6 +522,14 @@
         {
           "type": "SYMBOL",
           "name": "barred_stmt"
+        },
+        {
+          "type": "STRING",
+          "value": "hidden"
+        },
+        {
+          "type": "STRING",
+          "value": "locked"
         }
       ]
     },
@@ -1188,6 +1200,110 @@
         {
           "type": "STRING",
           "value": "}"
+        }
+      ]
+    },
+    "ovl_npc_state_set": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "overlay"
+        },
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "here"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_state_set_block"
+        }
+      ]
+    },
+    "npc_state_set_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "npc_state_set_line"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "npc_state_set_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "npc_state_builtin"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "npc_state_set_custom"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "npc_state_set_custom": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "custom"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "state",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },
