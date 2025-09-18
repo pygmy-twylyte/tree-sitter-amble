@@ -119,7 +119,7 @@ module.exports = grammar({
       seq("barred", field("msg", alias($.string, $.barred_msg))),
 
     // --------------------- room overlays ---------------------
-    _overlay_stmt: ($) => seq("overlay", "if", $._ovl_cond_list, $.ovl_block),
+    overlay_stmt: ($) => seq("overlay", "if", $._ovl_cond_list, $.ovl_block),
 
     ovl_block: ($) => seq("{", $.ovl_text_stmt, "}"),
 
