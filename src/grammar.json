@@ -56,8 +56,15 @@
       }
     },
     "identifier": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z0-9_\\-:#]+"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[a-zA-Z0-9_\\-:#]+"
+        }
+      }
     },
     "number": {
       "type": "PATTERN",
@@ -1555,12 +1562,96 @@
         }
       ]
     },
+    "leave_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "leave"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
     "take_item": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
           "value": "take"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "drop_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "drop"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "open_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "open"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "unlock_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "unlock"
         },
         {
           "type": "STRING",
@@ -1594,48 +1685,6 @@
         {
           "type": "FIELD",
           "name": "npc_id",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        }
-      ]
-    },
-    "open_item": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "open"
-        },
-        {
-          "type": "STRING",
-          "value": "item"
-        },
-        {
-          "type": "FIELD",
-          "name": "item_id",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        }
-      ]
-    },
-    "leave_room": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "leave"
-        },
-        {
-          "type": "STRING",
-          "value": "room"
-        },
-        {
-          "type": "FIELD",
-          "name": "room_id",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -1894,48 +1943,6 @@
         }
       ]
     },
-    "drop_item": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "drop"
-        },
-        {
-          "type": "STRING",
-          "value": "item"
-        },
-        {
-          "type": "FIELD",
-          "name": "item_id",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        }
-      ]
-    },
-    "unlock_item": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "unlock"
-        },
-        {
-          "type": "STRING",
-          "value": "item"
-        },
-        {
-          "type": "FIELD",
-          "name": "item_id",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        }
-      ]
-    },
     "trigger_block": {
       "type": "SEQ",
       "members": [
@@ -1962,8 +1969,627 @@
         {
           "type": "SYMBOL",
           "name": "do_action"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_block"
         }
       ]
+    },
+    "cond_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "trigger_cond"
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "trigger_stmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "trigger_cond": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "cond_any_group"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_all_group"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_has_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_missing_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_has_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_missing_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_visited_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_flag_in_progress"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_flag_complete"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_with_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_npc_has_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_npc_in_state"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_player_in_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_container_has_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_chance"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_ambient"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_in_rooms"
+        }
+      ]
+    },
+    "cond_any_group": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "any"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "trigger_cond"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "trigger_cond"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "cond_all_group": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "all"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "trigger_cond"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "trigger_cond"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "cond_has_flag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "has"
+        },
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_missing_flag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "missing"
+        },
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_has_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "has"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_missing_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "missing"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_visited_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "has"
+        },
+        {
+          "type": "STRING",
+          "value": "visited"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_flag_in_progress": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "STRING",
+          "value": "progress"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_flag_complete": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "STRING",
+          "value": "complete"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_with_npc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "with"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_npc_has_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "STRING",
+          "value": "has"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_npc_in_state": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "STRING",
+          "value": "state"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "state",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_player_in_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_container_has_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "container"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "has"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "cond_chance": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "chance"
+        },
+        {
+          "type": "FIELD",
+          "name": "pct",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "%"
+        }
+      ]
+    },
+    "cond_ambient": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ambient"
+        },
+        {
+          "type": "FIELD",
+          "name": "spinner",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PREC_LEFT",
+              "value": 0,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "in"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "rooms"
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      },
+                      {
+                        "type": "REPEAT",
+                        "content": {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": ","
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "identifier"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "cond_in_rooms": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "in"
+          },
+          {
+            "type": "STRING",
+            "value": "rooms"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
     },
     "do_action": {
       "type": "SEQ",
@@ -1984,6 +2610,138 @@
         {
           "type": "SYMBOL",
           "name": "action_show"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_add_wedge"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_add_seq"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_replace_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_replace_drop_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_add_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_reset_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_remove_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_advance_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_spawn_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_spawn_container"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_spawn_inventory"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_spawn_current_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_despawn_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_award_points"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_lock_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_unlock_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_lock_exit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_unlock_exit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_reveal_exit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_push_player"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_set_item_desc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_npc_random_dialogue"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_npc_says"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_npc_refuse_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_set_npc_state"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_deny_read"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_restrict_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_give_to_player"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_set_barred_msg"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_set_container_state"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_spinner_msg"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_schedule_in_or_on"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_schedule_in_if"
         }
       ]
     },
@@ -2001,6 +2759,1169 @@
             "type": "SYMBOL",
             "name": "string"
           }
+        }
+      ]
+    },
+    "action_add_wedge": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "add"
+        },
+        {
+          "type": "STRING",
+          "value": "wedge"
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "width"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "spinner"
+        },
+        {
+          "type": "FIELD",
+          "name": "spinner",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_add_seq": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "add"
+        },
+        {
+          "type": "STRING",
+          "value": "seq"
+        },
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "limit"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "action_replace_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "replace"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "with"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_replace_drop_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "replace"
+        },
+        {
+          "type": "STRING",
+          "value": "drop"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "with"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_add_flag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "add"
+        },
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_reset_flag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "reset"
+        },
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_remove_flag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "remove"
+        },
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_advance_flag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "advance"
+        },
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "spawn_action_stem": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "spawn"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_spawn_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "spawn_action_stem"
+        },
+        {
+          "type": "STRING",
+          "value": "into"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_spawn_container": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "spawn_action_stem"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "into"
+            },
+            {
+              "type": "STRING",
+              "value": "in"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "container"
+        },
+        {
+          "type": "FIELD",
+          "name": "container_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_spawn_inventory": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "spawn_action_stem"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "STRING",
+          "value": "inventory"
+        }
+      ]
+    },
+    "action_spawn_current_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "spawn_action_stem"
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "STRING",
+          "value": "current"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        }
+      ]
+    },
+    "action_despawn_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "despawn"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_award_points": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "award"
+        },
+        {
+          "type": "STRING",
+          "value": "points"
+        },
+        {
+          "type": "FIELD",
+          "name": "points",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        }
+      ]
+    },
+    "action_lock_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "lock"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_unlock_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "unlock"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_lock_exit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "lock"
+        },
+        {
+          "type": "STRING",
+          "value": "exit"
+        },
+        {
+          "type": "STRING",
+          "value": "from"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "direction"
+        },
+        {
+          "type": "FIELD",
+          "name": "direction",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "action_unlock_exit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "unlock"
+        },
+        {
+          "type": "STRING",
+          "value": "exit"
+        },
+        {
+          "type": "STRING",
+          "value": "from"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "direction"
+        },
+        {
+          "type": "FIELD",
+          "name": "direction",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "action_reveal_exit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "reveal"
+        },
+        {
+          "type": "STRING",
+          "value": "exit"
+        },
+        {
+          "type": "STRING",
+          "value": "from"
+        },
+        {
+          "type": "FIELD",
+          "name": "from_room",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "FIELD",
+          "name": "to_room",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "direction"
+        },
+        {
+          "type": "FIELD",
+          "name": "direction",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "action_push_player": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "push"
+        },
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_set_item_desc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "STRING",
+          "value": "description"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "action_npc_random_dialogue": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "STRING",
+          "value": "random"
+        },
+        {
+          "type": "STRING",
+          "value": "dialogue"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_npc_says": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "STRING",
+          "value": "says"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "action_npc_refuse_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "STRING",
+          "value": "refuse"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "reason",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "action_set_npc_state": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "STRING",
+          "value": "state"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "state",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_deny_read": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "deny"
+        },
+        {
+          "type": "STRING",
+          "value": "read"
+        },
+        {
+          "type": "FIELD",
+          "name": "reason",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "action_restrict_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "restrict"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_give_to_player": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "give"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "STRING",
+          "value": "from"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "action_set_barred_msg": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "barred"
+        },
+        {
+          "type": "STRING",
+          "value": "message"
+        },
+        {
+          "type": "STRING",
+          "value": "from"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "msg",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "container_state": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "open"
+        },
+        {
+          "type": "STRING",
+          "value": "closed"
+        },
+        {
+          "type": "STRING",
+          "value": "locked"
+        },
+        {
+          "type": "STRING",
+          "value": "transparentClosed"
+        },
+        {
+          "type": "STRING",
+          "value": "transparentLocked"
+        }
+      ]
+    },
+    "action_set_container_state": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "container"
+        },
+        {
+          "type": "STRING",
+          "value": "state"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "container_state"
+        }
+      ]
+    },
+    "action_spinner_msg": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "spinner"
+        },
+        {
+          "type": "STRING",
+          "value": "message"
+        },
+        {
+          "type": "FIELD",
+          "name": "spinner",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "schedule_note": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "note"
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "retry_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "onFalse"
+        },
+        {
+          "type": "FIELD",
+          "name": "policy",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "cancel"
+              },
+              {
+                "type": "STRING",
+                "value": "retryNextTurn"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "retryAfter"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "action_schedule_in_or_on": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "schedule"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "in"
+            },
+            {
+              "type": "STRING",
+              "value": "on"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "turns",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "schedule_note"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "trigger_block"
+        }
+      ]
+    },
+    "action_schedule_in_if": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "schedule"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "in"
+            },
+            {
+              "type": "STRING",
+              "value": "on"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "turns",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "trigger_cond"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "retry_type"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "schedule_note"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "trigger_block"
         }
       ]
     },

@@ -26,6 +26,596 @@
     }
   },
   {
+    "type": "action_add_flag",
+    "named": true,
+    "fields": {
+      "flag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_add_seq",
+    "named": true,
+    "fields": {
+      "flag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_add_wedge",
+    "named": true,
+    "fields": {
+      "spinner": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_advance_flag",
+    "named": true,
+    "fields": {
+      "flag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_award_points",
+    "named": true,
+    "fields": {
+      "points": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_deny_read",
+    "named": true,
+    "fields": {
+      "reason": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_despawn_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_give_to_player",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_lock_exit",
+    "named": true,
+    "fields": {
+      "direction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_lock_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_npc_random_dialogue",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_npc_refuse_item",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "reason": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_npc_says",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_push_player",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_remove_flag",
+    "named": true,
+    "fields": {
+      "flag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_replace_drop_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_replace_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_reset_flag",
+    "named": true,
+    "fields": {
+      "flag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_restrict_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_reveal_exit",
+    "named": true,
+    "fields": {
+      "direction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "from_room": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "to_room": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_schedule_in_if",
+    "named": true,
+    "fields": {
+      "turns": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "retry_type",
+          "named": true
+        },
+        {
+          "type": "schedule_note",
+          "named": true
+        },
+        {
+          "type": "trigger_block",
+          "named": true
+        },
+        {
+          "type": "trigger_cond",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_schedule_in_or_on",
+    "named": true,
+    "fields": {
+      "turns": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "schedule_note",
+          "named": true
+        },
+        {
+          "type": "trigger_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_set_barred_msg",
+    "named": true,
+    "fields": {
+      "msg": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "room_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_set_container_state",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "container_state",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_set_item_desc",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_set_npc_state",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "action_show",
     "named": true,
     "fields": {
@@ -42,6 +632,104 @@
     }
   },
   {
+    "type": "action_spawn_container",
+    "named": true,
+    "fields": {
+      "container_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "spawn_action_stem",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_spawn_current_room",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "spawn_action_stem",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_spawn_inventory",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "spawn_action_stem",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_spawn_room",
+    "named": true,
+    "fields": {
+      "room": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "spawn_action_stem",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_spinner_msg",
+    "named": true,
+    "fields": {
+      "spinner": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "action_type",
     "named": true,
     "fields": {},
@@ -50,10 +738,188 @@
       "required": true,
       "types": [
         {
+          "type": "action_add_flag",
+          "named": true
+        },
+        {
+          "type": "action_add_seq",
+          "named": true
+        },
+        {
+          "type": "action_add_wedge",
+          "named": true
+        },
+        {
+          "type": "action_advance_flag",
+          "named": true
+        },
+        {
+          "type": "action_award_points",
+          "named": true
+        },
+        {
+          "type": "action_deny_read",
+          "named": true
+        },
+        {
+          "type": "action_despawn_item",
+          "named": true
+        },
+        {
+          "type": "action_give_to_player",
+          "named": true
+        },
+        {
+          "type": "action_lock_exit",
+          "named": true
+        },
+        {
+          "type": "action_lock_item",
+          "named": true
+        },
+        {
+          "type": "action_npc_random_dialogue",
+          "named": true
+        },
+        {
+          "type": "action_npc_refuse_item",
+          "named": true
+        },
+        {
+          "type": "action_npc_says",
+          "named": true
+        },
+        {
+          "type": "action_push_player",
+          "named": true
+        },
+        {
+          "type": "action_remove_flag",
+          "named": true
+        },
+        {
+          "type": "action_replace_drop_item",
+          "named": true
+        },
+        {
+          "type": "action_replace_item",
+          "named": true
+        },
+        {
+          "type": "action_reset_flag",
+          "named": true
+        },
+        {
+          "type": "action_restrict_item",
+          "named": true
+        },
+        {
+          "type": "action_reveal_exit",
+          "named": true
+        },
+        {
+          "type": "action_schedule_in_if",
+          "named": true
+        },
+        {
+          "type": "action_schedule_in_or_on",
+          "named": true
+        },
+        {
+          "type": "action_set_barred_msg",
+          "named": true
+        },
+        {
+          "type": "action_set_container_state",
+          "named": true
+        },
+        {
+          "type": "action_set_item_desc",
+          "named": true
+        },
+        {
+          "type": "action_set_npc_state",
+          "named": true
+        },
+        {
           "type": "action_show",
+          "named": true
+        },
+        {
+          "type": "action_spawn_container",
+          "named": true
+        },
+        {
+          "type": "action_spawn_current_room",
+          "named": true
+        },
+        {
+          "type": "action_spawn_inventory",
+          "named": true
+        },
+        {
+          "type": "action_spawn_room",
+          "named": true
+        },
+        {
+          "type": "action_spinner_msg",
+          "named": true
+        },
+        {
+          "type": "action_unlock_exit",
+          "named": true
+        },
+        {
+          "type": "action_unlock_item",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "action_unlock_exit",
+    "named": true,
+    "fields": {
+      "direction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_unlock_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -76,6 +942,329 @@
         ]
       }
     }
+  },
+  {
+    "type": "cond_all_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "trigger_cond",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cond_ambient",
+    "named": true,
+    "fields": {
+      "spinner": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cond_any_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "trigger_cond",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cond_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "trigger_cond",
+          "named": true
+        },
+        {
+          "type": "trigger_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cond_chance",
+    "named": true,
+    "fields": {
+      "pct": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_container_has_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_flag_complete",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_flag_in_progress",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_has_flag",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_has_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_in_rooms",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cond_missing_flag",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_missing_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_npc_has_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_npc_in_state",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_player_in_room",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_visited_room",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cond_with_npc",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "container_state",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "do_action",
@@ -895,6 +2084,34 @@
     }
   },
   {
+    "type": "retry_type",
+    "named": true,
+    "fields": {
+      "policy": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "cancel",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "retryAfter",
+            "named": false
+          },
+          {
+            "type": "retryNextTurn",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "room_block",
     "named": true,
     "fields": {},
@@ -1048,6 +2265,22 @@
     }
   },
   {
+    "type": "schedule_note",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "set_decl",
     "named": true,
     "fields": {},
@@ -1119,6 +2352,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "spawn_action_stem",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1261,6 +2510,85 @@
     }
   },
   {
+    "type": "trigger_cond",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "cond_all_group",
+          "named": true
+        },
+        {
+          "type": "cond_ambient",
+          "named": true
+        },
+        {
+          "type": "cond_any_group",
+          "named": true
+        },
+        {
+          "type": "cond_chance",
+          "named": true
+        },
+        {
+          "type": "cond_container_has_item",
+          "named": true
+        },
+        {
+          "type": "cond_flag_complete",
+          "named": true
+        },
+        {
+          "type": "cond_flag_in_progress",
+          "named": true
+        },
+        {
+          "type": "cond_has_flag",
+          "named": true
+        },
+        {
+          "type": "cond_has_item",
+          "named": true
+        },
+        {
+          "type": "cond_in_rooms",
+          "named": true
+        },
+        {
+          "type": "cond_missing_flag",
+          "named": true
+        },
+        {
+          "type": "cond_missing_item",
+          "named": true
+        },
+        {
+          "type": "cond_npc_has_item",
+          "named": true
+        },
+        {
+          "type": "cond_npc_in_state",
+          "named": true
+        },
+        {
+          "type": "cond_player_in_room",
+          "named": true
+        },
+        {
+          "type": "cond_visited_room",
+          "named": true
+        },
+        {
+          "type": "cond_with_npc",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "trigger_def",
     "named": true,
     "fields": {
@@ -1308,6 +2636,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "cond_block",
+          "named": true
+        },
         {
           "type": "do_action",
           "named": true
@@ -1465,6 +2797,10 @@
     }
   },
   {
+    "type": "%",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -1497,11 +2833,35 @@
     "named": false
   },
   {
+    "type": "add",
+    "named": false
+  },
+  {
+    "type": "advance",
+    "named": false
+  },
+  {
+    "type": "all",
+    "named": false
+  },
+  {
     "type": "always_event",
     "named": true
   },
   {
+    "type": "ambient",
+    "named": false
+  },
+  {
+    "type": "any",
+    "named": false
+  },
+  {
     "type": "at",
+    "named": false
+  },
+  {
+    "type": "award",
     "named": false
   },
   {
@@ -1510,6 +2870,18 @@
   },
   {
     "type": "bored",
+    "named": false
+  },
+  {
+    "type": "cancel",
+    "named": false
+  },
+  {
+    "type": "chance",
+    "named": false
+  },
+  {
+    "type": "closed",
     "named": false
   },
   {
@@ -1522,7 +2894,19 @@
     "named": false
   },
   {
+    "type": "container",
+    "named": false
+  },
+  {
+    "type": "current",
+    "named": false
+  },
+  {
     "type": "custom",
+    "named": false
+  },
+  {
+    "type": "deny",
     "named": false
   },
   {
@@ -1531,6 +2915,18 @@
   },
   {
     "type": "description",
+    "named": false
+  },
+  {
+    "type": "despawn",
+    "named": false
+  },
+  {
+    "type": "dialogue",
+    "named": false
+  },
+  {
+    "type": "direction",
     "named": false
   },
   {
@@ -1618,6 +3014,10 @@
     "named": false
   },
   {
+    "type": "inventory",
+    "named": false
+  },
+  {
     "type": "item",
     "named": false
   },
@@ -1634,6 +3034,14 @@
     "named": false
   },
   {
+    "type": "limit",
+    "named": false
+  },
+  {
+    "type": "lock",
+    "named": false
+  },
+  {
     "type": "locked",
     "named": false
   },
@@ -1643,6 +3051,10 @@
   },
   {
     "type": "mad",
+    "named": false
+  },
+  {
+    "type": "message",
     "named": false
   },
   {
@@ -1658,6 +3070,10 @@
     "named": false
   },
   {
+    "type": "note",
+    "named": false
+  },
+  {
     "type": "npc",
     "named": false
   },
@@ -1666,7 +3082,15 @@
     "named": true
   },
   {
+    "type": "number",
+    "named": true
+  },
+  {
     "type": "on",
+    "named": false
+  },
+  {
+    "type": "onFalse",
     "named": false
   },
   {
@@ -1690,7 +3114,39 @@
     "named": false
   },
   {
+    "type": "points",
+    "named": false
+  },
+  {
     "type": "present",
+    "named": false
+  },
+  {
+    "type": "progress",
+    "named": false
+  },
+  {
+    "type": "push",
+    "named": false
+  },
+  {
+    "type": "random",
+    "named": false
+  },
+  {
+    "type": "read",
+    "named": false
+  },
+  {
+    "type": "refuse",
+    "named": false
+  },
+  {
+    "type": "remove",
+    "named": false
+  },
+  {
+    "type": "replace",
     "named": false
   },
   {
@@ -1702,6 +3158,26 @@
     "named": false
   },
   {
+    "type": "reset",
+    "named": false
+  },
+  {
+    "type": "restrict",
+    "named": false
+  },
+  {
+    "type": "retryAfter",
+    "named": false
+  },
+  {
+    "type": "retryNextTurn",
+    "named": false
+  },
+  {
+    "type": "reveal",
+    "named": false
+  },
+  {
     "type": "room",
     "named": false
   },
@@ -1710,7 +3186,23 @@
     "named": true
   },
   {
+    "type": "rooms",
+    "named": false
+  },
+  {
     "type": "sad",
+    "named": false
+  },
+  {
+    "type": "says",
+    "named": false
+  },
+  {
+    "type": "schedule",
+    "named": false
+  },
+  {
+    "type": "seq",
     "named": false
   },
   {
@@ -1719,6 +3211,10 @@
   },
   {
     "type": "show",
+    "named": false
+  },
+  {
+    "type": "spawn",
     "named": false
   },
   {
@@ -1750,6 +3246,14 @@
     "named": false
   },
   {
+    "type": "transparentClosed",
+    "named": false
+  },
+  {
+    "type": "transparentLocked",
+    "named": false
+  },
+  {
     "type": "trigger",
     "named": false
   },
@@ -1774,7 +3278,19 @@
     "named": false
   },
   {
+    "type": "wedge",
+    "named": false
+  },
+  {
     "type": "when",
+    "named": false
+  },
+  {
+    "type": "width",
+    "named": false
+  },
+  {
+    "type": "with",
     "named": false
   },
   {

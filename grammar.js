@@ -30,7 +30,8 @@ module.exports = grammar({
 
     comment: ($) => token(seq("#", /.*/)),
 
-    identifier: ($) => /[a-zA-Z0-9_\-:#]+/,
+    // Lower precedence so keywords like 'has', 'ambient', etc. win over identifiers
+    identifier: ($) => token(prec(-1, /[a-zA-Z0-9_\-:#]+/)),
 
     number: ($) => /-?\d+/,
 
@@ -282,6 +283,7 @@ module.exports = grammar({
       ),
     only_once_kw: ($) => seq("only", "once"),
 
+    // "when" conditions / triggering events
     when_cond: ($) =>
       choice(
         $.always_event,
@@ -302,10 +304,12 @@ module.exports = grammar({
       ),
     always_event: ($) => "always",
     enter_room: ($) => seq("enter", "room", field("room_id", $.identifier)),
-    take_item: ($) => seq("take", "item", field("item_id", $.identifier)),
-    talk_to_npc: ($) => seq("talk", "to", "npc", field("npc_id", $.identifier)),
-    open_item: ($) => seq("open", "item", field("item_id", $.identifier)),
     leave_room: ($) => seq("leave", "room", field("room_id", $.identifier)),
+    take_item: ($) => seq("take", "item", field("item_id", $.identifier)),
+    drop_item: ($) => seq("drop", "item", field("item_id", $.identifier)),
+    open_item: ($) => seq("open", "item", field("item_id", $.identifier)),
+    unlock_item: ($) => seq("unlock", "item", field("item_id", $.identifier)),
+    talk_to_npc: ($) => seq("talk", "to", "npc", field("npc_id", $.identifier)),
     look_at_item: ($) =>
       seq("look", "at", "item", field("item_id", $.identifier)),
     use_item: ($) =>
@@ -362,16 +366,328 @@ module.exports = grammar({
         "item",
         field("item_id", $.identifier),
       ),
-    drop_item: ($) => seq("drop", "item", field("item_id", $.identifier)),
-    unlock_item: ($) => seq("unlock", "item", field("item_id", $.identifier)),
 
-    // more when conditions go here
-
+    // start trigger action block, with if and do statements
     trigger_block: ($) => seq("{", repeat($.trigger_stmt), "}"),
-    trigger_stmt: ($) => choice($.do_action),
+    trigger_stmt: ($) => choice($.do_action, $.cond_block),
+
+    cond_block: ($) =>
+      seq("if", $.trigger_cond, "{", repeat($.trigger_stmt), "}"),
+    trigger_cond: ($) =>
+      choice(
+        $.cond_any_group,
+        $.cond_all_group,
+        $.cond_has_flag,
+        $.cond_missing_flag,
+        $.cond_has_item,
+        $.cond_missing_item,
+        $.cond_visited_room,
+        $.cond_flag_in_progress,
+        $.cond_flag_complete,
+        $.cond_with_npc,
+        $.cond_npc_has_item,
+        $.cond_npc_in_state,
+        $.cond_player_in_room,
+        $.cond_container_has_item,
+        $.cond_chance,
+        $.cond_ambient,
+        $.cond_in_rooms,
+      ),
+    cond_any_group: ($) => seq("any", "(", sep1($.trigger_cond, ","), ")"),
+    cond_all_group: ($) => seq("all", "(", sep1($.trigger_cond, ","), ")"),
+    cond_has_flag: ($) => seq("has", "flag", field("flag_name", $.identifier)),
+    cond_missing_flag: ($) =>
+      seq("missing", "flag", field("flag_name", $.identifier)),
+    cond_has_item: ($) => seq("has", "item", field("item_id", $.identifier)),
+    cond_missing_item: ($) =>
+      seq("missing", "item", field("item_id", $.identifier)),
+    cond_visited_room: ($) =>
+      seq("has", "visited", "room", field("room_id", $.identifier)),
+    cond_flag_in_progress: ($) =>
+      seq("flag", "in", "progress", field("flag_name", $.identifier)),
+    cond_flag_complete: ($) =>
+      seq("flag", "complete", field("flag_name", $.identifier)),
+    cond_with_npc: ($) => seq("with", "npc", field("npc_id", $.identifier)),
+    cond_npc_has_item: ($) =>
+      seq(
+        "npc",
+        "has",
+        "item",
+        field("npc_id", $.identifier),
+        field("item_id", $.identifier),
+      ),
+    cond_npc_in_state: ($) =>
+      seq(
+        "npc",
+        "in",
+        "state",
+        field("npc_id", $.identifier),
+        field("state", $.identifier),
+      ),
+    cond_player_in_room: ($) =>
+      seq("player", "in", "room", field("room_id", $.identifier)),
+    cond_container_has_item: ($) =>
+      seq(
+        "container",
+        field("item_id", $.identifier),
+        "has",
+        "item",
+        field("item_id", $.identifier),
+      ),
+    cond_chance: ($) => seq("chance", field("pct", $.number), "%"),
+    cond_ambient: ($) =>
+      seq(
+        "ambient",
+        field("spinner", $.identifier),
+        // If present, prefer consuming commas as part of the inner room list
+        // when nested inside grouped conditions like any(...) or all(...).
+        optional(prec.left(seq("in", "rooms", sep1($.identifier, ",")))),
+      ),
+    // Prefer consuming commas as part of the inner room list when nested
+    // inside grouped conditions like any(...) or all(...). Use a restricted
+    // identifier that excludes reserved keywords, so outer conditions like
+    // 'has flag …' are not swallowed into the room list.
+    cond_in_rooms: ($) =>
+      prec.left(seq("in", "rooms", sep1($.identifier, ","))),
+
     do_action: ($) => seq("do", $.action_type),
-    action_type: ($) => choice($.action_show),
+    action_type: ($) =>
+      choice(
+        $.action_show,
+        $.action_add_wedge,
+        $.action_add_seq,
+        $.action_replace_item,
+        $.action_replace_drop_item,
+        $.action_add_flag,
+        $.action_reset_flag,
+        $.action_remove_flag,
+        $.action_advance_flag,
+        $.action_spawn_room,
+        $.action_spawn_container,
+        $.action_spawn_inventory,
+        $.action_spawn_current_room,
+        $.action_despawn_item,
+        $.action_award_points,
+        $.action_lock_item,
+        $.action_unlock_item,
+        $.action_lock_exit,
+        $.action_unlock_exit,
+        $.action_reveal_exit,
+        $.action_push_player,
+        $.action_set_item_desc,
+        $.action_npc_random_dialogue,
+        $.action_npc_says,
+        $.action_npc_refuse_item,
+        $.action_set_npc_state,
+        $.action_deny_read,
+        $.action_restrict_item,
+        $.action_give_to_player,
+        $.action_set_barred_msg,
+        $.action_set_container_state,
+        $.action_spinner_msg,
+        $.action_schedule_in_or_on,
+        $.action_schedule_in_if,
+      ),
     action_show: ($) => seq("show", field("text", $.string)),
+    action_add_wedge: ($) =>
+      seq(
+        "add",
+        "wedge",
+        field("text", $.string),
+        optional(seq("width", $.number)),
+        "spinner",
+        field("spinner", $.identifier),
+      ),
+    action_add_seq: ($) =>
+      seq(
+        "add",
+        "seq",
+        "flag",
+        field("flag", $.identifier),
+        optional(seq("limit", $.number)),
+      ),
+    action_replace_item: ($) =>
+      seq(
+        "replace",
+        "item",
+        field("item_id", $.identifier),
+        "with",
+        field("item_id", $.identifier),
+      ),
+    action_replace_drop_item: ($) =>
+      seq(
+        "replace",
+        "drop",
+        "item",
+        field("item_id", $.identifier),
+        "with",
+        field("item_id", $.identifier),
+      ),
+    action_add_flag: ($) => seq("add", "flag", field("flag", $.identifier)),
+    action_reset_flag: ($) => seq("reset", "flag", field("flag", $.identifier)),
+    action_remove_flag: ($) =>
+      seq("remove", "flag", field("flag", $.identifier)),
+    action_advance_flag: ($) =>
+      seq("advance", "flag", field("flag", $.identifier)),
+    spawn_action_stem: ($) =>
+      seq("spawn", "item", field("item_id", $.identifier)),
+    action_spawn_room: ($) =>
+      seq($.spawn_action_stem, "into", "room", field("room", $.identifier)),
+    action_spawn_container: ($) =>
+      seq(
+        $.spawn_action_stem,
+        choice("into", "in"),
+        "container",
+        field("container_id", $.identifier),
+      ),
+    action_spawn_inventory: ($) => seq($.spawn_action_stem, "in", "inventory"),
+    action_spawn_current_room: ($) =>
+      seq($.spawn_action_stem, "in", "current", "room"),
+    action_despawn_item: ($) =>
+      seq("despawn", "item", field("item_id", $.identifier)),
+    action_award_points: ($) =>
+      seq("award", "points", field("points", $.number)),
+    action_lock_item: ($) =>
+      seq("lock", "item", field("item_id", $.identifier)),
+    action_unlock_item: ($) =>
+      seq("unlock", "item", field("item_id", $.identifier)),
+    action_lock_exit: ($) =>
+      seq(
+        "lock",
+        "exit",
+        "from",
+        field("room_id", $.identifier),
+        "direction",
+        field("direction", choice($.identifier, $.string)),
+      ),
+    action_unlock_exit: ($) =>
+      seq(
+        "unlock",
+        "exit",
+        "from",
+        field("room_id", $.identifier),
+        "direction",
+        field("direction", choice($.identifier, $.string)),
+      ),
+    action_reveal_exit: ($) =>
+      seq(
+        "reveal",
+        "exit",
+        "from",
+        field("from_room", $.identifier),
+        "to",
+        field("to_room", $.identifier),
+        "direction",
+        field("direction", choice($.identifier, $.string)),
+      ),
+    action_push_player: ($) =>
+      seq("push", "player", "to", field("room_id", $.identifier)),
+    action_set_item_desc: ($) =>
+      seq(
+        "set",
+        "item",
+        "description",
+        field("item_id", $.identifier),
+        field("text", $.string),
+      ),
+    action_npc_random_dialogue: ($) =>
+      seq("npc", "random", "dialogue", field("npc_id", $.identifier)),
+    action_npc_says: ($) =>
+      seq(
+        "npc",
+        "says",
+        field("npc_id", $.identifier),
+        field("text", $.string),
+      ),
+    action_npc_refuse_item: ($) =>
+      seq(
+        "npc",
+        "refuse",
+        "item",
+        field("npc_id", $.identifier),
+        field("reason", $.string),
+      ),
+    action_set_npc_state: ($) =>
+      seq(
+        "set",
+        "npc",
+        "state",
+        field("npc_id", $.identifier),
+        field("state", $.identifier),
+      ),
+    action_deny_read: ($) => seq("deny", "read", field("reason", $.string)),
+    action_restrict_item: ($) =>
+      seq("restrict", "item", field("item_id", $.identifier)),
+    action_give_to_player: ($) =>
+      seq(
+        "give",
+        "item",
+        field("item_id", $.identifier),
+        "to",
+        "player",
+        "from",
+        "npc",
+        field("npc_id", $.identifier),
+      ),
+    action_set_barred_msg: ($) =>
+      seq(
+        "set",
+        "barred",
+        "message",
+        "from",
+        field("room_id", $.identifier),
+        "to",
+        field("room_id", $.identifier),
+        field("msg", $.string),
+      ),
+    container_state: ($) =>
+      choice(
+        "open",
+        "closed",
+        "locked",
+        "transparentClosed",
+        "transparentLocked",
+      ),
+    action_set_container_state: ($) =>
+      seq(
+        "set",
+        "container",
+        "state",
+        field("item_id", $.identifier),
+        $.container_state,
+      ),
+    action_spinner_msg: ($) =>
+      seq("spinner", "message", field("spinner", $.identifier)),
+
+    // scheduler actions
+    schedule_note: ($) => seq("note", field("text", $.string)),
+    retry_type: ($) =>
+      seq(
+        "onFalse",
+        field(
+          "policy",
+          choice("cancel", "retryNextTurn", seq("retryAfter", $.number)),
+        ),
+      ),
+    action_schedule_in_or_on: ($) =>
+      seq(
+        "schedule",
+        choice("in", "on"),
+        field("turns", $.number),
+        optional($.schedule_note),
+        $.trigger_block,
+      ),
+    action_schedule_in_if: ($) =>
+      seq(
+        "schedule",
+        choice("in", "on"),
+        field("turns", $.number),
+        "if",
+        $.trigger_cond,
+        optional($.retry_type),
+        optional($.schedule_note),
+        $.trigger_block,
+      ),
 
     //
     // SPINNER DEFINITIONS
