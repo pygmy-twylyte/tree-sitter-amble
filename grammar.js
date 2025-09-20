@@ -281,8 +281,59 @@ module.exports = grammar({
         field("item_id", alias($.identifier, $.item_id)),
         $.item_block,
       ),
-    item_block: ($) => seq("{", repeat($.item_stmt), "}"),
-    item_stmt: ($) => $.identifier,
+    item_block: ($) => seq("{", repeat($._item_stmt), "}"),
+    _item_stmt: ($) =>
+      choice(
+        $.item_name_stmt,
+        $.item_desc_stmt,
+        $.item_loc_stmt,
+        $.item_portable_stmt,
+        $.item_ability_stmt,
+        $.item_text_stmt,
+        $.item_restricted_stmt,
+        $.item_container_stmt,
+        $.item_requires_stmt,
+      ),
+    item_name_stmt: ($) =>
+      seq("name", field("item_name", alias($.string, $.entity_name))),
+    item_desc_stmt: ($) =>
+      seq(
+        choice("desc", "description"),
+        field("item_description", alias($.string, $.entity_desc)),
+      ),
+    item_loc_stmt: ($) => seq("location", $.item_location),
+    item_location: ($) =>
+      choice(
+        seq("inventory", "player"),
+        seq("room", field("room_id", alias($.identifier, $.room_id))),
+        seq("chest", field("chest_id", alias($.identifier, $.item_id))),
+        seq("npc", field("npc_id", alias($.identifier, $.npc_id))),
+        seq("nowhere", field("spawn_note", alias($.string, $.dev_note))),
+      ),
+    item_portable_stmt: ($) => seq("portable", field("portable", $.boolean)),
+    item_restricted_stmt: ($) =>
+      seq("restricted", field("restricted", $.boolean)),
+    item_ability_stmt: ($) =>
+      seq("ability", field("ability", alias($.identifier, $.item_ability))),
+    item_text_stmt: ($) =>
+      seq("text", field("item_text", alias($.string, $.entity_desc))),
+    item_container_stmt: ($) => seq("container", "state", $.container_state),
+    container_state: ($) =>
+      choice(
+        "open",
+        "closed",
+        "locked",
+        "closedTransparent",
+        "lockedTransparent",
+        "none",
+      ),
+    item_requires_stmt: ($) =>
+      seq(
+        "requires",
+        field("ability", alias($.identifier, $.item_ability)),
+        "to",
+        field("interaction", alias($.identifier, $.item_interaction)),
+      ),
 
     //
     // NPC DEFINITIONS

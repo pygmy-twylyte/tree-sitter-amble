@@ -927,6 +927,11 @@
     }
   },
   {
+    "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "cond_all_group",
     "named": true,
     "fields": {},
@@ -1261,6 +1266,11 @@
     "fields": {}
   },
   {
+    "type": "dev_note",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "do_action",
     "named": true,
     "fields": {},
@@ -1485,6 +1495,22 @@
     }
   },
   {
+    "type": "item_ability_stmt",
+    "named": true,
+    "fields": {
+      "ability": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "item_ability",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "item_block",
     "named": true,
     "fields": {},
@@ -1493,7 +1519,54 @@
       "required": false,
       "types": [
         {
-          "type": "item_stmt",
+          "type": "item_ability_stmt",
+          "named": true
+        },
+        {
+          "type": "item_container_stmt",
+          "named": true
+        },
+        {
+          "type": "item_desc_stmt",
+          "named": true
+        },
+        {
+          "type": "item_loc_stmt",
+          "named": true
+        },
+        {
+          "type": "item_name_stmt",
+          "named": true
+        },
+        {
+          "type": "item_portable_stmt",
+          "named": true
+        },
+        {
+          "type": "item_requires_stmt",
+          "named": true
+        },
+        {
+          "type": "item_restricted_stmt",
+          "named": true
+        },
+        {
+          "type": "item_text_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "item_container_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "container_state",
           "named": true
         }
       ]
@@ -1526,7 +1599,23 @@
     }
   },
   {
-    "type": "item_stmt",
+    "type": "item_desc_stmt",
+    "named": true,
+    "fields": {
+      "item_description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_loc_stmt",
     "named": true,
     "fields": {},
     "children": {
@@ -1534,10 +1623,146 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "item_location",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "item_location",
+    "named": true,
+    "fields": {
+      "chest_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "item_id",
+            "named": true
+          }
+        ]
+      },
+      "npc_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "npc_id",
+            "named": true
+          }
+        ]
+      },
+      "room_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "room_id",
+            "named": true
+          }
+        ]
+      },
+      "spawn_note": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dev_note",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_name_stmt",
+    "named": true,
+    "fields": {
+      "item_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_portable_stmt",
+    "named": true,
+    "fields": {
+      "portable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "boolean",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_requires_stmt",
+    "named": true,
+    "fields": {
+      "ability": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "item_ability",
+            "named": true
+          }
+        ]
+      },
+      "interaction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "item_interaction",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_restricted_stmt",
+    "named": true,
+    "fields": {
+      "restricted": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "boolean",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_text_stmt",
+    "named": true,
+    "fields": {
+      "item_text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2884,6 +3109,10 @@
     "named": false
   },
   {
+    "type": "chest",
+    "named": false
+  },
+  {
     "type": "closed",
     "named": false
   },
@@ -3057,6 +3286,10 @@
     "named": false
   },
   {
+    "type": "location",
+    "named": false
+  },
+  {
     "type": "lock",
     "named": false
   },
@@ -3090,6 +3323,10 @@
   },
   {
     "type": "note",
+    "named": false
+  },
+  {
+    "type": "nowhere",
     "named": false
   },
   {
@@ -3137,6 +3374,10 @@
     "named": false
   },
   {
+    "type": "portable",
+    "named": false
+  },
+  {
     "type": "present",
     "named": false
   },
@@ -3177,11 +3418,19 @@
     "named": false
   },
   {
+    "type": "requires",
+    "named": false
+  },
+  {
     "type": "reset",
     "named": false
   },
   {
     "type": "restrict",
+    "named": false
+  },
+  {
+    "type": "restricted",
     "named": false
   },
   {

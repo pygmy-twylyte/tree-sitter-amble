@@ -1471,7 +1471,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "item_stmt"
+            "name": "_item_stmt"
           }
         },
         {
@@ -1480,9 +1480,377 @@
         }
       ]
     },
-    "item_stmt": {
-      "type": "SYMBOL",
-      "name": "identifier"
+    "_item_stmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "item_name_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_desc_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_loc_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_portable_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_ability_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_text_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_restricted_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_container_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_requires_stmt"
+        }
+      ]
+    },
+    "item_name_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "name"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "entity_name"
+          }
+        }
+      ]
+    },
+    "item_desc_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "desc"
+            },
+            {
+              "type": "STRING",
+              "value": "description"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "item_description",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "entity_desc"
+          }
+        }
+      ]
+    },
+    "item_loc_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "location"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_location"
+        }
+      ]
+    },
+    "item_location": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "inventory"
+            },
+            {
+              "type": "STRING",
+              "value": "player"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "room"
+            },
+            {
+              "type": "FIELD",
+              "name": "room_id",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                "named": true,
+                "value": "room_id"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "chest"
+            },
+            {
+              "type": "FIELD",
+              "name": "chest_id",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                "named": true,
+                "value": "item_id"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "npc"
+            },
+            {
+              "type": "FIELD",
+              "name": "npc_id",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                "named": true,
+                "value": "npc_id"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "nowhere"
+            },
+            {
+              "type": "FIELD",
+              "name": "spawn_note",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "string"
+                },
+                "named": true,
+                "value": "dev_note"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "item_portable_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "portable"
+        },
+        {
+          "type": "FIELD",
+          "name": "portable",
+          "content": {
+            "type": "SYMBOL",
+            "name": "boolean"
+          }
+        }
+      ]
+    },
+    "item_restricted_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "restricted"
+        },
+        {
+          "type": "FIELD",
+          "name": "restricted",
+          "content": {
+            "type": "SYMBOL",
+            "name": "boolean"
+          }
+        }
+      ]
+    },
+    "item_ability_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ability"
+        },
+        {
+          "type": "FIELD",
+          "name": "ability",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_ability"
+          }
+        }
+      ]
+    },
+    "item_text_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "text"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_text",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "entity_desc"
+          }
+        }
+      ]
+    },
+    "item_container_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "container"
+        },
+        {
+          "type": "STRING",
+          "value": "state"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "container_state"
+        }
+      ]
+    },
+    "container_state": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "open"
+        },
+        {
+          "type": "STRING",
+          "value": "closed"
+        },
+        {
+          "type": "STRING",
+          "value": "locked"
+        },
+        {
+          "type": "STRING",
+          "value": "transparentClosed"
+        },
+        {
+          "type": "STRING",
+          "value": "transparentLocked"
+        }
+      ]
+    },
+    "item_requires_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "requires"
+        },
+        {
+          "type": "FIELD",
+          "name": "ability",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_ability"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "FIELD",
+          "name": "interaction",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_interaction"
+          }
+        }
+      ]
     },
     "npc_def": {
       "type": "SEQ",
@@ -4235,31 +4603,6 @@
             "named": true,
             "value": "player_message"
           }
-        }
-      ]
-    },
-    "container_state": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "open"
-        },
-        {
-          "type": "STRING",
-          "value": "closed"
-        },
-        {
-          "type": "STRING",
-          "value": "locked"
-        },
-        {
-          "type": "STRING",
-          "value": "transparentClosed"
-        },
-        {
-          "type": "STRING",
-          "value": "transparentLocked"
         }
       ]
     },
