@@ -1805,11 +1805,15 @@
         },
         {
           "type": "STRING",
-          "value": "transparentClosed"
+          "value": "closedTransparent"
         },
         {
           "type": "STRING",
-          "value": "transparentLocked"
+          "value": "lockedTransparent"
+        },
+        {
+          "type": "STRING",
+          "value": "none"
         }
       ]
     },
@@ -1889,7 +1893,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "npc_stmt"
+            "name": "_npc_stmt"
           }
         },
         {
@@ -1898,9 +1902,344 @@
         }
       ]
     },
-    "npc_stmt": {
-      "type": "SYMBOL",
-      "name": "identifier"
+    "_npc_stmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "npc_name_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_desc_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_loc_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_state_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_movement_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_dialogue_block"
+        }
+      ]
+    },
+    "npc_name_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "name"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "entity_name"
+          }
+        }
+      ]
+    },
+    "npc_desc_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "desc"
+            },
+            {
+              "type": "STRING",
+              "value": "description"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_description",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "entity_desc"
+          }
+        }
+      ]
+    },
+    "npc_loc_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "location"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_location"
+        }
+      ]
+    },
+    "npc_location": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "nowhere"
+            },
+            {
+              "type": "FIELD",
+              "name": "spawn_note",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "string"
+                },
+                "named": true,
+                "value": "dev_note"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "room"
+            },
+            {
+              "type": "FIELD",
+              "name": "room_id",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                "named": true,
+                "value": "room_id"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "npc_state_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "state"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_state"
+        }
+      ]
+    },
+    "npc_movement_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "movement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "movement_type"
+        },
+        {
+          "type": "STRING",
+          "value": "rooms"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "room_list"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "timing_stmt"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "active_stmt"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "movement_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "route"
+        },
+        {
+          "type": "STRING",
+          "value": "random"
+        }
+      ]
+    },
+    "room_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              "named": true,
+              "value": "room_id"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "room_id"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "timing_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "timing"
+        },
+        {
+          "type": "FIELD",
+          "name": "timing",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "timing"
+          }
+        }
+      ]
+    },
+    "active_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "active"
+        },
+        {
+          "type": "FIELD",
+          "name": "active",
+          "content": {
+            "type": "SYMBOL",
+            "name": "boolean"
+          }
+        }
+      ]
+    },
+    "npc_dialogue_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "dialogue"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_state"
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "FIELD",
+            "name": "dialogue",
+            "content": {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "string"
+              },
+              "named": true,
+              "value": "npc_dialogue"
+            }
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
     },
     "trigger_def": {
       "type": "SEQ",

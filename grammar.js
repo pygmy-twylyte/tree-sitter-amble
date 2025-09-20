@@ -340,8 +340,52 @@ module.exports = grammar({
     //
     npc_def: ($) =>
       seq("npc", field("npc_id", alias($.identifier, $.npc_id)), $.npc_block),
-    npc_block: ($) => seq("{", repeat($.npc_stmt), "}"),
-    npc_stmt: ($) => $.identifier,
+    npc_block: ($) => seq("{", repeat($._npc_stmt), "}"),
+    _npc_stmt: ($) =>
+      choice(
+        $.npc_name_stmt,
+        $.npc_desc_stmt,
+        $.npc_loc_stmt,
+        $.npc_state_stmt,
+        $.npc_movement_stmt,
+        $.npc_dialogue_block,
+      ),
+    npc_name_stmt: ($) =>
+      seq("name", field("npc_name", alias($.string, $.entity_name))),
+    npc_desc_stmt: ($) =>
+      seq(
+        choice("desc", "description"),
+        field("npc_description", alias($.string, $.entity_desc)),
+      ),
+    npc_loc_stmt: ($) => seq("location", $.npc_location),
+    npc_location: ($) =>
+      choice(
+        seq("nowhere", field("spawn_note", alias($.string, $.dev_note))),
+        seq("room", field("room_id", alias($.identifier, $.room_id))),
+      ),
+    npc_state_stmt: ($) => seq("state", $.npc_state),
+    npc_movement_stmt: ($) =>
+      seq(
+        "movement",
+        $.movement_type,
+        "rooms",
+        $.room_list,
+        optional($.timing_stmt),
+        optional($.active_stmt),
+      ),
+    movement_type: ($) => choice("route", "random"),
+    room_list: ($) => seq("(", sep1(alias($.identifier, $.room_id), ","), ")"),
+    timing_stmt: ($) =>
+      seq("timing", field("timing", alias($.identifier, $.timing))),
+    active_stmt: ($) => seq("active", field("active", $.boolean)),
+    npc_dialogue_block: ($) =>
+      seq(
+        "dialogue",
+        $.npc_state,
+        "{",
+        repeat1(field("dialogue", alias($.string, $.npc_dialogue))),
+        "}",
+      ),
 
     //
     // TRIGGER DEFINITIONS
@@ -784,14 +828,6 @@ module.exports = grammar({
         "to",
         field("room_id", alias($.identifier, $.room_id)),
         field("msg", alias($.string, $.player_message)),
-      ),
-    container_state: ($) =>
-      choice(
-        "open",
-        "closed",
-        "locked",
-        "transparentClosed",
-        "transparentLocked",
       ),
     action_set_container_state: ($) =>
       seq(

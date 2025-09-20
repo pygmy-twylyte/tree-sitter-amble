@@ -911,6 +911,22 @@
     }
   },
   {
+    "type": "active_stmt",
+    "named": true,
+    "fields": {
+      "active": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "boolean",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "barred_stmt",
     "named": true,
     "fields": {
@@ -1798,6 +1814,11 @@
     }
   },
   {
+    "type": "movement_type",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "npc_block",
     "named": true,
     "fields": {},
@@ -1806,7 +1827,27 @@
       "required": false,
       "types": [
         {
-          "type": "npc_stmt",
+          "type": "npc_desc_stmt",
+          "named": true
+        },
+        {
+          "type": "npc_dialogue_block",
+          "named": true
+        },
+        {
+          "type": "npc_loc_stmt",
+          "named": true
+        },
+        {
+          "type": "npc_movement_stmt",
+          "named": true
+        },
+        {
+          "type": "npc_name_stmt",
+          "named": true
+        },
+        {
+          "type": "npc_state_stmt",
           "named": true
         }
       ]
@@ -1836,6 +1877,137 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "npc_desc_stmt",
+    "named": true,
+    "fields": {
+      "npc_description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_dialogue",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "npc_dialogue_block",
+    "named": true,
+    "fields": {
+      "dialogue": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "npc_dialogue",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "npc_state",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "npc_loc_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "npc_location",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "npc_location",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "room_id",
+            "named": true
+          }
+        ]
+      },
+      "spawn_note": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dev_note",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_movement_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "active_stmt",
+          "named": true
+        },
+        {
+          "type": "movement_type",
+          "named": true
+        },
+        {
+          "type": "room_list",
+          "named": true
+        },
+        {
+          "type": "timing_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "npc_name_stmt",
+    "named": true,
+    "fields": {
+      "npc_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1940,7 +2112,7 @@
     }
   },
   {
-    "type": "npc_stmt",
+    "type": "npc_state_stmt",
     "named": true,
     "fields": {},
     "children": {
@@ -1948,7 +2120,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "npc_state",
           "named": true
         }
       ]
@@ -2460,6 +2632,21 @@
     }
   },
   {
+    "type": "room_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "room_id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "room_name",
     "named": true,
     "fields": {
@@ -2715,6 +2902,22 @@
         "types": [
           {
             "type": "npc_id",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "timing_stmt",
+    "named": true,
+    "fields": {
+      "timing": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "timing",
             "named": true
           }
         ]
@@ -3065,6 +3268,10 @@
     "named": false
   },
   {
+    "type": "active",
+    "named": false
+  },
+  {
     "type": "add",
     "named": false
   },
@@ -3114,6 +3321,10 @@
   },
   {
     "type": "closed",
+    "named": false
+  },
+  {
+    "type": "closedTransparent",
     "named": false
   },
   {
@@ -3298,6 +3509,10 @@
     "named": false
   },
   {
+    "type": "lockedTransparent",
+    "named": false
+  },
+  {
     "type": "look",
     "named": false
   },
@@ -3314,7 +3529,15 @@
     "named": false
   },
   {
+    "type": "movement",
+    "named": false
+  },
+  {
     "type": "name",
+    "named": false
+  },
+  {
+    "type": "none",
     "named": false
   },
   {
@@ -3454,6 +3677,10 @@
     "named": false
   },
   {
+    "type": "route",
+    "named": false
+  },
+  {
     "type": "sad",
     "named": false
   },
@@ -3502,19 +3729,19 @@
     "named": false
   },
   {
+    "type": "timing",
+    "named": false
+  },
+  {
+    "type": "timing",
+    "named": true
+  },
+  {
     "type": "tired",
     "named": false
   },
   {
     "type": "to",
-    "named": false
-  },
-  {
-    "type": "transparentClosed",
-    "named": false
-  },
-  {
-    "type": "transparentLocked",
     "named": false
   },
   {
