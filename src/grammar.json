@@ -250,8 +250,13 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "identifier"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              "named": true,
+              "value": "room_id"
             },
             {
               "type": "REPEAT",
@@ -263,8 +268,13 @@
                     "value": ","
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "identifier"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "room_id"
                   }
                 ]
               }
@@ -286,7 +296,7 @@
         },
         {
           "type": "FIELD",
-          "name": "id",
+          "name": "room_id",
           "content": {
             "type": "ALIAS",
             "content": {
@@ -377,7 +387,7 @@
               "name": "string"
             },
             "named": true,
-            "value": "room_name"
+            "value": "entity_name"
           }
         }
       ]
@@ -400,7 +410,7 @@
         },
         {
           "type": "FIELD",
-          "name": "desc",
+          "name": "description",
           "content": {
             "type": "ALIAS",
             "content": {
@@ -408,7 +418,7 @@
               "name": "string"
             },
             "named": true,
-            "value": "room_desc"
+            "value": "entity_desc"
           }
         }
       ]
@@ -558,8 +568,13 @@
               "type": "FIELD",
               "name": "item_id",
               "content": {
-                "type": "SYMBOL",
-                "name": "identifier"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                "named": true,
+                "value": "item_id"
               }
             },
             {
@@ -575,8 +590,13 @@
                     "type": "FIELD",
                     "name": "item_id",
                     "content": {
-                      "type": "SYMBOL",
-                      "name": "identifier"
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      },
+                      "named": true,
+                      "value": "item_id"
                     }
                   }
                 ]
@@ -608,8 +628,13 @@
               "type": "FIELD",
               "name": "flag_id",
               "content": {
-                "type": "SYMBOL",
-                "name": "identifier"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                "named": true,
+                "value": "flag_name"
               }
             },
             {
@@ -625,8 +650,13 @@
                     "type": "FIELD",
                     "name": "flag_id",
                     "content": {
-                      "type": "SYMBOL",
-                      "name": "identifier"
+                      "type": "ALIAS",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      },
+                      "named": true,
+                      "value": "flag_name"
                     }
                   }
                 ]
@@ -826,8 +856,13 @@
           "type": "FIELD",
           "name": "flag_name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         }
       ]
@@ -856,8 +891,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -890,8 +930,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -920,8 +965,13 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         }
       ]
@@ -945,8 +995,13 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         },
         {
@@ -1012,8 +1067,13 @@
           "type": "FIELD",
           "name": "custom_state",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "custom_state"
           }
         }
       ]
@@ -1037,16 +1097,26 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         }
       ]
@@ -1070,8 +1140,13 @@
           "type": "FIELD",
           "name": "flag_name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         },
         {
@@ -1095,8 +1170,13 @@
           "type": "FIELD",
           "name": "set_text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "ovl_text"
           }
         },
         {
@@ -1107,8 +1187,13 @@
           "type": "FIELD",
           "name": "unset_text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "ovl_text"
           }
         },
         {
@@ -1142,8 +1227,13 @@
                   "type": "FIELD",
                   "name": "item_id",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "item_id"
                   }
                 }
               ]
@@ -1159,8 +1249,13 @@
                   "type": "FIELD",
                   "name": "npc_id",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    "named": true,
+                    "value": "npc_id"
                   }
                 }
               ]
@@ -1188,8 +1283,13 @@
           "type": "FIELD",
           "name": "present_text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "ovl_text"
           }
         },
         {
@@ -1200,8 +1300,13 @@
           "type": "FIELD",
           "name": "absent_text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "ovl_text"
           }
         },
         {
@@ -1229,8 +1334,13 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         },
         {
@@ -1283,8 +1393,13 @@
           "type": "FIELD",
           "name": "text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "ovl_text"
           }
         }
       ]
@@ -1304,8 +1419,13 @@
           "type": "FIELD",
           "name": "state",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "custom_state"
           }
         },
         {
@@ -1323,7 +1443,7 @@
         },
         {
           "type": "FIELD",
-          "name": "id",
+          "name": "item_id",
           "content": {
             "type": "ALIAS",
             "content": {
@@ -1373,7 +1493,7 @@
         },
         {
           "type": "FIELD",
-          "name": "id",
+          "name": "npc_id",
           "content": {
             "type": "ALIAS",
             "content": {
@@ -1425,8 +1545,13 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "entity_name"
           }
         },
         {
@@ -1556,8 +1681,13 @@
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         }
       ]
@@ -1577,8 +1707,13 @@
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         }
       ]
@@ -1598,8 +1733,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -1619,8 +1759,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -1640,8 +1785,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -1661,8 +1811,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -1686,8 +1841,13 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         }
       ]
@@ -1711,8 +1871,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -1732,8 +1897,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -1744,8 +1914,13 @@
           "type": "FIELD",
           "name": "ability",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_ability"
           }
         }
       ]
@@ -1765,8 +1940,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -1781,8 +1961,13 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         }
       ]
@@ -1802,8 +1987,13 @@
           "type": "FIELD",
           "name": "tool_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -1818,8 +2008,13 @@
           "type": "FIELD",
           "name": "target_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -1830,8 +2025,13 @@
           "type": "FIELD",
           "name": "interaction",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_interaction"
           }
         }
       ]
@@ -1847,8 +2047,13 @@
           "type": "FIELD",
           "name": "action",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_interaction"
           }
         },
         {
@@ -1863,8 +2068,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -1884,8 +2094,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -1900,8 +2115,13 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         }
       ]
@@ -1921,8 +2141,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -1937,8 +2162,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -2176,8 +2406,13 @@
           "type": "FIELD",
           "name": "flag_name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         }
       ]
@@ -2197,8 +2432,13 @@
           "type": "FIELD",
           "name": "flag_name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         }
       ]
@@ -2218,8 +2458,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -2239,8 +2484,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -2264,8 +2514,13 @@
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         }
       ]
@@ -2289,8 +2544,13 @@
           "type": "FIELD",
           "name": "flag_name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         }
       ]
@@ -2310,8 +2570,13 @@
           "type": "FIELD",
           "name": "flag_name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         }
       ]
@@ -2331,8 +2596,13 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         }
       ]
@@ -2356,16 +2626,26 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         },
         {
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -2389,16 +2669,26 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         },
         {
           "type": "FIELD",
           "name": "state",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "custom_state"
           }
         }
       ]
@@ -2422,8 +2712,13 @@
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         }
       ]
@@ -2437,10 +2732,15 @@
         },
         {
           "type": "FIELD",
-          "name": "item_id",
+          "name": "container_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -2455,8 +2755,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -2493,8 +2798,13 @@
           "type": "FIELD",
           "name": "spinner",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "spinner"
           }
         },
         {
@@ -2518,8 +2828,17 @@
                     "type": "SEQ",
                     "members": [
                       {
-                        "type": "SYMBOL",
-                        "name": "identifier"
+                        "type": "FIELD",
+                        "name": "room_id",
+                        "content": {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "identifier"
+                          },
+                          "named": true,
+                          "value": "room_id"
+                        }
                       },
                       {
                         "type": "REPEAT",
@@ -2531,8 +2850,17 @@
                               "value": ","
                             },
                             {
-                              "type": "SYMBOL",
-                              "name": "identifier"
+                              "type": "FIELD",
+                              "name": "room_id",
+                              "content": {
+                                "type": "ALIAS",
+                                "content": {
+                                  "type": "SYMBOL",
+                                  "name": "identifier"
+                                },
+                                "named": true,
+                                "value": "room_id"
+                              }
                             }
                           ]
                         }
@@ -2567,8 +2895,17 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "identifier"
+                "type": "FIELD",
+                "name": "room_id",
+                "content": {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  },
+                  "named": true,
+                  "value": "room_id"
+                }
               },
               {
                 "type": "REPEAT",
@@ -2580,8 +2917,17 @@
                       "value": ","
                     },
                     {
-                      "type": "SYMBOL",
-                      "name": "identifier"
+                      "type": "FIELD",
+                      "name": "room_id",
+                      "content": {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        },
+                        "named": true,
+                        "value": "room_id"
+                      }
                     }
                   ]
                 }
@@ -2756,8 +3102,13 @@
           "type": "FIELD",
           "name": "text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "player_message"
           }
         }
       ]
@@ -2777,8 +3128,13 @@
           "type": "FIELD",
           "name": "text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "wedge_text"
           }
         },
         {
@@ -2810,8 +3166,13 @@
           "type": "FIELD",
           "name": "spinner",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "spinner"
           }
         }
       ]
@@ -2833,10 +3194,15 @@
         },
         {
           "type": "FIELD",
-          "name": "flag",
+          "name": "flag_name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         },
         {
@@ -2877,8 +3243,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -2889,8 +3260,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -2914,8 +3290,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -2926,8 +3307,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -2947,8 +3333,13 @@
           "type": "FIELD",
           "name": "flag",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         }
       ]
@@ -2968,8 +3359,13 @@
           "type": "FIELD",
           "name": "flag",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         }
       ]
@@ -2989,8 +3385,13 @@
           "type": "FIELD",
           "name": "flag",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         }
       ]
@@ -3010,8 +3411,13 @@
           "type": "FIELD",
           "name": "flag",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
           }
         }
       ]
@@ -3031,8 +3437,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -3056,8 +3467,13 @@
           "type": "FIELD",
           "name": "room",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         }
       ]
@@ -3090,8 +3506,13 @@
           "type": "FIELD",
           "name": "container_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -3149,8 +3570,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -3191,8 +3617,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -3212,8 +3643,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -3237,8 +3673,13 @@
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         },
         {
@@ -3283,8 +3724,13 @@
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         },
         {
@@ -3295,17 +3741,22 @@
           "type": "FIELD",
           "name": "direction",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "string"
-              }
-            ]
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "string"
+                }
+              ]
+            },
+            "named": true,
+            "value": "exit_dir"
           }
         }
       ]
@@ -3329,8 +3780,13 @@
           "type": "FIELD",
           "name": "from_room",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         },
         {
@@ -3341,8 +3797,13 @@
           "type": "FIELD",
           "name": "to_room",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         },
         {
@@ -3353,17 +3814,22 @@
           "type": "FIELD",
           "name": "direction",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "string"
-              }
-            ]
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "string"
+                }
+              ]
+            },
+            "named": true,
+            "value": "exit_dir"
           }
         }
       ]
@@ -3387,8 +3853,13 @@
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         }
       ]
@@ -3412,16 +3883,26 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
           "type": "FIELD",
           "name": "text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "entity_desc"
           }
         }
       ]
@@ -3445,8 +3926,13 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         }
       ]
@@ -3466,16 +3952,26 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         },
         {
           "type": "FIELD",
           "name": "text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "quote"
           }
         }
       ]
@@ -3499,16 +3995,26 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         },
         {
           "type": "FIELD",
           "name": "reason",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "player_message"
           }
         }
       ]
@@ -3532,16 +4038,26 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         },
         {
           "type": "FIELD",
           "name": "state",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "custom_state"
           }
         }
       ]
@@ -3561,8 +4077,13 @@
           "type": "FIELD",
           "name": "reason",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "player_message"
           }
         }
       ]
@@ -3582,8 +4103,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         }
       ]
@@ -3603,8 +4129,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -3627,8 +4158,13 @@
           "type": "FIELD",
           "name": "npc_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
           }
         }
       ]
@@ -3656,8 +4192,13 @@
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         },
         {
@@ -3668,16 +4209,26 @@
           "type": "FIELD",
           "name": "room_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
           }
         },
         {
           "type": "FIELD",
           "name": "msg",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "player_message"
           }
         }
       ]
@@ -3726,8 +4277,13 @@
           "type": "FIELD",
           "name": "item_id",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
           }
         },
         {
@@ -3751,8 +4307,13 @@
           "type": "FIELD",
           "name": "spinner",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "spinner"
           }
         }
       ]
@@ -3768,8 +4329,13 @@
           "type": "FIELD",
           "name": "text",
           "content": {
-            "type": "SYMBOL",
-            "name": "string"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "schedule_note_text"
           }
         }
       ]
@@ -3785,30 +4351,35 @@
           "type": "FIELD",
           "name": "policy",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "cancel"
-              },
-              {
-                "type": "STRING",
-                "value": "retryNextTurn"
-              },
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "retryAfter"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "number"
-                  }
-                ]
-              }
-            ]
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "cancel"
+                },
+                {
+                  "type": "STRING",
+                  "value": "retryNextTurn"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "retryAfter"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "number"
+                    }
+                  ]
+                }
+              ]
+            },
+            "named": true,
+            "value": "retry_policy"
           }
         }
       ]
@@ -3942,7 +4513,7 @@
               "name": "string"
             },
             "named": true,
-            "value": "spinner_name"
+            "value": "spinner"
           }
         },
         {
@@ -3984,7 +4555,7 @@
         },
         {
           "type": "FIELD",
-          "name": "id",
+          "name": "goal_id",
           "content": {
             "type": "ALIAS",
             "content": {

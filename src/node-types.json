@@ -8,7 +8,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_interaction",
             "named": true
           }
         ]
@@ -18,7 +18,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -34,7 +34,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -45,12 +45,12 @@
     "type": "action_add_seq",
     "named": true,
     "fields": {
-      "flag": {
+      "flag_name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -76,7 +76,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "spinner",
             "named": true
           }
         ]
@@ -86,7 +86,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "wedge_text",
             "named": true
           }
         ]
@@ -112,7 +112,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -144,7 +144,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "player_message",
             "named": true
           }
         ]
@@ -160,7 +160,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -176,7 +176,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -186,7 +186,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -216,7 +216,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -232,7 +232,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -248,7 +248,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -264,7 +264,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -274,7 +274,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "player_message",
             "named": true
           }
         ]
@@ -290,7 +290,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -300,7 +300,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "quote",
             "named": true
           }
         ]
@@ -316,7 +316,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -332,7 +332,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -348,7 +348,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -364,7 +364,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -380,7 +380,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -396,7 +396,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -412,11 +412,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "string",
+            "type": "exit_dir",
             "named": true
           }
         ]
@@ -426,7 +422,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -436,7 +432,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -520,7 +516,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "player_message",
             "named": true
           }
         ]
@@ -530,7 +526,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -546,7 +542,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -572,7 +568,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -582,7 +578,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "entity_desc",
             "named": true
           }
         ]
@@ -598,7 +594,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -608,7 +604,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "custom_state",
             "named": true
           }
         ]
@@ -624,7 +620,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "player_message",
             "named": true
           }
         ]
@@ -640,7 +636,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -696,7 +692,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -722,7 +718,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "spinner",
             "named": true
           }
         ]
@@ -885,11 +881,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "string",
+            "type": "exit_dir",
             "named": true
           }
         ]
@@ -899,7 +891,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -915,7 +907,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -962,26 +954,26 @@
     "type": "cond_ambient",
     "named": true,
     "fields": {
+      "room_id": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "room_id",
+            "named": true
+          }
+        ]
+      },
       "spinner": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "spinner",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1038,12 +1030,22 @@
     "type": "cond_container_has_item",
     "named": true,
     "fields": {
-      "item_id": {
-        "multiple": true,
+      "container_id": {
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
+            "named": true
+          }
+        ]
+      },
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1059,7 +1061,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -1075,7 +1077,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -1091,7 +1093,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -1107,7 +1109,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1117,16 +1119,17 @@
   {
     "type": "cond_in_rooms",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
+    "fields": {
+      "room_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "room_id",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1138,7 +1141,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -1154,7 +1157,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1170,7 +1173,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1180,7 +1183,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -1196,7 +1199,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -1206,7 +1209,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "custom_state",
             "named": true
           }
         ]
@@ -1222,7 +1225,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -1238,7 +1241,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -1254,7 +1257,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -1290,7 +1293,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1306,12 +1309,22 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
       }
     }
+  },
+  {
+    "type": "entity_desc",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "entity_name",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "exit_block",
@@ -1365,7 +1378,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "ovl_text",
             "named": true
           }
         ]
@@ -1375,7 +1388,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "ovl_text",
             "named": true
           }
         ]
@@ -1391,7 +1404,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1401,7 +1414,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -1427,7 +1440,7 @@
     "type": "goal_def",
     "named": true,
     "fields": {
-      "id": {
+      "goal_id": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1473,7 +1486,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1499,7 +1512,7 @@
     "type": "item_def",
     "named": true,
     "fields": {
-      "id": {
+      "item_id": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1545,7 +1558,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -1561,7 +1574,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1587,7 +1600,7 @@
     "type": "npc_def",
     "named": true,
     "fields": {
-      "id": {
+      "npc_id": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1642,7 +1655,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "custom_state",
             "named": true
           }
         ]
@@ -1673,7 +1686,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "custom_state",
             "named": true
           }
         ]
@@ -1689,7 +1702,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "ovl_text",
             "named": true
           }
         ]
@@ -1739,7 +1752,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1809,7 +1822,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -1835,7 +1848,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -1851,7 +1864,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1861,7 +1874,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "room_id",
             "named": true
           }
         ]
@@ -1877,7 +1890,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1893,7 +1906,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1909,7 +1922,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -1925,7 +1938,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -1951,7 +1964,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -1977,7 +1990,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -1987,7 +2000,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -2026,6 +2039,11 @@
     }
   },
   {
+    "type": "player_message",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "presence_pair_block",
     "named": true,
     "fields": {
@@ -2034,7 +2052,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "ovl_text",
             "named": true
           }
         ]
@@ -2044,12 +2062,17 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "ovl_text",
             "named": true
           }
         ]
       }
     }
+  },
+  {
+    "type": "quote",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "required_flags_stmt",
@@ -2060,7 +2083,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "flag_name",
             "named": true
           }
         ]
@@ -2076,7 +2099,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -2092,20 +2115,8 @@
         "required": true,
         "types": [
           {
-            "type": "cancel",
-            "named": false
-          },
-          {
-            "type": "number",
+            "type": "retry_policy",
             "named": true
-          },
-          {
-            "type": "retryAfter",
-            "named": false
-          },
-          {
-            "type": "retryNextTurn",
-            "named": false
           }
         ]
       }
@@ -2158,7 +2169,7 @@
     "type": "room_def",
     "named": true,
     "fields": {
-      "id": {
+      "room_id": {
         "multiple": false,
         "required": true,
         "types": [
@@ -2184,12 +2195,12 @@
     "type": "room_desc",
     "named": true,
     "fields": {
-      "desc": {
+      "description": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
-            "type": "room_desc",
+            "type": "entity_desc",
             "named": true
           }
         ]
@@ -2238,10 +2249,10 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
-            "type": "room_name",
+            "type": "entity_name",
             "named": true
           }
         ]
@@ -2273,12 +2284,17 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "schedule_note_text",
             "named": true
           }
         ]
       }
     }
+  },
+  {
+    "type": "schedule_note_text",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "set_decl",
@@ -2308,7 +2324,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "room_id",
           "named": true
         }
       ]
@@ -2363,12 +2379,17 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
       }
     }
+  },
+  {
+    "type": "spinner",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "spinner_block",
@@ -2394,7 +2415,7 @@
         "required": true,
         "types": [
           {
-            "type": "spinner_name",
+            "type": "spinner",
             "named": true
           }
         ]
@@ -2410,11 +2431,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "spinner_name",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "spinner_stmt",
@@ -2445,7 +2461,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -2455,7 +2471,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -2471,7 +2487,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -2487,7 +2503,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "npc_id",
             "named": true
           }
         ]
@@ -2597,7 +2613,7 @@
         "required": true,
         "types": [
           {
-            "type": "string",
+            "type": "entity_name",
             "named": true
           }
         ]
@@ -2656,7 +2672,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -2672,7 +2688,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_ability",
             "named": true
           }
         ]
@@ -2682,7 +2698,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -2698,7 +2714,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_interaction",
             "named": true
           }
         ]
@@ -2708,7 +2724,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
@@ -2718,12 +2734,17 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "item_id",
             "named": true
           }
         ]
       }
     }
+  },
+  {
+    "type": "wedge_text",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "when_cond",
@@ -2873,10 +2894,6 @@
     "named": false
   },
   {
-    "type": "cancel",
-    "named": false
-  },
-  {
     "type": "chance",
     "named": false
   },
@@ -2904,6 +2921,10 @@
   {
     "type": "custom",
     "named": false
+  },
+  {
+    "type": "custom_state",
+    "named": true
   },
   {
     "type": "deny",
@@ -2956,6 +2977,10 @@
   {
     "type": "flag",
     "named": false
+  },
+  {
+    "type": "flag_name",
+    "named": true
   },
   {
     "type": "from",
@@ -3022,7 +3047,15 @@
     "named": false
   },
   {
+    "type": "item_ability",
+    "named": true
+  },
+  {
     "type": "item_id",
+    "named": true
+  },
+  {
+    "type": "item_interaction",
     "named": true
   },
   {
@@ -3166,12 +3199,8 @@
     "named": false
   },
   {
-    "type": "retryAfter",
-    "named": false
-  },
-  {
-    "type": "retryNextTurn",
-    "named": false
+    "type": "retry_policy",
+    "named": true
   },
   {
     "type": "reveal",
