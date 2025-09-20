@@ -131,7 +131,7 @@ module.exports = grammar({
         ")",
       ),
     barred_stmt: ($) =>
-      seq("barred", field("msg", alias($.string, $.barred_msg))),
+      seq("barred", field("msg", alias($.string, $.player_message))),
 
     // --------------------- room overlays ---------------------
     overlay_stmt: ($) => seq("overlay", "if", $._ovl_cond_list, $.ovl_block),
@@ -641,7 +641,7 @@ module.exports = grammar({
         "from",
         field("room_id", alias($.identifier, $.room_id)),
         "direction",
-        field("direction", choice($.identifier, $.string)),
+        field("direction", alias(choice($.identifier, $.string), $.exit_dir)),
       ),
     action_unlock_exit: ($) =>
       seq(
