@@ -687,7 +687,7 @@
               "name": "string"
             },
             "named": true,
-            "value": "barred_msg"
+            "value": "player_message"
           }
         }
       ]
@@ -3690,17 +3690,22 @@
           "type": "FIELD",
           "name": "direction",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "string"
-              }
-            ]
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "string"
+                }
+              ]
+            },
+            "named": true,
+            "value": "exit_dir"
           }
         }
       ]

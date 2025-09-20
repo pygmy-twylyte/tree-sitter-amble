@@ -202,11 +202,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "string",
+            "type": "exit_dir",
             "named": true
           }
         ]
@@ -915,11 +911,6 @@
     }
   },
   {
-    "type": "barred_msg",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "barred_stmt",
     "named": true,
     "fields": {
@@ -928,7 +919,7 @@
         "required": true,
         "types": [
           {
-            "type": "barred_msg",
+            "type": "player_message",
             "named": true
           }
         ]
@@ -2446,11 +2437,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "string",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "take_from_npc",

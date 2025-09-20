@@ -10,13 +10,13 @@
 #define STATE_COUNT 494
 #define LARGE_STATE_COUNT 2
 #define SYMBOL_COUNT 271
-#define ALIAS_COUNT 19
+#define ALIAS_COUNT 17
 #define TOKEN_COUNT 127
 #define EXTERNAL_TOKEN_COUNT 0
 #define FIELD_COUNT 38
 #define MAX_ALIAS_SEQUENCE_LENGTH 8
 #define MAX_RESERVED_WORD_SET_SIZE 0
-#define PRODUCTION_ID_COUNT 71
+#define PRODUCTION_ID_COUNT 70
 #define SUPERTYPE_COUNT 0
 
 enum ts_symbol_identifiers {
@@ -290,25 +290,23 @@ enum ts_symbol_identifiers {
   aux_sym_cond_ambient_repeat1 = 268,
   aux_sym_spinner_block_repeat1 = 269,
   aux_sym_goal_block_repeat1 = 270,
-  alias_sym_barred_msg = 271,
-  alias_sym_custom_state = 272,
-  alias_sym_entity_desc = 273,
-  alias_sym_entity_name = 274,
-  alias_sym_exit_dest = 275,
-  alias_sym_exit_dir = 276,
-  alias_sym_flag_name = 277,
-  alias_sym_goal_id = 278,
-  alias_sym_item_ability = 279,
-  alias_sym_item_id = 280,
-  alias_sym_item_interaction = 281,
-  alias_sym_npc_id = 282,
-  alias_sym_ovl_text = 283,
-  alias_sym_player_message = 284,
-  alias_sym_quote = 285,
-  alias_sym_room_id = 286,
-  alias_sym_schedule_note_text = 287,
-  alias_sym_spinner = 288,
-  alias_sym_wedge_text = 289,
+  alias_sym_custom_state = 271,
+  alias_sym_entity_desc = 272,
+  alias_sym_entity_name = 273,
+  alias_sym_exit_dest = 274,
+  alias_sym_exit_dir = 275,
+  alias_sym_flag_name = 276,
+  alias_sym_goal_id = 277,
+  alias_sym_item_ability = 278,
+  alias_sym_item_id = 279,
+  alias_sym_item_interaction = 280,
+  alias_sym_npc_id = 281,
+  alias_sym_player_message = 282,
+  alias_sym_quote = 283,
+  alias_sym_room_id = 284,
+  alias_sym_schedule_note_text = 285,
+  alias_sym_spinner = 286,
+  alias_sym_wedge_text = 287,
 };
 
 static const char * const ts_symbol_names[] = {
@@ -440,7 +438,7 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_schedule] = "schedule",
   [anon_sym_goal] = "goal",
   [sym_source_file] = "source_file",
-  [sym_string] = "string",
+  [sym_string] = "ovl_text",
   [sym_boolean] = "room_visited",
   [sym_set_decl] = "set_decl",
   [sym_set_list] = "set_list",
@@ -583,7 +581,6 @@ static const char * const ts_symbol_names[] = {
   [aux_sym_cond_ambient_repeat1] = "cond_ambient_repeat1",
   [aux_sym_spinner_block_repeat1] = "spinner_block_repeat1",
   [aux_sym_goal_block_repeat1] = "goal_block_repeat1",
-  [alias_sym_barred_msg] = "barred_msg",
   [alias_sym_custom_state] = "custom_state",
   [alias_sym_entity_desc] = "entity_desc",
   [alias_sym_entity_name] = "entity_name",
@@ -595,7 +592,6 @@ static const char * const ts_symbol_names[] = {
   [alias_sym_item_id] = "item_id",
   [alias_sym_item_interaction] = "item_interaction",
   [alias_sym_npc_id] = "npc_id",
-  [alias_sym_ovl_text] = "ovl_text",
   [alias_sym_player_message] = "player_message",
   [alias_sym_quote] = "quote",
   [alias_sym_room_id] = "room_id",
@@ -876,7 +872,6 @@ static const TSSymbol ts_symbol_map[] = {
   [aux_sym_cond_ambient_repeat1] = aux_sym_cond_ambient_repeat1,
   [aux_sym_spinner_block_repeat1] = aux_sym_spinner_block_repeat1,
   [aux_sym_goal_block_repeat1] = aux_sym_goal_block_repeat1,
-  [alias_sym_barred_msg] = alias_sym_barred_msg,
   [alias_sym_custom_state] = alias_sym_custom_state,
   [alias_sym_entity_desc] = alias_sym_entity_desc,
   [alias_sym_entity_name] = alias_sym_entity_name,
@@ -888,7 +883,6 @@ static const TSSymbol ts_symbol_map[] = {
   [alias_sym_item_id] = alias_sym_item_id,
   [alias_sym_item_interaction] = alias_sym_item_interaction,
   [alias_sym_npc_id] = alias_sym_npc_id,
-  [alias_sym_ovl_text] = alias_sym_ovl_text,
   [alias_sym_player_message] = alias_sym_player_message,
   [alias_sym_quote] = alias_sym_quote,
   [alias_sym_room_id] = alias_sym_room_id,
@@ -1982,10 +1976,6 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = false,
   },
-  [alias_sym_barred_msg] = {
-    .visible = true,
-    .named = true,
-  },
   [alias_sym_custom_state] = {
     .visible = true,
     .named = true,
@@ -2027,10 +2017,6 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = true,
   },
   [alias_sym_npc_id] = {
-    .visible = true,
-    .named = true,
-  },
-  [alias_sym_ovl_text] = {
     .visible = true,
     .named = true,
   },
@@ -2198,21 +2184,20 @@ static const TSMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
   [53] = {.index = 69, .length = 3},
   [54] = {.index = 72, .length = 2},
   [55] = {.index = 74, .length = 2},
-  [56] = {.index = 72, .length = 2},
-  [57] = {.index = 76, .length = 2},
-  [58] = {.index = 78, .length = 2},
-  [59] = {.index = 80, .length = 1},
-  [60] = {.index = 81, .length = 2},
-  [61] = {.index = 83, .length = 2},
-  [62] = {.index = 85, .length = 2},
-  [63] = {.index = 87, .length = 2},
-  [64] = {.index = 89, .length = 1},
-  [65] = {.index = 90, .length = 2},
-  [66] = {.index = 92, .length = 1},
-  [67] = {.index = 93, .length = 3},
-  [68] = {.index = 96, .length = 2},
-  [69] = {.index = 98, .length = 3},
-  [70] = {.index = 101, .length = 2},
+  [56] = {.index = 76, .length = 2},
+  [57] = {.index = 78, .length = 2},
+  [58] = {.index = 80, .length = 1},
+  [59] = {.index = 81, .length = 2},
+  [60] = {.index = 83, .length = 2},
+  [61] = {.index = 85, .length = 2},
+  [62] = {.index = 87, .length = 2},
+  [63] = {.index = 89, .length = 1},
+  [64] = {.index = 90, .length = 2},
+  [65] = {.index = 92, .length = 1},
+  [66] = {.index = 93, .length = 3},
+  [67] = {.index = 96, .length = 2},
+  [68] = {.index = 98, .length = 3},
+  [69] = {.index = 101, .length = 2},
 };
 
 static const TSFieldMapEntry ts_field_map_entries[] = {
@@ -2454,9 +2439,6 @@ static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE
   [22] = {
     [1] = alias_sym_player_message,
   },
-  [23] = {
-    [1] = alias_sym_ovl_text,
-  },
   [24] = {
     [2] = alias_sym_item_id,
     [5] = alias_sym_npc_id,
@@ -2475,7 +2457,7 @@ static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE
     [2] = alias_sym_player_message,
   },
   [31] = {
-    [1] = alias_sym_barred_msg,
+    [1] = alias_sym_player_message,
   },
   [32] = {
     [3] = alias_sym_item_id,
@@ -2559,59 +2541,46 @@ static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE
     [5] = alias_sym_item_id,
   },
   [56] = {
-    [3] = alias_sym_room_id,
-  },
-  [57] = {
     [2] = alias_sym_item_id,
   },
-  [59] = {
+  [58] = {
     [1] = alias_sym_flag_name,
   },
-  [60] = {
+  [59] = {
     [2] = alias_sym_flag_name,
   },
-  [62] = {
-    [2] = alias_sym_ovl_text,
-    [4] = alias_sym_ovl_text,
-  },
   [63] = {
-    [2] = alias_sym_ovl_text,
-    [4] = alias_sym_ovl_text,
-  },
-  [64] = {
     [2] = alias_sym_custom_state,
   },
-  [65] = {
+  [64] = {
     [2] = alias_sym_wedge_text,
     [6] = alias_sym_spinner,
   },
-  [67] = {
+  [66] = {
     [4] = alias_sym_room_id,
     [6] = alias_sym_room_id,
     [7] = alias_sym_player_message,
   },
-  [68] = {
+  [67] = {
     [2] = alias_sym_item_id,
     [7] = alias_sym_npc_id,
   },
-  [69] = {
+  [68] = {
     [3] = alias_sym_room_id,
     [5] = alias_sym_room_id,
     [7] = alias_sym_exit_dir,
   },
-  [70] = {
+  [69] = {
     [2] = anon_sym_cancel,
   },
 };
 
 static const uint16_t ts_non_terminal_alias_map[] = {
-  sym_string, 11,
+  sym_string, 9,
     sym_string,
-    alias_sym_barred_msg,
     alias_sym_entity_desc,
     alias_sym_entity_name,
     alias_sym_exit_dir,
-    alias_sym_ovl_text,
     alias_sym_player_message,
     alias_sym_quote,
     alias_sym_schedule_note_text,
@@ -10455,10 +10424,10 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [374] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_ovl_presence_pair, 5, 0, 14),
   [376] = {.entry = {.count = 1, .reusable = false}}, SHIFT(212),
   [378] = {.entry = {.count = 1, .reusable = false}}, SHIFT(215),
-  [380] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_flag_binary_block, 6, 0, 62),
-  [382] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_flag_binary_block, 6, 0, 62),
-  [384] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_presence_pair_block, 6, 0, 63),
-  [386] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_presence_pair_block, 6, 0, 63),
+  [380] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_flag_binary_block, 6, 0, 61),
+  [382] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_flag_binary_block, 6, 0, 61),
+  [384] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_presence_pair_block, 6, 0, 62),
+  [386] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_presence_pair_block, 6, 0, 62),
   [388] = {.entry = {.count = 1, .reusable = false}}, SHIFT(148),
   [390] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_exit_stmt, 1, 0, 0),
   [392] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_barred_stmt, 2, 0, 31),
@@ -10470,10 +10439,10 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [405] = {.entry = {.count = 1, .reusable = true}}, SHIFT(216),
   [407] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_required_items_stmt, 4, 0, 10),
   [409] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_required_flags_stmt, 4, 0, 52),
-  [411] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_required_items_stmt, 5, 0, 57),
-  [413] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_required_flags_stmt, 5, 0, 60),
-  [415] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_npc_state_set_custom, 4, 0, 64),
-  [417] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_npc_state_set_custom, 4, 0, 64),
+  [411] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_required_items_stmt, 5, 0, 56),
+  [413] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_required_flags_stmt, 5, 0, 59),
+  [415] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_npc_state_set_custom, 4, 0, 63),
+  [417] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_npc_state_set_custom, 4, 0, 63),
   [419] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_cond_flag_in_progress, 4, 0, 16),
   [421] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_cond_player_in_room, 4, 0, 34),
   [423] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_cond_visited_room, 4, 0, 34),
@@ -10535,7 +10504,7 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [539] = {.entry = {.count = 1, .reusable = true}}, SHIFT(46),
   [541] = {.entry = {.count = 1, .reusable = true}}, SHIFT(30),
   [543] = {.entry = {.count = 1, .reusable = true}}, SHIFT(41),
-  [545] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_reveal_exit, 8, 0, 69),
+  [545] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_reveal_exit, 8, 0, 68),
   [547] = {.entry = {.count = 1, .reusable = true}}, SHIFT(490),
   [549] = {.entry = {.count = 1, .reusable = true}}, SHIFT(455),
   [551] = {.entry = {.count = 1, .reusable = true}}, SHIFT(457),
@@ -10614,24 +10583,24 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [700] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_unlock_exit, 6, 0, 54),
   [702] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_add_seq, 6, 0, 16),
   [704] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_replace_drop_item, 6, 0, 55),
-  [706] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_lock_exit, 6, 0, 56),
+  [706] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_lock_exit, 6, 0, 54),
   [708] = {.entry = {.count = 1, .reusable = true}}, SHIFT(260),
   [710] = {.entry = {.count = 1, .reusable = true}}, SHIFT(475),
   [712] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_schedule_in_if, 6, 0, 37),
   [714] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_ovl_item_posession, 4, 0, 15),
-  [716] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_required_items_stmt_repeat1, 2, 0, 58), SHIFT_REPEAT(439),
-  [719] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_required_items_stmt_repeat1, 2, 0, 58),
+  [716] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_required_items_stmt_repeat1, 2, 0, 57), SHIFT_REPEAT(439),
+  [719] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_required_items_stmt_repeat1, 2, 0, 57),
   [721] = {.entry = {.count = 1, .reusable = true}}, SHIFT(399),
   [723] = {.entry = {.count = 1, .reusable = true}}, SHIFT(263),
-  [725] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_required_flags_stmt_repeat1, 2, 0, 61), SHIFT_REPEAT(442),
-  [728] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_required_flags_stmt_repeat1, 2, 0, 61),
+  [725] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_required_flags_stmt_repeat1, 2, 0, 60), SHIFT_REPEAT(442),
+  [728] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_required_flags_stmt_repeat1, 2, 0, 60),
   [730] = {.entry = {.count = 1, .reusable = true}}, SHIFT(422),
   [732] = {.entry = {.count = 1, .reusable = true}}, SHIFT(423),
   [734] = {.entry = {.count = 1, .reusable = true}}, SHIFT(424),
-  [736] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_add_wedge, 7, 0, 65),
+  [736] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_add_wedge, 7, 0, 64),
   [738] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_schedule_in_if, 7, 0, 37),
-  [740] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_set_barred_msg, 8, 0, 67),
-  [742] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_give_to_player, 8, 0, 68),
+  [740] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_set_barred_msg, 8, 0, 66),
+  [742] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_give_to_player, 8, 0, 67),
   [744] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_action_schedule_in_if, 8, 0, 37),
   [746] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_ovl_npc_presence, 3, 0, 18),
   [748] = {.entry = {.count = 1, .reusable = true}}, SHIFT(301),
@@ -10654,7 +10623,7 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [782] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_required_items_stmt_repeat1, 2, 0, 2),
   [784] = {.entry = {.count = 1, .reusable = true}}, SHIFT(386),
   [786] = {.entry = {.count = 1, .reusable = true}}, SHIFT(387),
-  [788] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_required_flags_stmt_repeat1, 2, 0, 59),
+  [788] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_required_flags_stmt_repeat1, 2, 0, 58),
   [790] = {.entry = {.count = 1, .reusable = true}}, SHIFT(145),
   [792] = {.entry = {.count = 1, .reusable = true}}, SHIFT(93),
   [794] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_npc_stmt, 1, 0, 0),
@@ -10665,14 +10634,14 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [804] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_set_list_repeat1, 2, 0, 12),
   [806] = {.entry = {.count = 1, .reusable = true}}, SHIFT(425),
   [808] = {.entry = {.count = 1, .reusable = true}}, SHIFT(426),
-  [810] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_retry_type, 2, 0, 66),
+  [810] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_retry_type, 2, 0, 65),
   [812] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_spinner_stmt, 1, 0, 0),
   [814] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_spinner_stmt, 1, 0, 0),
   [816] = {.entry = {.count = 1, .reusable = true}}, SHIFT(21),
   [818] = {.entry = {.count = 1, .reusable = true}}, SHIFT(483),
   [820] = {.entry = {.count = 1, .reusable = true}}, SHIFT(427),
   [822] = {.entry = {.count = 1, .reusable = true}}, SHIFT(430),
-  [824] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_retry_type, 3, 0, 70),
+  [824] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_retry_type, 3, 0, 69),
   [826] = {.entry = {.count = 1, .reusable = true}}, SHIFT(285),
   [828] = {.entry = {.count = 1, .reusable = true}}, SHIFT(459),
   [830] = {.entry = {.count = 1, .reusable = true}}, SHIFT(460),
