@@ -5197,7 +5197,7 @@
             "type": "ALIAS",
             "content": {
               "type": "SYMBOL",
-              "name": "string"
+              "name": "identifier"
             },
             "named": true,
             "value": "spinner"
@@ -5230,8 +5230,51 @@
       ]
     },
     "spinner_stmt": {
-      "type": "SYMBOL",
-      "name": "identifier"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "wedge"
+        },
+        {
+          "type": "FIELD",
+          "name": "spinner_text",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "spinner_text"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "width"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "width",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "goal_def": {
       "type": "SEQ",

@@ -2790,11 +2790,6 @@
     }
   },
   {
-    "type": "spinner",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "spinner_block",
     "named": true,
     "fields": {},
@@ -2838,17 +2833,33 @@
   {
     "type": "spinner_stmt",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
+    "fields": {
+      "spinner_text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "spinner_text",
+            "named": true
+          }
+        ]
+      },
+      "width": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
+  },
+  {
+    "type": "spinner_text",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "take_from_npc",
@@ -3711,6 +3722,10 @@
   {
     "type": "spinner",
     "named": false
+  },
+  {
+    "type": "spinner",
+    "named": true
   },
   {
     "type": "state",

@@ -56,7 +56,15 @@ module.exports = grammar({
     boolean: ($) => choice("true", "false"),
 
     //
+    //
+    //
+    //
+    //
     // ROOM SET DECLARATIONS
+    //
+    //
+    //
+    //
     //
     set_decl: ($) => seq("let", "set", $.identifier, "=", $.set_list),
     set_list: ($) => seq("(", sep1(alias($.identifier, $.room_id), ","), ")"),
@@ -273,7 +281,15 @@ module.exports = grammar({
       ),
 
     //
+    //
+    //
+    //
+    //
     // ITEM DEFINITIONS
+    //
+    //
+    //
+    //
     //
     item_def: ($) =>
       seq(
@@ -336,7 +352,13 @@ module.exports = grammar({
       ),
 
     //
+    //
+    //
+    //
     // NPC DEFINITIONS
+    //
+    //
+    //
     //
     npc_def: ($) =>
       seq("npc", field("npc_id", alias($.identifier, $.npc_id)), $.npc_block),
@@ -388,7 +410,15 @@ module.exports = grammar({
       ),
 
     //
+    //
+    //
+    //
+    //
     // TRIGGER DEFINITIONS
+    //
+    //
+    //
+    //
     //
     trigger_def: ($) =>
       seq(
@@ -879,16 +909,29 @@ module.exports = grammar({
       ),
 
     //
+    //
+    //
+    //
+    //
     // SPINNER DEFINITIONS
+    //
+    //
+    //
+    //
     //
     spinner_def: ($) =>
       seq(
         "spinner",
-        field("name", alias($.string, $.spinner)),
+        field("name", alias($.identifier, $.spinner)),
         $.spinner_block,
       ),
     spinner_block: ($) => seq("{", repeat($.spinner_stmt), "}"),
-    spinner_stmt: ($) => $.identifier,
+    spinner_stmt: ($) =>
+      seq(
+        "wedge",
+        field("spinner_text", alias($.string, $.spinner_text)),
+        optional(seq("width", field("width", $.number))),
+      ),
 
     //
     // GOAL DEFINITIONS
