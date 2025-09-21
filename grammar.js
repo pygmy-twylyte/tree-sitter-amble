@@ -1002,6 +1002,7 @@ module.exports = grammar({
     gc_flag_progress: ($) =>
       seq(
         "flag",
+        "in",
         "progress",
         field("flag_name", alias($.identifier, $.flag_name)),
       ),
