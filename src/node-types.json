@@ -1413,6 +1413,118 @@
     }
   },
   {
+    "type": "gc_flag_complete",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "flag_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "gc_flag_progress",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "flag_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "gc_goal_complete",
+    "named": true,
+    "fields": {
+      "goal_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "goal_id",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "gc_has_flag",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "flag_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "gc_has_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "item_id",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "gc_missing_flag",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "flag_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "gc_reached_room",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "room_id",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "give_to_npc",
     "named": true,
     "fields": {
@@ -1447,7 +1559,23 @@
       "required": false,
       "types": [
         {
-          "type": "goal_stmt",
+          "type": "goal_desc_stmt",
+          "named": true
+        },
+        {
+          "type": "goal_done_stmt",
+          "named": true
+        },
+        {
+          "type": "goal_group_stmt",
+          "named": true
+        },
+        {
+          "type": "goal_name_stmt",
+          "named": true
+        },
+        {
+          "type": "goal_start_stmt",
           "named": true
         }
       ]
@@ -1480,18 +1608,131 @@
     }
   },
   {
-    "type": "goal_stmt",
+    "type": "goal_desc_stmt",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
+    "fields": {
+      "goal_description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "goal_done_stmt",
+    "named": true,
+    "fields": {
+      "done_condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "gc_flag_complete",
+            "named": true
+          },
+          {
+            "type": "gc_flag_progress",
+            "named": true
+          },
+          {
+            "type": "gc_goal_complete",
+            "named": true
+          },
+          {
+            "type": "gc_has_flag",
+            "named": true
+          },
+          {
+            "type": "gc_has_item",
+            "named": true
+          },
+          {
+            "type": "gc_missing_flag",
+            "named": true
+          },
+          {
+            "type": "gc_reached_room",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "goal_group_stmt",
+    "named": true,
+    "fields": {
+      "goal_group": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "goal_group",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "goal_name_stmt",
+    "named": true,
+    "fields": {
+      "goal_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "goal_start_stmt",
+    "named": true,
+    "fields": {
+      "start_condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "gc_flag_complete",
+            "named": true
+          },
+          {
+            "type": "gc_flag_progress",
+            "named": true
+          },
+          {
+            "type": "gc_goal_complete",
+            "named": true
+          },
+          {
+            "type": "gc_has_flag",
+            "named": true
+          },
+          {
+            "type": "gc_has_item",
+            "named": true
+          },
+          {
+            "type": "gc_missing_flag",
+            "named": true
+          },
+          {
+            "type": "gc_reached_room",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3392,6 +3633,10 @@
     "named": false
   },
   {
+    "type": "done",
+    "named": false
+  },
+  {
     "type": "drop",
     "named": false
   },
@@ -3432,8 +3677,16 @@
     "named": false
   },
   {
+    "type": "goal_group",
+    "named": true
+  },
+  {
     "type": "goal_id",
     "named": true
+  },
+  {
+    "type": "group",
+    "named": false
   },
   {
     "type": "happy",
@@ -3628,6 +3881,10 @@
     "named": false
   },
   {
+    "type": "reached",
+    "named": false
+  },
+  {
     "type": "read",
     "named": false
   },
@@ -3726,6 +3983,10 @@
   {
     "type": "spinner",
     "named": true
+  },
+  {
+    "type": "start",
+    "named": false
   },
   {
     "type": "state",

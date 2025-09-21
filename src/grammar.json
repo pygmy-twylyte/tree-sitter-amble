@@ -5313,7 +5313,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "goal_stmt"
+            "name": "_goal_stmt"
           }
         },
         {
@@ -5322,9 +5322,366 @@
         }
       ]
     },
-    "goal_stmt": {
-      "type": "SYMBOL",
-      "name": "identifier"
+    "_goal_stmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "goal_name_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "goal_desc_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "goal_group_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "goal_start_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "goal_done_stmt"
+        }
+      ]
+    },
+    "goal_name_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "name"
+        },
+        {
+          "type": "FIELD",
+          "name": "goal_name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "entity_name"
+          }
+        }
+      ]
+    },
+    "goal_desc_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "desc"
+        },
+        {
+          "type": "FIELD",
+          "name": "goal_description",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "entity_desc"
+          }
+        }
+      ]
+    },
+    "goal_group_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "group"
+        },
+        {
+          "type": "FIELD",
+          "name": "goal_group",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "required"
+                },
+                {
+                  "type": "STRING",
+                  "value": "optional"
+                },
+                {
+                  "type": "STRING",
+                  "value": "status-effect"
+                }
+              ]
+            },
+            "named": true,
+            "value": "goal_group"
+          }
+        }
+      ]
+    },
+    "goal_start_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "start"
+        },
+        {
+          "type": "STRING",
+          "value": "when"
+        },
+        {
+          "type": "FIELD",
+          "name": "start_condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_goal_cond"
+          }
+        }
+      ]
+    },
+    "goal_done_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "done"
+        },
+        {
+          "type": "STRING",
+          "value": "when"
+        },
+        {
+          "type": "FIELD",
+          "name": "done_condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_goal_cond"
+          }
+        }
+      ]
+    },
+    "_goal_cond": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "gc_has_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gc_missing_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gc_has_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gc_reached_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gc_goal_complete"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gc_flag_progress"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gc_flag_complete"
+        }
+      ]
+    },
+    "gc_has_flag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "has"
+        },
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag_name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
+          }
+        }
+      ]
+    },
+    "gc_missing_flag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "missing"
+        },
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag_name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
+          }
+        }
+      ]
+    },
+    "gc_has_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "has"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
+          }
+        }
+      ]
+    },
+    "gc_reached_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "reached"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "room_id"
+          }
+        }
+      ]
+    },
+    "gc_goal_complete": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "goal"
+        },
+        {
+          "type": "STRING",
+          "value": "complete"
+        },
+        {
+          "type": "FIELD",
+          "name": "goal_id",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "goal_id"
+          }
+        }
+      ]
+    },
+    "gc_flag_progress": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "STRING",
+          "value": "progress"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag_name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
+          }
+        }
+      ]
+    },
+    "gc_flag_complete": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "flag"
+        },
+        {
+          "type": "STRING",
+          "value": "complete"
+        },
+        {
+          "type": "FIELD",
+          "name": "flag_name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "flag_name"
+          }
+        }
+      ]
     }
   },
   "extras": [

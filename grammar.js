@@ -934,7 +934,15 @@ module.exports = grammar({
       ),
 
     //
+    //
+    //
+    //
+    //
     // GOAL DEFINITIONS
+    //
+    //
+    //
+    //
     //
     goal_def: ($) =>
       seq(
@@ -942,8 +950,67 @@ module.exports = grammar({
         field("goal_id", alias($.identifier, $.goal_id)),
         $.goal_block,
       ),
-    goal_block: ($) => seq("{", repeat($.goal_stmt), "}"),
-    goal_stmt: ($) => $.identifier,
+    goal_block: ($) => seq("{", repeat($._goal_stmt), "}"),
+    _goal_stmt: ($) =>
+      choice(
+        $.goal_name_stmt,
+        $.goal_desc_stmt,
+        $.goal_group_stmt,
+        $.goal_start_stmt,
+        $.goal_done_stmt,
+      ),
+    goal_name_stmt: ($) =>
+      seq("name", field("goal_name", alias($.string, $.entity_name))),
+    goal_desc_stmt: ($) =>
+      seq("desc", field("goal_description", alias($.string, $.entity_desc))),
+    goal_group_stmt: ($) =>
+      seq(
+        "group",
+        field(
+          "goal_group",
+          alias(choice("required", "optional", "status-effect"), $.goal_group),
+        ),
+      ),
+    goal_start_stmt: ($) =>
+      seq("start", "when", field("start_condition", $._goal_cond)),
+    goal_done_stmt: ($) =>
+      seq("done", "when", field("done_condition", $._goal_cond)),
+    _goal_cond: ($) =>
+      choice(
+        $.gc_has_flag,
+        $.gc_missing_flag,
+        $.gc_has_item,
+        $.gc_reached_room,
+        $.gc_goal_complete,
+        $.gc_flag_progress,
+        $.gc_flag_complete,
+      ),
+    gc_has_flag: ($) =>
+      seq("has", "flag", field("flag_name", alias($.identifier, $.flag_name))),
+    gc_missing_flag: ($) =>
+      seq(
+        "missing",
+        "flag",
+        field("flag_name", alias($.identifier, $.flag_name)),
+      ),
+    gc_has_item: ($) =>
+      seq("has", "item", field("item_id", alias($.identifier, $.item_id))),
+    gc_reached_room: ($) =>
+      seq("reached", "room", field("room_id", alias($.identifier, $.room_id))),
+    gc_goal_complete: ($) =>
+      seq("goal", "complete", field("goal_id", alias($.identifier, $.goal_id))),
+    gc_flag_progress: ($) =>
+      seq(
+        "flag",
+        "progress",
+        field("flag_name", alias($.identifier, $.flag_name)),
+      ),
+    gc_flag_complete: ($) =>
+      seq(
+        "flag",
+        "complete",
+        field("flag_name", alias($.identifier, $.flag_name)),
+      ),
   },
 });
 
