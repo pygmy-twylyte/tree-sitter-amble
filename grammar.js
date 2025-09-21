@@ -16,7 +16,7 @@ module.exports = grammar({
   rules: {
     // TODO: add the actual grammar rules
     source_file: ($) =>
-      repeat(
+      repeat1(
         choice(
           $.set_decl,
           $.room_def,
@@ -70,7 +70,15 @@ module.exports = grammar({
     set_list: ($) => seq("(", sep1(alias($.identifier, $.room_id), ","), ")"),
 
     //
+    //
+    //
+    //
+    //
     // ROOM DEFINITIONS
+    //
+    //
+    //
+    //
     //
     room_def: ($) =>
       seq(
@@ -115,7 +123,7 @@ module.exports = grammar({
         optional($.exit_block),
       ),
 
-    exit_block: ($) => seq("{", repeat($.exit_stmt), "}"),
+    exit_block: ($) => seq("{", repeat1(seq($.exit_stmt, optional(","))), "}"),
     exit_stmt: ($) =>
       choice(
         $.required_items_stmt,
@@ -150,7 +158,11 @@ module.exports = grammar({
       seq("text", field("text", alias($.string, $.ovl_text))),
 
     _ovl_cond_list: ($) =>
-      choice($._ovl_cond, seq("(", sep1($._ovl_cond, ","), ")")),
+      choice(
+        $._ovl_cond,
+        sep1($._ovl_cond, ","),
+        seq("(", sep1($._ovl_cond, ","), ")"),
+      ),
 
     _ovl_cond: ($) =>
       choice(
@@ -330,7 +342,12 @@ module.exports = grammar({
     item_restricted_stmt: ($) =>
       seq("restricted", field("restricted", $.boolean)),
     item_ability_stmt: ($) =>
-      seq("ability", field("ability", alias($.identifier, $.item_ability))),
+      seq(
+        "ability",
+        field("ability", alias($.identifier, $.item_ability)),
+        // ability_target = id of something targeted by this ability e.g. unlock <which_item>
+        optional(field("target_id", alias($.identifier, $.ability_target))),
+      ),
     item_text_stmt: ($) =>
       seq("text", field("item_text", alias($.string, $.entity_desc))),
     item_container_stmt: ($) => seq("container", "state", $.container_state),
@@ -339,8 +356,8 @@ module.exports = grammar({
         "open",
         "closed",
         "locked",
-        "closedTransparent",
-        "lockedTransparent",
+        "transparentClosed",
+        "transparentLocked",
         "none",
       ),
     item_requires_stmt: ($) =>
@@ -424,12 +441,14 @@ module.exports = grammar({
       seq(
         "trigger",
         field("name", alias($.string, $.entity_name)),
-        optional(field("once", $.only_once_kw)),
+        repeat(choice(field("once", $.only_once_kw), $.trigger_note)),
         "when",
         $.when_cond,
         $.trigger_block,
       ),
     only_once_kw: ($) => seq("only", "once"),
+    trigger_note: ($) =>
+      seq("note", field("trigger_note", alias($.string, $.dev_note))),
 
     // "when" conditions / triggering events
     when_cond: ($) =>
@@ -528,11 +547,11 @@ module.exports = grammar({
       ),
 
     // start trigger action block, with if and do statements
-    trigger_block: ($) => seq("{", repeat($.trigger_stmt), "}"),
-    trigger_stmt: ($) => choice($.do_action, $.cond_block),
+    trigger_block: ($) => seq("{", repeat1($._trigger_stmt), "}"),
+    _trigger_stmt: ($) => choice($.do_action, $.cond_block),
 
     cond_block: ($) =>
-      seq("if", $.trigger_cond, "{", repeat($.trigger_stmt), "}"),
+      seq("if", $.trigger_cond, "{", repeat1($.do_action), "}"),
     trigger_cond: ($) =>
       choice(
         $.cond_any_group,
@@ -650,8 +669,8 @@ module.exports = grammar({
         ),
       ),
 
-    do_action: ($) => seq("do", $.action_type),
-    action_type: ($) =>
+    do_action: ($) => seq("do", $._action_type),
+    _action_type: ($) =>
       choice(
         $.action_show,
         $.action_add_wedge,
@@ -925,7 +944,7 @@ module.exports = grammar({
         field("name", alias($.identifier, $.spinner)),
         $.spinner_block,
       ),
-    spinner_block: ($) => seq("{", repeat($.spinner_stmt), "}"),
+    spinner_block: ($) => seq("{", repeat1($.spinner_stmt), "}"),
     spinner_stmt: ($) =>
       seq(
         "wedge",
@@ -950,7 +969,7 @@ module.exports = grammar({
         field("goal_id", alias($.identifier, $.goal_id)),
         $.goal_block,
       ),
-    goal_block: ($) => seq("{", repeat($._goal_stmt), "}"),
+    goal_block: ($) => seq("{", repeat1($._goal_stmt), "}"),
     _goal_stmt: ($) =>
       choice(
         $.goal_name_stmt,
