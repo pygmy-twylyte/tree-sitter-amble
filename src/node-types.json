@@ -582,6 +582,32 @@
     }
   },
   {
+    "type": "action_set_npc_active",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "npc_id",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "boolean",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "action_set_npc_state",
     "named": true,
     "fields": {
@@ -1245,6 +1271,10 @@
         },
         {
           "type": "action_set_item_desc",
+          "named": true
+        },
+        {
+          "type": "action_set_npc_active",
           "named": true
         },
         {
@@ -3974,11 +4004,11 @@
   },
   {
     "type": "spinner",
-    "named": false
+    "named": true
   },
   {
     "type": "spinner",
-    "named": true
+    "named": false
   },
   {
     "type": "start",
@@ -4002,11 +4032,11 @@
   },
   {
     "type": "timing",
-    "named": true
+    "named": false
   },
   {
     "type": "timing",
-    "named": false
+    "named": true
   },
   {
     "type": "tired",

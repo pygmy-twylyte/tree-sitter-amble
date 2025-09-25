@@ -3851,6 +3851,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "action_set_npc_active"
+        },
+        {
+          "type": "SYMBOL",
           "name": "action_set_npc_state"
         },
         {
@@ -4817,6 +4821,40 @@
             "named": true,
             "value": "player_message"
           }
+        }
+      ]
+    },
+    "action_set_npc_active": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "STRING",
+          "value": "active"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "npc_id"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "boolean"
         }
       ]
     },

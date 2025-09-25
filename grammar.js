@@ -697,6 +697,7 @@ module.exports = grammar({
         $.action_npc_random_dialogue,
         $.action_npc_says,
         $.action_npc_refuse_item,
+        $.action_set_npc_active,
         $.action_set_npc_state,
         $.action_deny_read,
         $.action_restrict_item,
@@ -843,6 +844,14 @@ module.exports = grammar({
         "item",
         field("npc_id", alias($.identifier, $.npc_id)),
         field("reason", alias($.string, $.player_message)),
+      ),
+    action_set_npc_active: ($) =>
+      seq(
+        "set",
+        "npc",
+        "active",
+        field("npc_id", alias($.identifier, $.npc_id)),
+        $.boolean,
       ),
     action_set_npc_state: ($) =>
       seq(
