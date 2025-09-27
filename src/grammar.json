@@ -1919,6 +1919,183 @@
         }
       ]
     },
+    "item_consumable_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "consumable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "consumable_block"
+        }
+      ]
+    },
+    "consumable_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_consumable_stmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "_consumable_stmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "consumable_uses"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "consumable_consume_on"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "consumable_when_consumed"
+        }
+      ]
+    },
+    "consumable_uses": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "uses_left"
+        },
+        {
+          "type": "FIELD",
+          "name": "uses_left",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        }
+      ]
+    },
+    "consumable_consume_on": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "consume_on"
+        },
+        {
+          "type": "STRING",
+          "value": "ability"
+        },
+        {
+          "type": "FIELD",
+          "name": "ability",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_ability"
+          }
+        }
+      ]
+    },
+    "consumable_when_consumed": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "when_consumed"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "when_consumed_opt"
+        }
+      ]
+    },
+    "when_consumed_opt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "despawn"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "replace"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "inventory"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "item_id",
+                      "content": {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        },
+                        "named": true,
+                        "value": "item_id"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "current"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "room"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "item_id",
+                      "content": {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        },
+                        "named": true,
+                        "value": "item_id"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "npc_def": {
       "type": "SEQ",
       "members": [
@@ -2164,6 +2341,18 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "loop_stmt"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -2260,6 +2449,23 @@
         {
           "type": "FIELD",
           "name": "active",
+          "content": {
+            "type": "SYMBOL",
+            "name": "boolean"
+          }
+        }
+      ]
+    },
+    "loop_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "loop"
+        },
+        {
+          "type": "FIELD",
+          "name": "loop",
           "content": {
             "type": "SYMBOL",
             "name": "boolean"
@@ -5471,6 +5677,10 @@
         {
           "type": "SYMBOL",
           "name": "goal_done_stmt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "goal_fail_stmt"
         }
       ]
     },
@@ -5588,6 +5798,27 @@
         {
           "type": "FIELD",
           "name": "done_condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_goal_cond"
+          }
+        }
+      ]
+    },
+    "goal_fail_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "fail"
+        },
+        {
+          "type": "STRING",
+          "value": "when"
+        },
+        {
+          "type": "FIELD",
+          "name": "fail_condition",
           "content": {
             "type": "SYMBOL",
             "name": "_goal_cond"

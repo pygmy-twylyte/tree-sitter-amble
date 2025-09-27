@@ -1582,6 +1582,10 @@
           "named": true
         },
         {
+          "type": "goal_fail_stmt",
+          "named": true
+        },
+        {
           "type": "goal_group_stmt",
           "named": true
         },
@@ -1643,6 +1647,46 @@
     "named": true,
     "fields": {
       "done_condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "gc_flag_complete",
+            "named": true
+          },
+          {
+            "type": "gc_flag_progress",
+            "named": true
+          },
+          {
+            "type": "gc_goal_complete",
+            "named": true
+          },
+          {
+            "type": "gc_has_flag",
+            "named": true
+          },
+          {
+            "type": "gc_has_item",
+            "named": true
+          },
+          {
+            "type": "gc_missing_flag",
+            "named": true
+          },
+          {
+            "type": "gc_reached_room",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "goal_fail_stmt",
+    "named": true,
+    "fields": {
+      "fail_condition": {
         "multiple": false,
         "required": true,
         "types": [
@@ -2080,6 +2124,22 @@
     }
   },
   {
+    "type": "loop_stmt",
+    "named": true,
+    "fields": {
+      "loop": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "boolean",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "movement_type",
     "named": true,
     "fields": {}
@@ -2243,6 +2303,10 @@
       "types": [
         {
           "type": "active_stmt",
+          "named": true
+        },
+        {
+          "type": "loop_stmt",
           "named": true
         },
         {
@@ -3683,6 +3747,10 @@
     "named": true
   },
   {
+    "type": "fail",
+    "named": false
+  },
+  {
     "type": "false",
     "named": false
   },
@@ -3804,6 +3872,10 @@
   },
   {
     "type": "look",
+    "named": false
+  },
+  {
+    "type": "loop",
     "named": false
   },
   {
