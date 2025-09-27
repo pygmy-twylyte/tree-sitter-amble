@@ -321,6 +321,7 @@ module.exports = grammar({
         $.item_restricted_stmt,
         $.item_container_stmt,
         $.item_requires_stmt,
+        $.item_consumable_stmt,
       ),
     item_name_stmt: ($) =>
       seq("name", field("item_name", alias($.string, $.entity_name))),

@@ -1156,6 +1156,76 @@
     }
   },
   {
+    "type": "consumable_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "consumable_consume_on",
+          "named": true
+        },
+        {
+          "type": "consumable_uses",
+          "named": true
+        },
+        {
+          "type": "consumable_when_consumed",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "consumable_consume_on",
+    "named": true,
+    "fields": {
+      "ability": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "item_ability",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "consumable_uses",
+    "named": true,
+    "fields": {
+      "uses_left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "consumable_when_consumed",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "when_consumed_opt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "container_state",
     "named": true,
     "fields": {}
@@ -1849,6 +1919,10 @@
           "named": true
         },
         {
+          "type": "item_consumable_stmt",
+          "named": true
+        },
+        {
           "type": "item_container_stmt",
           "named": true
         },
@@ -1878,6 +1952,21 @@
         },
         {
           "type": "item_text_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "item_consumable_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "consumable_block",
           "named": true
         }
       ]
@@ -3578,6 +3667,22 @@
     }
   },
   {
+    "type": "when_consumed_opt",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "item_id",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "%",
     "named": false
   },
@@ -3680,6 +3785,14 @@
   },
   {
     "type": "complete",
+    "named": false
+  },
+  {
+    "type": "consumable",
+    "named": false
+  },
+  {
+    "type": "consume_on",
     "named": false
   },
   {
@@ -4076,11 +4189,11 @@
   },
   {
     "type": "spinner",
-    "named": true
+    "named": false
   },
   {
     "type": "spinner",
-    "named": false
+    "named": true
   },
   {
     "type": "start",
@@ -4104,11 +4217,11 @@
   },
   {
     "type": "timing",
-    "named": false
+    "named": true
   },
   {
     "type": "timing",
-    "named": true
+    "named": false
   },
   {
     "type": "tired",
@@ -4147,6 +4260,10 @@
     "named": false
   },
   {
+    "type": "uses_left",
+    "named": false
+  },
+  {
     "type": "visited",
     "named": false
   },
@@ -4156,6 +4273,10 @@
   },
   {
     "type": "when",
+    "named": false
+  },
+  {
+    "type": "when_consumed",
     "named": false
   },
   {

@@ -14,7 +14,7 @@
     }
   ],
   "metadata": {
-    "version": "0.7.0",
+    "version": "0.7.1",
     "license": "MIT",
     "description": "DSL for the Amble game engine.",
     "authors": [
