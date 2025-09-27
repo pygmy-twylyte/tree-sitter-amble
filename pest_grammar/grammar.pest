@@ -1,5 +1,5 @@
-// Minimal grammar for the first iteration of Amble's trigger DSL
-// Supports only triggers for now.
+// Amble DSL (amble_script?) 1.0-rc
+// Language for game content creation, compiled into TOML that can be used by amble_engine.
 
 COMMENT    = _{ "#" ~ (!NEWLINE ~ ANY)* }
 WHITESPACE = _{ " " | "\t" | NEWLINE | COMMENT }
@@ -59,7 +59,15 @@ keyword = {
   | "restrict"
   | "barred"
   | "message"
+  | "loop"
+  | "consumable"
   | "container"
+  | "fail"
+  | "uses_left"
+  | "consume_on"
+  | "when_consumed"
+  | "inventory"
+  | "current"
   | "has"
   | "missing"
   | "visited"
@@ -158,7 +166,8 @@ balanced_braces  = { "{" ~ balanced_content ~ "}" }
 balanced_content = { (balanced_braces | (!("}") ~ ANY))* }
 
 do_action = {
-    ("show" ~ string)
+    ("set" ~ "npc" ~ "active" ~ ident ~ boolean)
+  | ("show" ~ string)
   | ("add" ~ "wedge" ~ string ~ ("width" ~ number)? ~ "spinner" ~ ident)
   | ("add" ~ "seq" ~ "flag" ~ ident ~ ("limit" ~ number)?)
   | ("replace" ~ "item" ~ ident ~ "with" ~ ident)
@@ -303,7 +312,7 @@ overlay_npc_state_line   = { (ident ~ string) | ("custom" ~ "(" ~ ident ~ ")" ~ 
 // -----------------
 
 item_def             = { "item" ~ ident ~ item_block }
-item_block           = { "{" ~ (item_name | item_desc | item_portable | item_location | item_container_state | item_ability | item_text | item_restricted | item_requires)* ~ "}" }
+item_block           = { "{" ~ (item_name | item_desc | item_portable | item_location | item_container_state | item_ability | item_text | item_restricted | item_requires | item_consumable)* ~ "}" }
 item_name            = { "name" ~ string }
 item_desc            = { ("desc" | "description") ~ string }
 item_portable        = { "portable" ~ boolean }
@@ -319,7 +328,18 @@ item_ability         = { "ability" ~ ident ~ ident? }
 item_text            = { "text" ~ string }
 item_restricted      = { "restricted" ~ boolean }
 // Change syntax to: requires <ability> to <interaction>
-item_requires = { "requires" ~ ident ~ "to" ~ ident }
+item_requires   = { "requires" ~ ident ~ "to" ~ ident }
+item_consumable = { "consumable" ~ consumable_block }
+
+consumable_block             = { "{" ~ (WHITESPACE* ~ consumable_stmt)* ~ WHITESPACE* ~ "}" }
+consumable_stmt              = { consumable_uses | consumable_consume_on | consumable_when_consumed }
+consumable_uses              = { "uses_left" ~ number }
+consumable_consume_on        = { "consume_on" ~ "ability" ~ ident ~ (WHITESPACE+ ~ consumable_target_ident)? }
+consumable_target_ident      = { !("when_consumed" ~ !ident_char) ~ ident_char+ }
+consumable_when_consumed     = { "when_consumed" ~ (consume_despawn | consume_replace_inventory | consume_replace_current_room) }
+consume_despawn              = { "despawn" }
+consume_replace_inventory    = { "replace" ~ "inventory" ~ ident }
+consume_replace_current_room = { "replace" ~ "current" ~ "room" ~ ident }
 
 // -----------------
 // Spinners
@@ -340,7 +360,7 @@ npc_name           = { "name" ~ string }
 npc_desc           = { ("desc" | "description") ~ string }
 npc_location       = { "location" ~ (("room" ~ ident) | ("nowhere" ~ string)) }
 npc_state          = { "state" ~ (ident | ("custom" ~ ident)) }
-npc_movement       = { "movement" ~ ("random" | "route") ~ "rooms" ~ "(" ~ ident ~ ("," ~ ident)* ~ ")" ~ ("timing" ~ ident)? ~ ("active" ~ boolean)? }
+npc_movement       = { "movement" ~ ("random" | "route") ~ "rooms" ~ "(" ~ ident ~ ("," ~ ident)* ~ ")" ~ ("timing" ~ ident)? ~ ("active" ~ boolean)? ~ ("loop" ~ boolean)? }
 npc_dialogue_block = { "dialogue" ~ (ident | ("custom" ~ ident)) ~ "{" ~ string+ ~ "}" }
 
 // -----------------
@@ -348,12 +368,13 @@ npc_dialogue_block = { "dialogue" ~ (ident | ("custom" ~ ident)) ~ "{" ~ string+
 // -----------------
 
 goal_def   = { "goal" ~ ident ~ goal_block }
-goal_block = { "{" ~ (goal_name | goal_desc | goal_group | goal_start | goal_done)+ ~ "}" }
+goal_block = { "{" ~ (goal_name | goal_desc | goal_group | goal_start | goal_done | goal_fail)+ ~ "}" }
 goal_name  = { "name" ~ string }
 goal_desc  = { "desc" ~ string }
 goal_group = { "group" ~ ("required" | "optional" | "status-effect") }
 goal_start = { "start" ~ "when" ~ goal_cond }
 goal_done  = { "done" ~ "when" ~ goal_cond }
+goal_fail  = { "fail" ~ "when" ~ goal_cond }
 goal_cond  = {
     ("has" ~ "flag" ~ ident)
   | ("missing" ~ "flag" ~ ident)

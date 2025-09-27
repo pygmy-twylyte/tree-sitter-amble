@@ -367,6 +367,37 @@ module.exports = grammar({
         "to",
         field("interaction", alias($.identifier, $.item_interaction)),
       ),
+    item_consumable_stmt: ($) => seq("consumable", $.consumable_block),
+    consumable_block: ($) => seq("{", repeat($._consumable_stmt), "}"),
+    _consumable_stmt: ($) =>
+      choice(
+        $.consumable_uses,
+        $.consumable_consume_on,
+        $.consumable_when_consumed,
+      ),
+    consumable_uses: ($) => seq("uses_left", field("uses_left", $.number)),
+    consumable_consume_on: ($) =>
+      seq(
+        "consume_on",
+        "ability",
+        field("ability", alias($.identifier, $.item_ability)),
+      ),
+    consumable_when_consumed: ($) => seq("when_consumed", $.when_consumed_opt),
+    when_consumed_opt: ($) =>
+      choice(
+        "despawn",
+        seq(
+          "replace",
+          choice(
+            seq("inventory", field("item_id", alias($.identifier, $.item_id))),
+            seq(
+              "current",
+              "room",
+              field("item_id", alias($.identifier, $.item_id)),
+            ),
+          ),
+        ),
+      ),
 
     //
     //
@@ -403,6 +434,7 @@ module.exports = grammar({
         seq("room", field("room_id", alias($.identifier, $.room_id))),
       ),
     npc_state_stmt: ($) => seq("state", $.npc_state),
+
     npc_movement_stmt: ($) =>
       seq(
         "movement",
@@ -411,12 +443,15 @@ module.exports = grammar({
         $.room_list,
         optional($.timing_stmt),
         optional($.active_stmt),
+        optional($.loop_stmt),
       ),
     movement_type: ($) => choice("route", "random"),
     room_list: ($) => seq("(", sep1(alias($.identifier, $.room_id), ","), ")"),
     timing_stmt: ($) =>
       seq("timing", field("timing", alias($.identifier, $.timing))),
     active_stmt: ($) => seq("active", field("active", $.boolean)),
+    loop_stmt: ($) => seq("loop", field("loop", $.boolean)),
+
     npc_dialogue_block: ($) =>
       seq(
         "dialogue",
@@ -986,6 +1021,7 @@ module.exports = grammar({
         $.goal_group_stmt,
         $.goal_start_stmt,
         $.goal_done_stmt,
+        $.goal_fail_stmt,
       ),
     goal_name_stmt: ($) =>
       seq("name", field("goal_name", alias($.string, $.entity_name))),
@@ -1003,6 +1039,8 @@ module.exports = grammar({
       seq("start", "when", field("start_condition", $._goal_cond)),
     goal_done_stmt: ($) =>
       seq("done", "when", field("done_condition", $._goal_cond)),
+    goal_fail_stmt: ($) =>
+      seq("fail", "when", field("fail_condition", $._goal_cond)),
     _goal_cond: ($) =>
       choice(
         $.gc_has_flag,
