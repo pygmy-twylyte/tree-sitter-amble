@@ -2665,6 +2665,10 @@
         {
           "type": "SYMBOL",
           "name": "unlock_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ingest_item"
         }
       ]
     },
@@ -3159,6 +3163,45 @@
         {
           "type": "STRING",
           "value": "into"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "item_id"
+          }
+        }
+      ]
+    },
+    "ingest_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "drink"
+            },
+            {
+              "type": "STRING",
+              "value": "eat"
+            },
+            {
+              "type": "STRING",
+              "value": "inhale"
+            }
+          ]
         },
         {
           "type": "STRING",

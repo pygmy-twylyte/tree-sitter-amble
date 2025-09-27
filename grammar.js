@@ -504,6 +504,7 @@ module.exports = grammar({
         $.insert_item_into,
         $.drop_item,
         $.unlock_item,
+        $.ingest_item,
       ),
     always_event: ($) => "always",
     enter_room: ($) =>
@@ -578,6 +579,12 @@ module.exports = grammar({
         "item",
         field("item_id", alias($.identifier, $.item_id)),
         "into",
+        "item",
+        field("item_id", alias($.identifier, $.item_id)),
+      ),
+    ingest_item: ($) =>
+      seq(
+        choice("drink", "eat", "inhale"),
         "item",
         field("item_id", alias($.identifier, $.item_id)),
       ),

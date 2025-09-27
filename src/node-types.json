@@ -1865,6 +1865,22 @@
     }
   },
   {
+    "type": "ingest_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "item_id",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "insert_item_into",
     "named": true,
     "fields": {
@@ -3624,6 +3640,10 @@
           "named": true
         },
         {
+          "type": "ingest_item",
+          "named": true
+        },
+        {
           "type": "insert_item_into",
           "named": true
         },
@@ -3844,7 +3864,15 @@
     "named": false
   },
   {
+    "type": "drink",
+    "named": false
+  },
+  {
     "type": "drop",
+    "named": false
+  },
+  {
+    "type": "eat",
     "named": false
   },
   {
@@ -3925,6 +3953,10 @@
   },
   {
     "type": "in",
+    "named": false
+  },
+  {
+    "type": "inhale",
     "named": false
   },
   {
