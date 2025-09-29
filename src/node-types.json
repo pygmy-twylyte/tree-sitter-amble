@@ -1,10 +1,190 @@
 [
   {
+    "type": "_action_type",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "action_add_flag",
+        "named": true
+      },
+      {
+        "type": "action_add_seq",
+        "named": true
+      },
+      {
+        "type": "action_add_wedge",
+        "named": true
+      },
+      {
+        "type": "action_advance_flag",
+        "named": true
+      },
+      {
+        "type": "action_award_points",
+        "named": true
+      },
+      {
+        "type": "action_deny_read",
+        "named": true
+      },
+      {
+        "type": "action_despawn_item",
+        "named": true
+      },
+      {
+        "type": "action_give_to_player",
+        "named": true
+      },
+      {
+        "type": "action_lock_exit",
+        "named": true
+      },
+      {
+        "type": "action_lock_item",
+        "named": true
+      },
+      {
+        "type": "action_npc_random_dialogue",
+        "named": true
+      },
+      {
+        "type": "action_npc_refuse_item",
+        "named": true
+      },
+      {
+        "type": "action_npc_says",
+        "named": true
+      },
+      {
+        "type": "action_push_player",
+        "named": true
+      },
+      {
+        "type": "action_remove_flag",
+        "named": true
+      },
+      {
+        "type": "action_replace_drop_item",
+        "named": true
+      },
+      {
+        "type": "action_replace_item",
+        "named": true
+      },
+      {
+        "type": "action_reset_flag",
+        "named": true
+      },
+      {
+        "type": "action_restrict_item",
+        "named": true
+      },
+      {
+        "type": "action_reveal_exit",
+        "named": true
+      },
+      {
+        "type": "action_schedule_in_if",
+        "named": true
+      },
+      {
+        "type": "action_schedule_in_or_on",
+        "named": true
+      },
+      {
+        "type": "action_set_barred_msg",
+        "named": true
+      },
+      {
+        "type": "action_set_container_state",
+        "named": true
+      },
+      {
+        "type": "action_set_item_desc",
+        "named": true
+      },
+      {
+        "type": "action_set_npc_active",
+        "named": true
+      },
+      {
+        "type": "action_set_npc_state",
+        "named": true
+      },
+      {
+        "type": "action_show",
+        "named": true
+      },
+      {
+        "type": "action_spawn_container",
+        "named": true
+      },
+      {
+        "type": "action_spawn_current_room",
+        "named": true
+      },
+      {
+        "type": "action_spawn_inventory",
+        "named": true
+      },
+      {
+        "type": "action_spawn_room",
+        "named": true
+      },
+      {
+        "type": "action_spinner_msg",
+        "named": true
+      },
+      {
+        "type": "action_unlock_exit",
+        "named": true
+      },
+      {
+        "type": "action_unlock_item",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_flag_ref",
     "named": true,
     "subtypes": [
       {
         "type": "flag_name",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_goal_cond",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "gc_flag_complete",
+        "named": true
+      },
+      {
+        "type": "gc_flag_progress",
+        "named": true
+      },
+      {
+        "type": "gc_goal_complete",
+        "named": true
+      },
+      {
+        "type": "gc_has_flag",
+        "named": true
+      },
+      {
+        "type": "gc_has_item",
+        "named": true
+      },
+      {
+        "type": "gc_missing_flag",
+        "named": true
+      },
+      {
+        "type": "gc_reached_room",
         "named": true
       }
     ]
@@ -1477,143 +1657,7 @@
       "required": true,
       "types": [
         {
-          "type": "action_add_flag",
-          "named": true
-        },
-        {
-          "type": "action_add_seq",
-          "named": true
-        },
-        {
-          "type": "action_add_wedge",
-          "named": true
-        },
-        {
-          "type": "action_advance_flag",
-          "named": true
-        },
-        {
-          "type": "action_award_points",
-          "named": true
-        },
-        {
-          "type": "action_deny_read",
-          "named": true
-        },
-        {
-          "type": "action_despawn_item",
-          "named": true
-        },
-        {
-          "type": "action_give_to_player",
-          "named": true
-        },
-        {
-          "type": "action_lock_exit",
-          "named": true
-        },
-        {
-          "type": "action_lock_item",
-          "named": true
-        },
-        {
-          "type": "action_npc_random_dialogue",
-          "named": true
-        },
-        {
-          "type": "action_npc_refuse_item",
-          "named": true
-        },
-        {
-          "type": "action_npc_says",
-          "named": true
-        },
-        {
-          "type": "action_push_player",
-          "named": true
-        },
-        {
-          "type": "action_remove_flag",
-          "named": true
-        },
-        {
-          "type": "action_replace_drop_item",
-          "named": true
-        },
-        {
-          "type": "action_replace_item",
-          "named": true
-        },
-        {
-          "type": "action_reset_flag",
-          "named": true
-        },
-        {
-          "type": "action_restrict_item",
-          "named": true
-        },
-        {
-          "type": "action_reveal_exit",
-          "named": true
-        },
-        {
-          "type": "action_schedule_in_if",
-          "named": true
-        },
-        {
-          "type": "action_schedule_in_or_on",
-          "named": true
-        },
-        {
-          "type": "action_set_barred_msg",
-          "named": true
-        },
-        {
-          "type": "action_set_container_state",
-          "named": true
-        },
-        {
-          "type": "action_set_item_desc",
-          "named": true
-        },
-        {
-          "type": "action_set_npc_active",
-          "named": true
-        },
-        {
-          "type": "action_set_npc_state",
-          "named": true
-        },
-        {
-          "type": "action_show",
-          "named": true
-        },
-        {
-          "type": "action_spawn_container",
-          "named": true
-        },
-        {
-          "type": "action_spawn_current_room",
-          "named": true
-        },
-        {
-          "type": "action_spawn_inventory",
-          "named": true
-        },
-        {
-          "type": "action_spawn_room",
-          "named": true
-        },
-        {
-          "type": "action_spinner_msg",
-          "named": true
-        },
-        {
-          "type": "action_unlock_exit",
-          "named": true
-        },
-        {
-          "type": "action_unlock_item",
+          "type": "_action_type",
           "named": true
         }
       ]
@@ -1979,31 +2023,7 @@
         "required": true,
         "types": [
           {
-            "type": "gc_flag_complete",
-            "named": true
-          },
-          {
-            "type": "gc_flag_progress",
-            "named": true
-          },
-          {
-            "type": "gc_goal_complete",
-            "named": true
-          },
-          {
-            "type": "gc_has_flag",
-            "named": true
-          },
-          {
-            "type": "gc_has_item",
-            "named": true
-          },
-          {
-            "type": "gc_missing_flag",
-            "named": true
-          },
-          {
-            "type": "gc_reached_room",
+            "type": "_goal_cond",
             "named": true
           }
         ]
@@ -2019,31 +2039,7 @@
         "required": true,
         "types": [
           {
-            "type": "gc_flag_complete",
-            "named": true
-          },
-          {
-            "type": "gc_flag_progress",
-            "named": true
-          },
-          {
-            "type": "gc_goal_complete",
-            "named": true
-          },
-          {
-            "type": "gc_has_flag",
-            "named": true
-          },
-          {
-            "type": "gc_has_item",
-            "named": true
-          },
-          {
-            "type": "gc_missing_flag",
-            "named": true
-          },
-          {
-            "type": "gc_reached_room",
+            "type": "_goal_cond",
             "named": true
           }
         ]
@@ -2106,31 +2102,7 @@
         "required": true,
         "types": [
           {
-            "type": "gc_flag_complete",
-            "named": true
-          },
-          {
-            "type": "gc_flag_progress",
-            "named": true
-          },
-          {
-            "type": "gc_goal_complete",
-            "named": true
-          },
-          {
-            "type": "gc_has_flag",
-            "named": true
-          },
-          {
-            "type": "gc_has_item",
-            "named": true
-          },
-          {
-            "type": "gc_missing_flag",
-            "named": true
-          },
-          {
-            "type": "gc_reached_room",
+            "type": "_goal_cond",
             "named": true
           }
         ]

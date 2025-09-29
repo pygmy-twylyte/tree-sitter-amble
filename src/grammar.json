@@ -2549,6 +2549,148 @@
         }
       ]
     },
+    "_when_event": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "always_event"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enter_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "take_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "talk_to_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "open_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "leave_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "look_at_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "use_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "give_to_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "use_item_on_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "act_on_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "take_from_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "insert_item_into"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "drop_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unlock_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ingest_item"
+        }
+      ]
+    },
+    "_trigger_cond_atom": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "cond_any_group"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_all_group"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_has_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_missing_flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_has_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_missing_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_visited_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_flag_in_progress"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_flag_complete"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_with_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_npc_has_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_npc_in_state"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_player_in_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_container_has_item"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_chance"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_ambient"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cond_in_rooms"
+        }
+      ]
+    },
     "when_cond": {
       "type": "CHOICE",
       "members": [
@@ -5593,7 +5735,11 @@
     "_item_stmt",
     "_npc_stmt",
     "_goal_stmt",
-    "_trigger_stmt"
+    "_trigger_stmt",
+    "_when_event",
+    "_trigger_cond_atom",
+    "_action_type",
+    "_goal_cond"
   ],
   "reserved": {}
 }
