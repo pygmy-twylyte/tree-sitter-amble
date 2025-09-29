@@ -13,8 +13,22 @@ module.exports = grammar({
   word: ($) => $.identifier,
   extras: ($) => [$.comment, /[\s\r\n\t]/],
 
+  supertypes: ($) => [
+    $._room_ref,
+    $._item_ref,
+    $._npc_ref,
+    $._flag_ref,
+    $._goal_ref,
+    $._spinner_ref,
+    $._set_ref,
+    $._room_stmt,
+    $._item_stmt,
+    $._npc_stmt,
+    $._goal_stmt,
+    $._trigger_stmt,
+  ],
+
   rules: {
-    // TODO: add the actual grammar rules
     source_file: ($) =>
       repeat1(
         choice(
@@ -29,6 +43,30 @@ module.exports = grammar({
       ),
 
     comment: ($) => token(seq("#", /.*/)),
+
+    // create named nodes for common semantic types
+    set_name: ($) => alias($.identifier, $.set_name),
+    room_id: ($) => alias($.identifier, $.room_id),
+    item_id: ($) => alias($.identifier, $.item_id),
+    npc_id: ($) => alias($.identifier, $.npc_id),
+    spinner_id: ($) => alias($.identifier, $.spinner_id),
+    goal_id: ($) => alias($.identifier, $.goal_id),
+    flag_name: ($) => alias($.identifier, $.flag_name),
+    custom_state: ($) => alias($.identifier, $.custom_state),
+    item_ability: ($) => alias($.identifier, $.item_ability),
+    item_interaction: ($) => alias($.identifier, $.item_interaction),
+    exit_dir: ($) => alias(choice($.identifier, $.string), $.exit_dir),
+    entity_name: ($) => alias($.string, $.entity_name),
+    entity_desc: ($) => alias($.string, $.entity_desc),
+
+    // reference wrappers... simplify definitions vs. references in tags.scm, highlighting
+    _room_ref: ($) => $.room_id,
+    _item_ref: ($) => $.item_id,
+    _npc_ref: ($) => $.npc_id,
+    _flag_ref: ($) => $.flag_name,
+    _goal_ref: ($) => $.goal_id,
+    _spinner_ref: ($) => $.spinner_id,
+    _set_ref: ($) => $.set_name,
 
     // Lower precedence so keywords like 'has', 'ambient', etc. win over identifiers
     identifier: ($) => token(prec(-1, /[a-zA-Z0-9_\-:#]+/)),
@@ -66,8 +104,15 @@ module.exports = grammar({
     //
     //
     //
-    set_decl: ($) => seq("let", "set", $.identifier, "=", $.set_list),
-    set_list: ($) => seq("(", sep1(alias($.identifier, $.room_id), ","), ")"),
+    set_decl: ($) =>
+      seq(
+        "let",
+        "set",
+        field("name", $.set_name),
+        "=",
+        field("room_list", $.set_list),
+      ),
+    set_list: ($) => seq("(", sep1($._room_ref, ","), ")"),
 
     //
     //
@@ -80,12 +125,7 @@ module.exports = grammar({
     //
     //
     //
-    room_def: ($) =>
-      seq(
-        "room",
-        field("room_id", alias($.identifier, $.room_id)),
-        $.room_block,
-      ),
+    room_def: ($) => seq("room", field("room_id", $.room_id), $.room_block),
 
     room_block: ($) => seq("{", repeat($._room_stmt), "}"),
 
@@ -101,14 +141,10 @@ module.exports = grammar({
         $.overlay_stmt,
       ),
 
-    room_name: ($) =>
-      seq("name", field("name", alias($.string, $.entity_name))),
+    room_name: ($) => seq("name", field("name", $.entity_name)),
 
     room_desc: ($) =>
-      seq(
-        choice("desc", "description"),
-        field("description", alias($.string, $.entity_desc)),
-      ),
+      seq(choice("desc", "description"), field("description", $.entity_desc)),
 
     room_visited: ($) =>
       seq("visited", field("visited", alias($.boolean, $.room_visited))),
@@ -117,9 +153,9 @@ module.exports = grammar({
     room_exit: ($) =>
       seq(
         "exit",
-        field("dir", alias(choice($.identifier, $.string), $.exit_dir)),
+        field("dir", $.exit_dir),
         "->",
-        field("dest", alias($.identifier, $.exit_dest)),
+        field("dest", $._room_ref),
         optional($.exit_block),
       ),
 
@@ -133,17 +169,12 @@ module.exports = grammar({
         "locked",
       ),
     required_items_stmt: ($) =>
-      seq(
-        "required_items",
-        "(",
-        sep1(field("item_id", alias($.identifier, $.item_id)), ","),
-        ")",
-      ),
+      seq("required_items", "(", sep1(field("item_id", $._item_ref), ","), ")"),
     required_flags_stmt: ($) =>
       seq(
         "required_flags",
         "(",
-        sep1(field("flag_id", alias($.identifier, $.flag_name)), ","),
+        sep1(field("flag_name", $._flag_ref), ","),
         ")",
       ),
     barred_stmt: ($) =>
@@ -178,37 +209,29 @@ module.exports = grammar({
       seq(
         "flag",
         choice("set", "unset", "complete"),
-        field("flag_name", alias($.identifier, $.flag_name)),
+        field("flag_name", $._flag_ref),
       ),
 
     ovl_item_presence: ($) =>
-      seq(
-        "item",
-        choice("present", "absent"),
-        field("item_id", alias($.identifier, $.item_id)),
-      ),
+      seq("item", choice("present", "absent"), field("item_id", $._item_ref)),
 
     ovl_item_posession: ($) =>
       seq(
         "player",
         choice("has", "missing"),
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
       ),
 
     ovl_npc_presence: ($) =>
-      seq(
-        "npc",
-        choice("present", "absent"),
-        field("npc_id", alias($.identifier, $.npc_id)),
-      ),
+      seq("npc", choice("present", "absent"), field("npc_id", $._npc_ref)),
 
     ovl_npc_state: ($) =>
       seq(
         "npc",
         "in",
         "state",
-        field("npc_id", alias($.identifier, $.npc_id)),
+        field("npc_id", $._npc_ref),
         field("npc_state", $.npc_state),
       ),
 
@@ -218,15 +241,15 @@ module.exports = grammar({
       choice("normal", "happy", "bored", "tired", "sad", "mad"),
 
     npc_state_custom: ($) =>
-      seq("custom", field("custom_state", alias($.identifier, $.custom_state))),
+      seq("custom", field("custom_state", $.custom_state)),
 
     ovl_item_in_room: ($) =>
       seq(
         "item",
         "in",
         "room",
-        field("item_id", alias($.identifier, $.item_id)),
-        field("room_id", alias($.identifier, $.room_id)),
+        field("item_id", $._item_ref),
+        field("room_id", $._room_ref),
       ),
 
     // ---------------- overlay flag sets --------------------
@@ -235,7 +258,7 @@ module.exports = grammar({
         "overlay",
         "if",
         "flag",
-        field("flag_name", alias($.identifier, $.flag_name)),
+        field("flag_name", $._flag_ref),
         $.flag_binary_block,
       ),
     flag_binary_block: ($) =>
@@ -253,8 +276,8 @@ module.exports = grammar({
         "overlay",
         "if",
         choice(
-          seq("item", field("item_id", alias($.identifier, $.item_id))),
-          seq("npc", field("npc_id", alias($.identifier, $.npc_id))),
+          seq("item", field("item_id", $._item_ref)),
+          seq("npc", field("npc_id", $._npc_ref)),
         ),
         $.presence_pair_block,
       ),
@@ -274,7 +297,7 @@ module.exports = grammar({
         "overlay",
         "if",
         "npc",
-        field("npc_id", alias($.identifier, $.npc_id)),
+        field("npc_id", $._npc_ref),
         "here",
         $.npc_state_set_block,
       ),
@@ -285,12 +308,7 @@ module.exports = grammar({
         field("text", alias($.string, $.ovl_text)),
       ),
     npc_state_set_custom: ($) =>
-      seq(
-        "custom",
-        "(",
-        field("state", alias($.identifier, $.custom_state)),
-        ")",
-      ),
+      seq("custom", "(", field("state", $.custom_state), ")"),
 
     //
     //
@@ -303,12 +321,7 @@ module.exports = grammar({
     //
     //
     //
-    item_def: ($) =>
-      seq(
-        "item",
-        field("item_id", alias($.identifier, $.item_id)),
-        $.item_block,
-      ),
+    item_def: ($) => seq("item", field("item_id", $.item_id), $.item_block),
     item_block: ($) => seq("{", repeat($._item_stmt), "}"),
     _item_stmt: ($) =>
       choice(
@@ -323,20 +336,19 @@ module.exports = grammar({
         $.item_requires_stmt,
         $.item_consumable_stmt,
       ),
-    item_name_stmt: ($) =>
-      seq("name", field("item_name", alias($.string, $.entity_name))),
+    item_name_stmt: ($) => seq("name", field("item_name", $.entity_name)),
     item_desc_stmt: ($) =>
       seq(
         choice("desc", "description"),
-        field("item_description", alias($.string, $.entity_desc)),
+        field("item_description", $.entity_desc),
       ),
     item_loc_stmt: ($) => seq("location", $.item_location),
     item_location: ($) =>
       choice(
         seq("inventory", "player"),
-        seq("room", field("room_id", alias($.identifier, $.room_id))),
-        seq("chest", field("chest_id", alias($.identifier, $.item_id))),
-        seq("npc", field("npc_id", alias($.identifier, $.npc_id))),
+        seq("room", field("room_id", $._room_ref)),
+        seq("chest", field("chest_id", $._item_ref)),
+        seq("npc", field("npc_id", $._npc_ref)),
         seq("nowhere", field("spawn_note", alias($.string, $.dev_note))),
       ),
     item_portable_stmt: ($) => seq("portable", field("portable", $.boolean)),
@@ -345,12 +357,12 @@ module.exports = grammar({
     item_ability_stmt: ($) =>
       seq(
         "ability",
-        field("ability", alias($.identifier, $.item_ability)),
+        field("ability", $.item_ability),
         // ability_target = id of something targeted by this ability e.g. unlock <which_item>
-        optional(field("target_id", alias($.identifier, $.ability_target))),
+        optional(field("target_id", $._item_ref)),
       ),
     item_text_stmt: ($) =>
-      seq("text", field("item_text", alias($.string, $.entity_desc))),
+      seq("text", field("detail_text", alias($.string, $.item_detail_text))),
     item_container_stmt: ($) => seq("container", "state", $.container_state),
     container_state: ($) =>
       choice(
@@ -364,9 +376,9 @@ module.exports = grammar({
     item_requires_stmt: ($) =>
       seq(
         "requires",
-        field("ability", alias($.identifier, $.item_ability)),
+        field("ability", $.item_ability),
         "to",
-        field("interaction", alias($.identifier, $.item_interaction)),
+        field("interaction", $.item_interaction),
       ),
     item_consumable_stmt: ($) => seq("consumable", $.consumable_block),
     consumable_block: ($) => seq("{", repeat($._consumable_stmt), "}"),
@@ -378,11 +390,7 @@ module.exports = grammar({
       ),
     consumable_uses: ($) => seq("uses_left", field("uses_left", $.number)),
     consumable_consume_on: ($) =>
-      seq(
-        "consume_on",
-        "ability",
-        field("ability", alias($.identifier, $.item_ability)),
-      ),
+      seq("consume_on", "ability", field("ability", $.item_ability)),
     consumable_when_consumed: ($) => seq("when_consumed", $.when_consumed_opt),
     when_consumed_opt: ($) =>
       choice(
@@ -390,12 +398,8 @@ module.exports = grammar({
         seq(
           "replace",
           choice(
-            seq("inventory", field("item_id", alias($.identifier, $.item_id))),
-            seq(
-              "current",
-              "room",
-              field("item_id", alias($.identifier, $.item_id)),
-            ),
+            seq("inventory", field("item_id", $._item_ref)),
+            seq("current", "room", field("item_id", $._item_ref)),
           ),
         ),
       ),
@@ -409,8 +413,7 @@ module.exports = grammar({
     //
     //
     //
-    npc_def: ($) =>
-      seq("npc", field("npc_id", alias($.identifier, $.npc_id)), $.npc_block),
+    npc_def: ($) => seq("npc", field("npc_id", $.npc_id), $.npc_block),
     npc_block: ($) => seq("{", repeat($._npc_stmt), "}"),
     _npc_stmt: ($) =>
       choice(
@@ -421,18 +424,17 @@ module.exports = grammar({
         $.npc_movement_stmt,
         $.npc_dialogue_block,
       ),
-    npc_name_stmt: ($) =>
-      seq("name", field("npc_name", alias($.string, $.entity_name))),
+    npc_name_stmt: ($) => seq("name", field("npc_name", $.entity_name)),
     npc_desc_stmt: ($) =>
       seq(
         choice("desc", "description"),
-        field("npc_description", alias($.string, $.entity_desc)),
+        field("npc_description", $.entity_desc),
       ),
     npc_loc_stmt: ($) => seq("location", $.npc_location),
     npc_location: ($) =>
       choice(
         seq("nowhere", field("spawn_note", alias($.string, $.dev_note))),
-        seq("room", field("room_id", alias($.identifier, $.room_id))),
+        seq("room", field("room_id", $._room_ref)),
       ),
     npc_state_stmt: ($) => seq("state", $.npc_state),
 
@@ -447,7 +449,7 @@ module.exports = grammar({
         optional($.loop_stmt),
       ),
     movement_type: ($) => choice("route", "random"),
-    room_list: ($) => seq("(", sep1(alias($.identifier, $.room_id), ","), ")"),
+    room_list: ($) => seq("(", sep1(field("room_id", $._room_ref), ","), ")"),
     timing_stmt: ($) =>
       seq("timing", field("timing", alias($.identifier, $.timing))),
     active_stmt: ($) => seq("active", field("active", $.boolean)),
@@ -507,86 +509,74 @@ module.exports = grammar({
         $.ingest_item,
       ),
     always_event: ($) => "always",
-    enter_room: ($) =>
-      seq("enter", "room", field("room_id", alias($.identifier, $.room_id))),
-    leave_room: ($) =>
-      seq("leave", "room", field("room_id", alias($.identifier, $.room_id))),
-    take_item: ($) =>
-      seq("take", "item", field("item_id", alias($.identifier, $.item_id))),
-    drop_item: ($) =>
-      seq("drop", "item", field("item_id", alias($.identifier, $.item_id))),
-    open_item: ($) =>
-      seq("open", "item", field("item_id", alias($.identifier, $.item_id))),
-    unlock_item: ($) =>
-      seq("unlock", "item", field("item_id", alias($.identifier, $.item_id))),
-    talk_to_npc: ($) =>
-      seq("talk", "to", "npc", field("npc_id", alias($.identifier, $.npc_id))),
+    enter_room: ($) => seq("enter", "room", field("room_id", $._room_ref)),
+    leave_room: ($) => seq("leave", "room", field("room_id", $._room_ref)),
+    take_item: ($) => seq("take", "item", field("item_id", $._item_ref)),
+    drop_item: ($) => seq("drop", "item", field("item_id", $._item_ref)),
+    open_item: ($) => seq("open", "item", field("item_id", $._item_ref)),
+    unlock_item: ($) => seq("unlock", "item", field("item_id", $._item_ref)),
+    talk_to_npc: ($) => seq("talk", "to", "npc", field("npc_id", $._npc_ref)),
     look_at_item: ($) =>
-      seq(
-        "look",
-        "at",
-        "item",
-        field("item_id", alias($.identifier, $.item_id)),
-      ),
+      seq("look", "at", "item", field("item_id", $._item_ref)),
     use_item: ($) =>
       seq(
         "use",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
         "ability",
-        field("ability", alias($.identifier, $.item_ability)),
+        field("ability", $.item_ability),
       ),
     give_to_npc: ($) =>
       seq(
         "give",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
         "to",
         "npc",
-        field("npc_id", alias($.identifier, $.npc_id)),
+        field("npc_id", $._npc_ref),
       ),
     use_item_on_item: ($) =>
       seq(
         "use",
         "item",
-        field("tool_id", alias($.identifier, $.item_id)),
+        field("tool_id", $._item_ref),
         "on",
         "item",
-        field("target_id", alias($.identifier, $.item_id)),
+        field("target_id", $._item_ref),
         "interaction",
-        field("interaction", alias($.identifier, $.item_interaction)),
+        field("interaction", $.item_interaction),
       ),
     act_on_item: ($) =>
       seq(
         "act",
-        field("action", alias($.identifier, $.item_interaction)),
+        field("action", $.item_interaction),
         "on",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
       ),
     take_from_npc: ($) =>
       seq(
         "take",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
         "from",
         "npc",
-        field("npc_id", alias($.identifier, $.npc_id)),
+        field("npc_id", $._npc_ref),
       ),
     insert_item_into: ($) =>
       seq(
         "insert",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
         "into",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
       ),
     ingest_item: ($) =>
       seq(
         choice("drink", "eat", "inhale"),
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
       ),
 
     // start trigger action block, with if and do statements
@@ -617,85 +607,55 @@ module.exports = grammar({
       ),
     cond_any_group: ($) => seq("any", "(", sep1($.trigger_cond, ","), ")"),
     cond_all_group: ($) => seq("all", "(", sep1($.trigger_cond, ","), ")"),
-    cond_has_flag: ($) =>
-      seq("has", "flag", field("flag_name", alias($.identifier, $.flag_name))),
+    cond_has_flag: ($) => seq("has", "flag", field("flag_name", $._flag_ref)),
     cond_missing_flag: ($) =>
-      seq(
-        "missing",
-        "flag",
-        field("flag_name", alias($.identifier, $.flag_name)),
-      ),
-    cond_has_item: ($) =>
-      seq("has", "item", field("item_id", alias($.identifier, $.item_id))),
+      seq("missing", "flag", field("flag_name", $._flag_ref)),
+    cond_has_item: ($) => seq("has", "item", field("item_id", $._item_ref)),
     cond_missing_item: ($) =>
-      seq("missing", "item", field("item_id", alias($.identifier, $.item_id))),
+      seq("missing", "item", field("item_id", $._item_ref)),
     cond_visited_room: ($) =>
-      seq(
-        "has",
-        "visited",
-        "room",
-        field("room_id", alias($.identifier, $.room_id)),
-      ),
+      seq("has", "visited", "room", field("room_id", $._room_ref)),
     cond_flag_in_progress: ($) =>
-      seq(
-        "flag",
-        "in",
-        "progress",
-        field("flag_name", alias($.identifier, $.flag_name)),
-      ),
+      seq("flag", "in", "progress", field("flag_name", $._flag_ref)),
     cond_flag_complete: ($) =>
-      seq(
-        "flag",
-        "complete",
-        field("flag_name", alias($.identifier, $.flag_name)),
-      ),
-    cond_with_npc: ($) =>
-      seq("with", "npc", field("npc_id", alias($.identifier, $.npc_id))),
+      seq("flag", "complete", field("flag_name", $._flag_ref)),
+    cond_with_npc: ($) => seq("with", "npc", field("npc_id", $._npc_ref)),
     cond_npc_has_item: ($) =>
       seq(
         "npc",
         "has",
         "item",
-        field("npc_id", alias($.identifier, $.npc_id)),
-        field("item_id", alias($.identifier, $.item_id)),
+        field("npc_id", $._npc_ref),
+        field("item_id", $._item_ref),
       ),
     cond_npc_in_state: ($) =>
       seq(
         "npc",
         "in",
         "state",
-        field("npc_id", alias($.identifier, $.npc_id)),
-        field("state", alias($.identifier, $.custom_state)),
+        field("npc_id", $._npc_ref),
+        field("state", $.custom_state),
       ),
     cond_player_in_room: ($) =>
-      seq(
-        "player",
-        "in",
-        "room",
-        field("room_id", alias($.identifier, $.room_id)),
-      ),
+      seq("player", "in", "room", field("room_id", $._room_ref)),
     cond_container_has_item: ($) =>
       seq(
         "container",
-        field("container_id", alias($.identifier, $.item_id)),
+        field("container_id", $._item_ref),
         "has",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
       ),
     cond_chance: ($) => seq("chance", field("pct", $.number), "%"),
     cond_ambient: ($) =>
       seq(
         "ambient",
-        field("spinner", alias($.identifier, $.spinner)),
+        field("spinner", $._spinner_ref),
         // If present, prefer consuming commas as part of the inner room list
         // when nested inside grouped conditions like any(...) or all(...).
         optional(
           prec.left(
-            seq(
-              "in",
-              "rooms",
-              sep1(field("room_id", alias($.identifier, $.room_id)), ","),
-            ),
+            seq("in", "rooms", sep1(field("room_id", $._room_ref), ",")),
           ),
         ),
       ),
@@ -704,13 +664,7 @@ module.exports = grammar({
     // identifier that excludes reserved keywords, so outer conditions like
     // 'has flag …' are not swallowed into the room list.
     cond_in_rooms: ($) =>
-      prec.left(
-        seq(
-          "in",
-          "rooms",
-          sep1(field("room_id", alias($.identifier, $.room_id)), ","),
-        ),
-      ),
+      prec.left(seq("in", "rooms", sep1(field("room_id", $._room_ref), ","))),
 
     do_action: ($) => seq("do", $._action_type),
     _action_type: ($) =>
@@ -760,124 +714,106 @@ module.exports = grammar({
         field("text", alias($.string, $.wedge_text)),
         optional(seq("width", $.number)),
         "spinner",
-        field("spinner", alias($.identifier, $.spinner)),
+        field("spinner", $._spinner_ref),
       ),
     action_add_seq: ($) =>
       seq(
         "add",
         "seq",
         "flag",
-        field("flag_name", alias($.identifier, $.flag_name)),
+        field("flag_name", $.flag_name),
         optional(seq("limit", $.number)),
       ),
     action_replace_item: ($) =>
       seq(
         "replace",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
         "with",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
       ),
     action_replace_drop_item: ($) =>
       seq(
         "replace",
         "drop",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
         "with",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
       ),
-    action_add_flag: ($) =>
-      seq("add", "flag", field("flag", alias($.identifier, $.flag_name))),
-    action_reset_flag: ($) =>
-      seq("reset", "flag", field("flag", alias($.identifier, $.flag_name))),
+    action_add_flag: ($) => seq("add", "flag", field("flag", $.flag_name)),
+    action_reset_flag: ($) => seq("reset", "flag", field("flag", $._flag_ref)),
     action_remove_flag: ($) =>
-      seq("remove", "flag", field("flag", alias($.identifier, $.flag_name))),
+      seq("remove", "flag", field("flag", $._flag_ref)),
     action_advance_flag: ($) =>
-      seq("advance", "flag", field("flag", alias($.identifier, $.flag_name))),
+      seq("advance", "flag", field("flag", $._flag_ref)),
     spawn_action_stem: ($) =>
-      seq("spawn", "item", field("item_id", alias($.identifier, $.item_id))),
+      seq("spawn", "item", field("item_id", $._item_ref)),
     action_spawn_room: ($) =>
-      seq(
-        $.spawn_action_stem,
-        "into",
-        "room",
-        field("room", alias($.identifier, $.room_id)),
-      ),
+      seq($.spawn_action_stem, "into", "room", field("room", $._room_ref)),
     action_spawn_container: ($) =>
       seq(
         $.spawn_action_stem,
         choice("into", "in"),
         "container",
-        field("container_id", alias($.identifier, $.item_id)),
+        field("container_id", $._item_ref),
       ),
     action_spawn_inventory: ($) => seq($.spawn_action_stem, "in", "inventory"),
     action_spawn_current_room: ($) =>
       seq($.spawn_action_stem, "in", "current", "room"),
     action_despawn_item: ($) =>
-      seq("despawn", "item", field("item_id", alias($.identifier, $.item_id))),
+      seq("despawn", "item", field("item_id", $._item_ref)),
     action_award_points: ($) =>
       seq("award", "points", field("points", $.number)),
-    action_lock_item: ($) =>
-      seq("lock", "item", field("item_id", alias($.identifier, $.item_id))),
+    action_lock_item: ($) => seq("lock", "item", field("item_id", $._item_ref)),
     action_unlock_item: ($) =>
-      seq("unlock", "item", field("item_id", alias($.identifier, $.item_id))),
+      seq("unlock", "item", field("item_id", $._item_ref)),
     action_lock_exit: ($) =>
       seq(
         "lock",
         "exit",
         "from",
-        field("room_id", alias($.identifier, $.room_id)),
+        field("room_id", $._room_ref),
         "direction",
-        field("direction", alias(choice($.identifier, $.string), $.exit_dir)),
+        field("direction", $.exit_dir),
       ),
     action_unlock_exit: ($) =>
       seq(
         "unlock",
         "exit",
         "from",
-        field("room_id", alias($.identifier, $.room_id)),
+        field("room_id", $._room_ref),
         "direction",
-        field("direction", alias(choice($.identifier, $.string), $.exit_dir)),
+        field("direction", $.exit_dir),
       ),
     action_reveal_exit: ($) =>
       seq(
         "reveal",
         "exit",
         "from",
-        field("from_room", alias($.identifier, $.room_id)),
+        field("from_room", $._room_ref),
         "to",
-        field("to_room", alias($.identifier, $.room_id)),
+        field("to_room", $._room_ref),
         "direction",
-        field("direction", alias(choice($.identifier, $.string), $.exit_dir)),
+        field("direction", $.exit_dir),
       ),
     action_push_player: ($) =>
-      seq(
-        "push",
-        "player",
-        "to",
-        field("room_id", alias($.identifier, $.room_id)),
-      ),
+      seq("push", "player", "to", field("room_id", $._room_ref)),
     action_set_item_desc: ($) =>
       seq(
         "set",
         "item",
         "description",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
         field("text", alias($.string, $.entity_desc)),
       ),
     action_npc_random_dialogue: ($) =>
-      seq(
-        "npc",
-        "random",
-        "dialogue",
-        field("npc_id", alias($.identifier, $.npc_id)),
-      ),
+      seq("npc", "random", "dialogue", field("npc_id", $._npc_ref)),
     action_npc_says: ($) =>
       seq(
         "npc",
         "says",
-        field("npc_id", alias($.identifier, $.npc_id)),
+        field("npc_id", $._npc_ref),
         field("text", alias($.string, $.quote)),
       ),
     action_npc_refuse_item: ($) =>
@@ -885,39 +821,33 @@ module.exports = grammar({
         "npc",
         "refuse",
         "item",
-        field("npc_id", alias($.identifier, $.npc_id)),
+        field("npc_id", $._npc_ref),
         field("reason", alias($.string, $.player_message)),
       ),
     action_set_npc_active: ($) =>
-      seq(
-        "set",
-        "npc",
-        "active",
-        field("npc_id", alias($.identifier, $.npc_id)),
-        $.boolean,
-      ),
+      seq("set", "npc", "active", field("npc_id", $._npc_ref), $.boolean),
     action_set_npc_state: ($) =>
       seq(
         "set",
         "npc",
         "state",
-        field("npc_id", alias($.identifier, $.npc_id)),
-        field("state", alias($.identifier, $.custom_state)),
+        field("npc_id", $._npc_ref),
+        field("state", $.custom_state),
       ),
     action_deny_read: ($) =>
       seq("deny", "read", field("reason", alias($.string, $.player_message))),
     action_restrict_item: ($) =>
-      seq("restrict", "item", field("item_id", alias($.identifier, $.item_id))),
+      seq("restrict", "item", field("item_id", $._item_ref)),
     action_give_to_player: ($) =>
       seq(
         "give",
         "item",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
         "to",
         "player",
         "from",
         "npc",
-        field("npc_id", alias($.identifier, $.npc_id)),
+        field("npc_id", $._npc_ref),
       ),
     action_set_barred_msg: ($) =>
       seq(
@@ -925,9 +855,9 @@ module.exports = grammar({
         "barred",
         "message",
         "from",
-        field("room_id", alias($.identifier, $.room_id)),
+        field("room_id", $._room_ref),
         "to",
-        field("room_id", alias($.identifier, $.room_id)),
+        field("room_id", $._room_ref),
         field("msg", alias($.string, $.player_message)),
       ),
     action_set_container_state: ($) =>
@@ -935,15 +865,11 @@ module.exports = grammar({
         "set",
         "container",
         "state",
-        field("item_id", alias($.identifier, $.item_id)),
+        field("item_id", $._item_ref),
         $.container_state,
       ),
     action_spinner_msg: ($) =>
-      seq(
-        "spinner",
-        "message",
-        field("spinner", alias($.identifier, $.spinner)),
-      ),
+      seq("spinner", "message", field("spinner", $._spinner_ref)),
 
     // scheduler actions
     schedule_note: ($) =>
@@ -991,11 +917,7 @@ module.exports = grammar({
     //
     //
     spinner_def: ($) =>
-      seq(
-        "spinner",
-        field("name", alias($.identifier, $.spinner)),
-        $.spinner_block,
-      ),
+      seq("spinner", field("name", $.spinner_id), $.spinner_block),
     spinner_block: ($) => seq("{", repeat1($.spinner_stmt), "}"),
     spinner_stmt: ($) =>
       seq(
@@ -1015,12 +937,7 @@ module.exports = grammar({
     //
     //
     //
-    goal_def: ($) =>
-      seq(
-        "goal",
-        field("goal_id", alias($.identifier, $.goal_id)),
-        $.goal_block,
-      ),
+    goal_def: ($) => seq("goal", field("goal_id", $.goal_id), $.goal_block),
     goal_block: ($) => seq("{", repeat1($._goal_stmt), "}"),
     _goal_stmt: ($) =>
       choice(
@@ -1059,33 +976,18 @@ module.exports = grammar({
         $.gc_flag_progress,
         $.gc_flag_complete,
       ),
-    gc_has_flag: ($) =>
-      seq("has", "flag", field("flag_name", alias($.identifier, $.flag_name))),
+    gc_has_flag: ($) => seq("has", "flag", field("flag_name", $._flag_ref)),
     gc_missing_flag: ($) =>
-      seq(
-        "missing",
-        "flag",
-        field("flag_name", alias($.identifier, $.flag_name)),
-      ),
-    gc_has_item: ($) =>
-      seq("has", "item", field("item_id", alias($.identifier, $.item_id))),
+      seq("missing", "flag", field("flag_name", $._flag_ref)),
+    gc_has_item: ($) => seq("has", "item", field("item_id", $._item_ref)),
     gc_reached_room: ($) =>
-      seq("reached", "room", field("room_id", alias($.identifier, $.room_id))),
+      seq("reached", "room", field("room_id", $._room_ref)),
     gc_goal_complete: ($) =>
-      seq("goal", "complete", field("goal_id", alias($.identifier, $.goal_id))),
+      seq("goal", "complete", field("goal_id", $._goal_ref)),
     gc_flag_progress: ($) =>
-      seq(
-        "flag",
-        "in",
-        "progress",
-        field("flag_name", alias($.identifier, $.flag_name)),
-      ),
+      seq("flag", "in", "progress", field("flag_name", $._flag_ref)),
     gc_flag_complete: ($) =>
-      seq(
-        "flag",
-        "complete",
-        field("flag_name", alias($.identifier, $.flag_name)),
-      ),
+      seq("flag", "complete", field("flag_name", $._flag_ref)),
   },
 });
 
