@@ -2692,73 +2692,8 @@
       ]
     },
     "when_cond": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "always_event"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "enter_room"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "take_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "talk_to_npc"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "open_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "leave_room"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "look_at_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "use_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "give_to_npc"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "use_item_on_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "act_on_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "take_from_npc"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "insert_item_into"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "drop_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "unlock_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "ingest_item"
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "_when_event"
     },
     "always_event": {
       "type": "STRING",

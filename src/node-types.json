@@ -398,6 +398,76 @@
     ]
   },
   {
+    "type": "_when_event",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "act_on_item",
+        "named": true
+      },
+      {
+        "type": "always_event",
+        "named": true
+      },
+      {
+        "type": "drop_item",
+        "named": true
+      },
+      {
+        "type": "enter_room",
+        "named": true
+      },
+      {
+        "type": "give_to_npc",
+        "named": true
+      },
+      {
+        "type": "ingest_item",
+        "named": true
+      },
+      {
+        "type": "insert_item_into",
+        "named": true
+      },
+      {
+        "type": "leave_room",
+        "named": true
+      },
+      {
+        "type": "look_at_item",
+        "named": true
+      },
+      {
+        "type": "open_item",
+        "named": true
+      },
+      {
+        "type": "take_from_npc",
+        "named": true
+      },
+      {
+        "type": "take_item",
+        "named": true
+      },
+      {
+        "type": "talk_to_npc",
+        "named": true
+      },
+      {
+        "type": "unlock_item",
+        "named": true
+      },
+      {
+        "type": "use_item",
+        "named": true
+      },
+      {
+        "type": "use_item_on_item",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "act_on_item",
     "named": true,
     "fields": {
@@ -3895,67 +3965,7 @@
       "required": true,
       "types": [
         {
-          "type": "act_on_item",
-          "named": true
-        },
-        {
-          "type": "always_event",
-          "named": true
-        },
-        {
-          "type": "drop_item",
-          "named": true
-        },
-        {
-          "type": "enter_room",
-          "named": true
-        },
-        {
-          "type": "give_to_npc",
-          "named": true
-        },
-        {
-          "type": "ingest_item",
-          "named": true
-        },
-        {
-          "type": "insert_item_into",
-          "named": true
-        },
-        {
-          "type": "leave_room",
-          "named": true
-        },
-        {
-          "type": "look_at_item",
-          "named": true
-        },
-        {
-          "type": "open_item",
-          "named": true
-        },
-        {
-          "type": "take_from_npc",
-          "named": true
-        },
-        {
-          "type": "take_item",
-          "named": true
-        },
-        {
-          "type": "talk_to_npc",
-          "named": true
-        },
-        {
-          "type": "unlock_item",
-          "named": true
-        },
-        {
-          "type": "use_item",
-          "named": true
-        },
-        {
-          "type": "use_item_on_item",
+          "type": "_when_event",
           "named": true
         }
       ]

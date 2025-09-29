@@ -536,25 +536,7 @@ module.exports = grammar({
       ),
 
     // "when" conditions / triggering events
-    when_cond: ($) =>
-      choice(
-        $.always_event,
-        $.enter_room,
-        $.take_item,
-        $.talk_to_npc,
-        $.open_item,
-        $.leave_room,
-        $.look_at_item,
-        $.use_item,
-        $.give_to_npc,
-        $.use_item_on_item,
-        $.act_on_item,
-        $.take_from_npc,
-        $.insert_item_into,
-        $.drop_item,
-        $.unlock_item,
-        $.ingest_item,
-      ),
+    when_cond: ($) => $._when_event,
     always_event: ($) => "always",
     enter_room: ($) => seq("enter", "room", field("room_id", $._room_ref)),
     leave_room: ($) => seq("leave", "room", field("room_id", $._room_ref)),
