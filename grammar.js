@@ -26,6 +26,10 @@ module.exports = grammar({
     $._npc_stmt,
     $._goal_stmt,
     $._trigger_stmt,
+    $._when_event,
+    $._trigger_cond_atom,
+    $._action_type,
+    $._goal_cond,
   ],
 
   rules: {
@@ -487,6 +491,49 @@ module.exports = grammar({
     only_once_kw: ($) => seq("only", "once"),
     trigger_note: ($) =>
       seq("note", field("trigger_note", alias($.string, $.dev_note))),
+
+    // All "when ..." event variants (do not hide when_cond itself)
+    _when_event: ($) =>
+      choice(
+        $.always_event,
+        $.enter_room,
+        $.take_item,
+        $.talk_to_npc,
+        $.open_item,
+        $.leave_room,
+        $.look_at_item,
+        $.use_item,
+        $.give_to_npc,
+        $.use_item_on_item,
+        $.act_on_item,
+        $.take_from_npc,
+        $.insert_item_into,
+        $.drop_item,
+        $.unlock_item,
+        $.ingest_item,
+      ),
+
+    // All condition variants (keep trigger_cond visible)
+    _trigger_cond_atom: ($) =>
+      choice(
+        $.cond_any_group,
+        $.cond_all_group,
+        $.cond_has_flag,
+        $.cond_missing_flag,
+        $.cond_has_item,
+        $.cond_missing_item,
+        $.cond_visited_room,
+        $.cond_flag_in_progress,
+        $.cond_flag_complete,
+        $.cond_with_npc,
+        $.cond_npc_has_item,
+        $.cond_npc_in_state,
+        $.cond_player_in_room,
+        $.cond_container_has_item,
+        $.cond_chance,
+        $.cond_ambient,
+        $.cond_in_rooms,
+      ),
 
     // "when" conditions / triggering events
     when_cond: ($) =>
