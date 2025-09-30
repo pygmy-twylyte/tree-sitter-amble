@@ -614,26 +614,8 @@ module.exports = grammar({
 
     cond_block: ($) =>
       seq("if", $.trigger_cond, "{", repeat1($.do_action), "}"),
-    trigger_cond: ($) =>
-      choice(
-        $.cond_any_group,
-        $.cond_all_group,
-        $.cond_has_flag,
-        $.cond_missing_flag,
-        $.cond_has_item,
-        $.cond_missing_item,
-        $.cond_visited_room,
-        $.cond_flag_in_progress,
-        $.cond_flag_complete,
-        $.cond_with_npc,
-        $.cond_npc_has_item,
-        $.cond_npc_in_state,
-        $.cond_player_in_room,
-        $.cond_container_has_item,
-        $.cond_chance,
-        $.cond_ambient,
-        $.cond_in_rooms,
-      ),
+    trigger_cond: ($) => $._trigger_cond_atom,
+
     cond_any_group: ($) => seq("any", "(", sep1($.trigger_cond, ","), ")"),
     cond_all_group: ($) => seq("all", "(", sep1($.trigger_cond, ","), ")"),
     cond_has_flag: ($) => seq("has", "flag", field("flag_name", $._flag_ref)),

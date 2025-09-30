@@ -384,6 +384,80 @@
     ]
   },
   {
+    "type": "_trigger_cond_atom",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "cond_all_group",
+        "named": true
+      },
+      {
+        "type": "cond_ambient",
+        "named": true
+      },
+      {
+        "type": "cond_any_group",
+        "named": true
+      },
+      {
+        "type": "cond_chance",
+        "named": true
+      },
+      {
+        "type": "cond_container_has_item",
+        "named": true
+      },
+      {
+        "type": "cond_flag_complete",
+        "named": true
+      },
+      {
+        "type": "cond_flag_in_progress",
+        "named": true
+      },
+      {
+        "type": "cond_has_flag",
+        "named": true
+      },
+      {
+        "type": "cond_has_item",
+        "named": true
+      },
+      {
+        "type": "cond_in_rooms",
+        "named": true
+      },
+      {
+        "type": "cond_missing_flag",
+        "named": true
+      },
+      {
+        "type": "cond_missing_item",
+        "named": true
+      },
+      {
+        "type": "cond_npc_has_item",
+        "named": true
+      },
+      {
+        "type": "cond_npc_in_state",
+        "named": true
+      },
+      {
+        "type": "cond_player_in_room",
+        "named": true
+      },
+      {
+        "type": "cond_visited_room",
+        "named": true
+      },
+      {
+        "type": "cond_with_npc",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_trigger_stmt",
     "named": true,
     "subtypes": [
@@ -3743,71 +3817,7 @@
       "required": true,
       "types": [
         {
-          "type": "cond_all_group",
-          "named": true
-        },
-        {
-          "type": "cond_ambient",
-          "named": true
-        },
-        {
-          "type": "cond_any_group",
-          "named": true
-        },
-        {
-          "type": "cond_chance",
-          "named": true
-        },
-        {
-          "type": "cond_container_has_item",
-          "named": true
-        },
-        {
-          "type": "cond_flag_complete",
-          "named": true
-        },
-        {
-          "type": "cond_flag_in_progress",
-          "named": true
-        },
-        {
-          "type": "cond_has_flag",
-          "named": true
-        },
-        {
-          "type": "cond_has_item",
-          "named": true
-        },
-        {
-          "type": "cond_in_rooms",
-          "named": true
-        },
-        {
-          "type": "cond_missing_flag",
-          "named": true
-        },
-        {
-          "type": "cond_missing_item",
-          "named": true
-        },
-        {
-          "type": "cond_npc_has_item",
-          "named": true
-        },
-        {
-          "type": "cond_npc_in_state",
-          "named": true
-        },
-        {
-          "type": "cond_player_in_room",
-          "named": true
-        },
-        {
-          "type": "cond_visited_room",
-          "named": true
-        },
-        {
-          "type": "cond_with_npc",
+          "type": "_trigger_cond_atom",
           "named": true
         }
       ]

@@ -3197,77 +3197,8 @@
       ]
     },
     "trigger_cond": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "cond_any_group"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_all_group"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_has_flag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_missing_flag"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_has_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_missing_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_visited_room"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_flag_in_progress"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_flag_complete"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_with_npc"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_npc_has_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_npc_in_state"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_player_in_room"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_container_has_item"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_chance"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_ambient"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cond_in_rooms"
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "_trigger_cond_atom"
     },
     "cond_any_group": {
       "type": "SEQ",
