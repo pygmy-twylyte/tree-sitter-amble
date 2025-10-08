@@ -2566,6 +2566,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "touch_item"
+        },
+        {
+          "type": "SYMBOL",
           "name": "talk_to_npc"
         },
         {
@@ -2747,6 +2751,27 @@
         {
           "type": "STRING",
           "value": "take"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_item_ref"
+          }
+        }
+      ]
+    },
+    "touch_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "touch"
         },
         {
           "type": "STRING",

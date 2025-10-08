@@ -1,4 +1,4 @@
-trigger "Basic Trigger" when enter room cheers-bar {
+trigger "Basic Trigger" when touch item jail-cell {
     do show "The customers yell, \"Norm!\"."
 }
 

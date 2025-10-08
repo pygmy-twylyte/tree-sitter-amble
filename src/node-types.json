@@ -528,6 +528,10 @@
         "named": true
       },
       {
+        "type": "touch_item",
+        "named": true
+      },
+      {
         "type": "unlock_item",
         "named": true
       },
@@ -3794,6 +3798,22 @@
     }
   },
   {
+    "type": "touch_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_item_ref",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "trigger_block",
     "named": true,
     "fields": {},
@@ -4496,11 +4516,11 @@
   },
   {
     "type": "timing",
-    "named": false
+    "named": true
   },
   {
     "type": "timing",
-    "named": true
+    "named": false
   },
   {
     "type": "tired",
@@ -4508,6 +4528,10 @@
   },
   {
     "type": "to",
+    "named": false
+  },
+  {
+    "type": "touch",
     "named": false
   },
   {

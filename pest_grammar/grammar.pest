@@ -1,5 +1,5 @@
-// Amble DSL (amble_script?) 1.0-rc
-// Language for game content creation, compiled into TOML that can be used by amble_engine.
+// Minimal grammar for the first iteration of Amble's trigger DSL
+// Supports only triggers for now.
 
 COMMENT    = _{ "#" ~ (!NEWLINE ~ ANY)* }
 WHITESPACE = _{ " " | "\t" | NEWLINE | COMMENT }
@@ -18,6 +18,7 @@ keyword = {
   | "room"
   | "take"
   | "drop"
+  | "touch"
   | "look"
   | "at"
   | "ability"
@@ -60,6 +61,9 @@ keyword = {
   | "barred"
   | "message"
   | "loop"
+  | "eat"
+  | "drink"
+  | "inhale"
   | "consumable"
   | "container"
   | "fail"
@@ -68,6 +72,7 @@ keyword = {
   | "when_consumed"
   | "inventory"
   | "current"
+  | "requires"
   | "has"
   | "missing"
   | "visited"
@@ -133,11 +138,12 @@ note_kw      = { "note" ~ string }
 trigger = { "trigger" ~ string ~ (only_once_kw | note_kw)* ~ "when" ~ when_cond ~ block }
 
 // Event ("when") conditions supported in this iteration
-when_cond        = { always_event | enter_room | leave_room | look_at_item | open_item | use_item_on_item | use_item | give_to_npc | take_from_npc | insert_item_into | take_item | drop_item | unlock_item | talk_to_npc | act_on_item }
+when_cond        = { always_event | enter_room | leave_room | look_at_item | touch_item | open_item | use_item_on_item | use_item | give_to_npc | take_from_npc | insert_item_into | take_item | drop_item | unlock_item | talk_to_npc | act_on_item | ingest_item }
 always_event     = { "always" }
 enter_room       = { "enter" ~ "room" ~ ident }
 take_item        = { "take" ~ "item" ~ ident }
 talk_to_npc      = { "talk" ~ "to" ~ "npc" ~ ident }
+touch_item       = { "touch" ~ "item" ~ ident }
 open_item        = { "open" ~ "item" ~ ident }
 leave_room       = { "leave" ~ "room" ~ ident }
 look_at_item     = { "look" ~ "at" ~ "item" ~ ident }
@@ -149,6 +155,8 @@ take_from_npc    = { "take" ~ "item" ~ ident ~ "from" ~ "npc" ~ ident }
 insert_item_into = { "insert" ~ "item" ~ ident ~ "into" ~ "item" ~ ident }
 drop_item        = { "drop" ~ "item" ~ ident }
 unlock_item      = { "unlock" ~ "item" ~ ident }
+ingest_item      = { ingest_mode ~ "item" ~ ident }
+ingest_mode      = { "eat" | "drink" | "inhale" }
 
 block = { "{" ~ stmt_block ~ "}" }
 
