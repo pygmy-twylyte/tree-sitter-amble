@@ -1,0 +1,18 @@
+# test file after adding npc spawn/despawn actions to grammar
+npc spawner {
+    name "Spawner"
+    desc "A character who spawns... but not like a salmon."
+    location nowhere "spawns for no reason in a bare test room"
+}
+
+room spawning-ground {
+    name "Spawning Ground"
+    desc "A place for spawning, but not one a salmon would like."
+}
+
+trigger "Spawner Test"
+note "test to see if we can parse the spawn commands without errors"
+when always {
+    do spawn npc spawner into room spawning-ground
+    do despawn npc spawner
+}
