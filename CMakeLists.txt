@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-amble
-        VERSION "0.10.0"
+        VERSION "0.11.0"
         DESCRIPTION "DSL for the Amble game engine."
         HOMEPAGE_URL "https://github.com/pygmy-twylyte/tree-sitter-amble.git"
         LANGUAGES C)
