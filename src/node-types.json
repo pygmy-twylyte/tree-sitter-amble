@@ -32,6 +32,10 @@
         "named": true
       },
       {
+        "type": "action_despawn_npc",
+        "named": true
+      },
+      {
         "type": "action_give_to_player",
         "named": true
       },
@@ -125,6 +129,10 @@
       },
       {
         "type": "action_spawn_inventory",
+        "named": true
+      },
+      {
+        "type": "action_spawn_npc_into_room",
         "named": true
       },
       {
@@ -714,6 +722,22 @@
     }
   },
   {
+    "type": "action_despawn_npc",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_npc_ref",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "action_give_to_player",
     "named": true,
     "fields": {
@@ -1249,6 +1273,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "action_spawn_npc_into_room",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_npc_ref",
+            "named": true
+          }
+        ]
+      },
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_room_ref",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -4516,11 +4566,11 @@
   },
   {
     "type": "timing",
-    "named": true
+    "named": false
   },
   {
     "type": "timing",
-    "named": false
+    "named": true
   },
   {
     "type": "tired",

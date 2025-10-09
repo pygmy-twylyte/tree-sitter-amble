@@ -695,6 +695,8 @@ module.exports = grammar({
         $.action_spawn_container,
         $.action_spawn_inventory,
         $.action_spawn_current_room,
+        $.action_spawn_npc_into_room,
+        $.action_despawn_npc,
         $.action_despawn_item,
         $.action_award_points,
         $.action_lock_item,
@@ -774,6 +776,17 @@ module.exports = grammar({
     action_spawn_inventory: ($) => seq($.spawn_action_stem, "in", "inventory"),
     action_spawn_current_room: ($) =>
       seq($.spawn_action_stem, "in", "current", "room"),
+    action_spawn_npc_into_room: ($) =>
+      seq(
+        "spawn",
+        "npc",
+        field("npc_id", $._npc_ref),
+        "into",
+        "room",
+        field("room_id", $._room_ref),
+      ),
+    action_despawn_npc: ($) =>
+      seq("despawn", "npc", field("npc_id", $._npc_ref)),
     action_despawn_item: ($) =>
       seq("despawn", "item", field("item_id", $._item_ref)),
     action_award_points: ($) =>

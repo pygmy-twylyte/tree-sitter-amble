@@ -3825,6 +3825,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "action_spawn_npc_into_room"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_despawn_npc"
+        },
+        {
+          "type": "SYMBOL",
           "name": "action_despawn_item"
         },
         {
@@ -4309,6 +4317,64 @@
         {
           "type": "STRING",
           "value": "room"
+        }
+      ]
+    },
+    "action_spawn_npc_into_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "spawn"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_npc_ref"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "into"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_room_ref"
+          }
+        }
+      ]
+    },
+    "action_despawn_npc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "despawn"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_npc_ref"
+          }
         }
       ]
     },
