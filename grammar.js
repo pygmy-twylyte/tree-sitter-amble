@@ -682,6 +682,7 @@ module.exports = grammar({
     do_action: ($) => seq("do", $._action_type),
     _action_type: ($) =>
       choice(
+        $.action_modify_item,
         $.action_show,
         $.action_add_wedge,
         $.action_add_seq,
@@ -720,6 +721,41 @@ module.exports = grammar({
         $.action_schedule_in_or_on,
         $.action_schedule_in_if,
       ),
+    action_modify_item: ($) =>
+      seq("modify", "item", field("item_id", $._item_ref), $.item_patch_block),
+    item_patch_block: ($) => seq("{", repeat1($._item_patch_stmt), "}"),
+    _item_patch_stmt: ($) =>
+      choice(
+        $.item_patch_name,
+        $.item_patch_desc,
+        $.item_patch_text,
+        $.item_patch_portable,
+        $.item_patch_restricted,
+        $.item_patch_container_state,
+        $.item_patch_add_ability,
+        $.item_patch_remove_ability,
+      ),
+    item_patch_name: ($) => seq("name", field("name", $.entity_name)),
+    item_patch_desc: ($) =>
+      seq(choice("desc", "description"), field("description", $.entity_desc)),
+    item_patch_text: ($) => seq("text", field("text", $.string)),
+    item_patch_portable: ($) => seq("portable", field("portable", $.boolean)),
+    item_patch_restricted: ($) =>
+      seq("restricted", field("restricted", $.boolean)),
+    item_patch_container_state: ($) =>
+      seq("container", "state", field("container_state", $.off_or_state)),
+    off_or_state: ($) => choice("off", $.container_state),
+    item_patch_add_ability: ($) =>
+      seq("add", "ability", field("ability", $.patch_ability)),
+    item_patch_remove_ability: ($) =>
+      seq("remove", "ability", field("ability", $.patch_ability)),
+    patch_ability: ($) =>
+      seq(
+        field("ability_name", alias($.identifier, $.ability_name)),
+        optional($.ability_target),
+      ),
+    ability_target: ($) => seq("(", field("item", $._item_ref), ")"),
+
     action_show: ($) =>
       seq("show", field("text", alias($.string, $.player_message))),
     action_add_wedge: ($) =>

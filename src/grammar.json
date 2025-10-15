@@ -3773,6 +3773,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "action_modify_item"
+        },
+        {
+          "type": "SYMBOL",
           "name": "action_show"
         },
         {
@@ -3918,6 +3922,309 @@
         {
           "type": "SYMBOL",
           "name": "action_schedule_in_if"
+        }
+      ]
+    },
+    "action_modify_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "modify"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_item_ref"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_patch_block"
+        }
+      ]
+    },
+    "item_patch_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_item_patch_stmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "_item_patch_stmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "item_patch_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_patch_desc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_patch_text"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_patch_portable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_patch_restricted"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_patch_container_state"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_patch_add_ability"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "item_patch_remove_ability"
+        }
+      ]
+    },
+    "item_patch_name": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "name"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_name"
+          }
+        }
+      ]
+    },
+    "item_patch_desc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "desc"
+            },
+            {
+              "type": "STRING",
+              "value": "description"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "description",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_desc"
+          }
+        }
+      ]
+    },
+    "item_patch_text": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "text"
+        },
+        {
+          "type": "FIELD",
+          "name": "text",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "item_patch_portable": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "portable"
+        },
+        {
+          "type": "FIELD",
+          "name": "portable",
+          "content": {
+            "type": "SYMBOL",
+            "name": "boolean"
+          }
+        }
+      ]
+    },
+    "item_patch_restricted": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "restricted"
+        },
+        {
+          "type": "FIELD",
+          "name": "restricted",
+          "content": {
+            "type": "SYMBOL",
+            "name": "boolean"
+          }
+        }
+      ]
+    },
+    "item_patch_container_state": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "container"
+        },
+        {
+          "type": "STRING",
+          "value": "state"
+        },
+        {
+          "type": "FIELD",
+          "name": "container_state",
+          "content": {
+            "type": "SYMBOL",
+            "name": "off_or_state"
+          }
+        }
+      ]
+    },
+    "off_or_state": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "off"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "container_state"
+        }
+      ]
+    },
+    "item_patch_add_ability": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "add"
+        },
+        {
+          "type": "STRING",
+          "value": "ability"
+        },
+        {
+          "type": "FIELD",
+          "name": "ability",
+          "content": {
+            "type": "SYMBOL",
+            "name": "patch_ability"
+          }
+        }
+      ]
+    },
+    "item_patch_remove_ability": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "remove"
+        },
+        {
+          "type": "STRING",
+          "value": "ability"
+        },
+        {
+          "type": "FIELD",
+          "name": "ability",
+          "content": {
+            "type": "SYMBOL",
+            "name": "patch_ability"
+          }
+        }
+      ]
+    },
+    "patch_ability": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "ability_name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "ability_name"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "ability_target"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "ability_target": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "item",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_item_ref"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },

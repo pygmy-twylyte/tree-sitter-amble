@@ -48,6 +48,10 @@
         "named": true
       },
       {
+        "type": "action_modify_item",
+        "named": true
+      },
+      {
         "type": "action_npc_random_dialogue",
         "named": true
       },
@@ -554,6 +558,22 @@
     ]
   },
   {
+    "type": "ability_target",
+    "named": true,
+    "fields": {
+      "item": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_item_ref",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "act_on_item",
     "named": true,
     "fields": {
@@ -803,6 +823,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "action_modify_item",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_item_ref",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "item_patch_block",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2580,6 +2626,177 @@
     }
   },
   {
+    "type": "item_patch_add_ability",
+    "named": true,
+    "fields": {
+      "ability": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "patch_ability",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_patch_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "item_patch_add_ability",
+          "named": true
+        },
+        {
+          "type": "item_patch_container_state",
+          "named": true
+        },
+        {
+          "type": "item_patch_desc",
+          "named": true
+        },
+        {
+          "type": "item_patch_name",
+          "named": true
+        },
+        {
+          "type": "item_patch_portable",
+          "named": true
+        },
+        {
+          "type": "item_patch_remove_ability",
+          "named": true
+        },
+        {
+          "type": "item_patch_restricted",
+          "named": true
+        },
+        {
+          "type": "item_patch_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "item_patch_container_state",
+    "named": true,
+    "fields": {
+      "container_state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "off_or_state",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_patch_desc",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_patch_name",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_patch_portable",
+    "named": true,
+    "fields": {
+      "portable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "boolean",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_patch_remove_ability",
+    "named": true,
+    "fields": {
+      "ability": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "patch_ability",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_patch_restricted",
+    "named": true,
+    "fields": {
+      "restricted": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "boolean",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_patch_text",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "item_portable_stmt",
     "named": true,
     "fields": {
@@ -3014,6 +3231,21 @@
     }
   },
   {
+    "type": "off_or_state",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "container_state",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "only_once_kw",
     "named": true,
     "fields": {}
@@ -3311,6 +3543,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "patch_ability",
+    "named": true,
+    "fields": {
+      "ability_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ability_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "ability_target",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3774,6 +4032,11 @@
     "fields": {}
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "take_from_npc",
     "named": true,
     "fields": {
@@ -4096,6 +4359,10 @@
     "named": false
   },
   {
+    "type": "ability_name",
+    "named": true
+  },
+  {
     "type": "absent",
     "named": false
   },
@@ -4365,6 +4632,10 @@
     "named": false
   },
   {
+    "type": "modify",
+    "named": false
+  },
+  {
     "type": "movement",
     "named": false
   },
@@ -4395,6 +4666,10 @@
   {
     "type": "number",
     "named": true
+  },
+  {
+    "type": "off",
+    "named": false
   },
   {
     "type": "on",
@@ -4566,11 +4841,11 @@
   },
   {
     "type": "timing",
-    "named": false
+    "named": true
   },
   {
     "type": "timing",
-    "named": true
+    "named": false
   },
   {
     "type": "tired",
