@@ -52,6 +52,10 @@
         "named": true
       },
       {
+        "type": "action_modify_room",
+        "named": true
+      },
+      {
         "type": "action_npc_random_dialogue",
         "named": true
       },
@@ -846,6 +850,32 @@
       "types": [
         {
           "type": "item_patch_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_modify_room",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_room_ref",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "room_patch_block",
           "named": true
         }
       ]
@@ -3789,6 +3819,117 @@
         "types": [
           {
             "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "room_patch_add_exit",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_room_ref",
+            "named": true
+          }
+        ]
+      },
+      "direction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "exit_dir",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "exit_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "room_patch_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "room_patch_add_exit",
+          "named": true
+        },
+        {
+          "type": "room_patch_desc",
+          "named": true
+        },
+        {
+          "type": "room_patch_name",
+          "named": true
+        },
+        {
+          "type": "room_patch_remove_exit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "room_patch_desc",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "room_patch_name",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "room_patch_remove_exit",
+    "named": true,
+    "fields": {
+      "direction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "exit_dir",
             "named": true
           }
         ]

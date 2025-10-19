@@ -683,6 +683,7 @@ module.exports = grammar({
     _action_type: ($) =>
       choice(
         $.action_modify_item,
+        $.action_modify_room,
         $.action_show,
         $.action_add_wedge,
         $.action_add_seq,
@@ -723,6 +724,8 @@ module.exports = grammar({
       ),
     action_modify_item: ($) =>
       seq("modify", "item", field("item_id", $._item_ref), $.item_patch_block),
+    action_modify_room: ($) =>
+      seq("modify", "room", field("room_id", $._room_ref), $.room_patch_block),
     item_patch_block: ($) => seq("{", repeat1($._item_patch_stmt), "}"),
     _item_patch_stmt: ($) =>
       choice(
@@ -755,6 +758,28 @@ module.exports = grammar({
         optional($.ability_target),
       ),
     ability_target: ($) => seq("(", field("item", $._item_ref), ")"),
+    room_patch_block: ($) => seq("{", repeat1($._room_patch_stmt), "}"),
+    _room_patch_stmt: ($) =>
+      choice(
+        $.room_patch_name,
+        $.room_patch_desc,
+        $.room_patch_remove_exit,
+        $.room_patch_add_exit,
+      ),
+    room_patch_name: ($) => seq("name", field("name", $.entity_name)),
+    room_patch_desc: ($) =>
+      seq(choice("desc", "description"), field("description", $.entity_desc)),
+    room_patch_remove_exit: ($) =>
+      seq("remove", "exit", field("direction", $.exit_dir)),
+    room_patch_add_exit: ($) =>
+      seq(
+        "add",
+        "exit",
+        field("direction", $.exit_dir),
+        "->",
+        field("destination", $._room_ref),
+        optional($.exit_block),
+      ),
 
     action_show: ($) =>
       seq("show", field("text", alias($.string, $.player_message))),

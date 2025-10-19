@@ -3777,6 +3777,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "action_modify_room"
+        },
+        {
+          "type": "SYMBOL",
           "name": "action_show"
         },
         {
@@ -3947,6 +3951,31 @@
         {
           "type": "SYMBOL",
           "name": "item_patch_block"
+        }
+      ]
+    },
+    "action_modify_room": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "modify"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_room_ref"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "room_patch_block"
         }
       ]
     },
@@ -4225,6 +4254,156 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "room_patch_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_room_patch_stmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "_room_patch_stmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "room_patch_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "room_patch_desc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "room_patch_remove_exit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "room_patch_add_exit"
+        }
+      ]
+    },
+    "room_patch_name": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "name"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_name"
+          }
+        }
+      ]
+    },
+    "room_patch_desc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "desc"
+            },
+            {
+              "type": "STRING",
+              "value": "description"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "description",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_desc"
+          }
+        }
+      ]
+    },
+    "room_patch_remove_exit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "remove"
+        },
+        {
+          "type": "STRING",
+          "value": "exit"
+        },
+        {
+          "type": "FIELD",
+          "name": "direction",
+          "content": {
+            "type": "SYMBOL",
+            "name": "exit_dir"
+          }
+        }
+      ]
+    },
+    "room_patch_add_exit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "add"
+        },
+        {
+          "type": "STRING",
+          "value": "exit"
+        },
+        {
+          "type": "FIELD",
+          "name": "direction",
+          "content": {
+            "type": "SYMBOL",
+            "name": "exit_dir"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "->"
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_room_ref"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "exit_block"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

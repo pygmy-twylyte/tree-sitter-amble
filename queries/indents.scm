@@ -35,25 +35,17 @@
 ; Closing parentheses decrease indentation
 ")" @dedent
 
-; Conditional structures
-(cond_block
-  condition: (_) @branch
-  consequence: (_) @indent)
-
-; Trigger statements should align with their block
-(trigger_stmt) @return
-
 ; Room statements should align with their block
 (_room_stmt) @return
 
 ; Item statements should align with their block
-(item_stmt) @return
+(_item_stmt) @return
 
 ; NPC statements should align with their block
-(npc_stmt) @return
+(_npc_stmt) @return
 
 ; Goal statements should align with their block
-(goal_stmt) @return
+(_goal_stmt) @return
 
 ; Spinner statements should align with their block
 (spinner_stmt) @return
@@ -69,13 +61,10 @@
 
 ; Action statements should align properly
 (do_action) @return
-(action_type) @return
+(_action_type) @return
 
 ; When conditions should align with trigger
 (when_cond) @return
 
 ; Trigger conditions should align with if blocks
 (trigger_cond) @return
-
-; Overlay conditions should align with overlay blocks
-(_ovl_cond) @return
