@@ -3924,12 +3924,12 @@
     "type": "room_patch_remove_exit",
     "named": true,
     "fields": {
-      "direction": {
+      "destination": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "exit_dir",
+            "type": "_room_ref",
             "named": true
           }
         ]

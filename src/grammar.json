@@ -4354,10 +4354,10 @@
         },
         {
           "type": "FIELD",
-          "name": "direction",
+          "name": "destination",
           "content": {
             "type": "SYMBOL",
-            "name": "exit_dir"
+            "name": "_room_ref"
           }
         }
       ]
