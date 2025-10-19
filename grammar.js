@@ -770,7 +770,7 @@ module.exports = grammar({
     room_patch_desc: ($) =>
       seq(choice("desc", "description"), field("description", $.entity_desc)),
     room_patch_remove_exit: ($) =>
-      seq("remove", "exit", field("direction", $.exit_dir)),
+      seq("remove", "exit", field("destination", $._room_ref)),
     room_patch_add_exit: ($) =>
       seq(
         "add",
