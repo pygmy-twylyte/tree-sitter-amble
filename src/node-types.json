@@ -52,6 +52,10 @@
         "named": true
       },
       {
+        "type": "action_modify_npc",
+        "named": true
+      },
+      {
         "type": "action_modify_room",
         "named": true
       },
@@ -850,6 +854,32 @@
       "types": [
         {
           "type": "item_patch_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_modify_npc",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_npc_ref",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "npc_patch_block",
           "named": true
         }
       ]
@@ -3145,6 +3175,235 @@
     }
   },
   {
+    "type": "npc_patch_active",
+    "named": true,
+    "fields": {
+      "active": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "boolean",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_patch_add_line",
+    "named": true,
+    "fields": {
+      "dialogue": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "npc_dialogue",
+            "named": true
+          }
+        ]
+      },
+      "state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "custom_state",
+            "named": true
+          },
+          {
+            "type": "npc_state",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_patch_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "npc_patch_active",
+          "named": true
+        },
+        {
+          "type": "npc_patch_add_line",
+          "named": true
+        },
+        {
+          "type": "npc_patch_desc",
+          "named": true
+        },
+        {
+          "type": "npc_patch_loop",
+          "named": true
+        },
+        {
+          "type": "npc_patch_name",
+          "named": true
+        },
+        {
+          "type": "npc_patch_random_rooms",
+          "named": true
+        },
+        {
+          "type": "npc_patch_route",
+          "named": true
+        },
+        {
+          "type": "npc_patch_state",
+          "named": true
+        },
+        {
+          "type": "npc_patch_timing_every",
+          "named": true
+        },
+        {
+          "type": "npc_patch_timing_on",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "npc_patch_desc",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_patch_loop",
+    "named": true,
+    "fields": {
+      "loop": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "boolean",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_patch_name",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_patch_random_rooms",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "_room_ref",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_patch_route",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "_room_ref",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_patch_state",
+    "named": true,
+    "fields": {
+      "state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "custom_state",
+            "named": true
+          },
+          {
+            "type": "npc_state",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_patch_timing_every",
+    "named": true,
+    "fields": {
+      "interval": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "npc_patch_timing_on",
+    "named": true,
+    "fields": {
+      "turn": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "npc_state",
     "named": true,
     "fields": {},
@@ -4645,6 +4904,10 @@
     "named": false
   },
   {
+    "type": "every",
+    "named": false
+  },
+  {
     "type": "exit",
     "named": false
   },
@@ -4738,6 +5001,10 @@
   },
   {
     "type": "limit",
+    "named": false
+  },
+  {
+    "type": "line",
     "named": false
   },
   {
@@ -5014,6 +5281,14 @@
   },
   {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "turn",
+    "named": false
+  },
+  {
+    "type": "turns",
     "named": false
   },
   {

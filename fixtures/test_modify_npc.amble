@@ -1,0 +1,13 @@
+trigger "Test"
+when always {
+    do modify npc spawner {
+        name "Name"
+        desc "Description"
+        state custom ( happy )
+        add line "a new quip" to state custom ( happy )
+        route (room_1, room_2, room_3)
+        timing every 5 turns
+        active true
+        loop true
+    }
+}

@@ -245,7 +245,13 @@ module.exports = grammar({
       choice("normal", "happy", "bored", "tired", "sad", "mad"),
 
     npc_state_custom: ($) =>
-      seq("custom", field("custom_state", $.custom_state)),
+      seq(
+        "custom",
+        choice(
+          field("custom_state", $.custom_state),
+          seq("(", field("custom_state", $.custom_state), ")"),
+        ),
+      ),
 
     ovl_item_in_room: ($) =>
       seq(
@@ -684,6 +690,7 @@ module.exports = grammar({
       choice(
         $.action_modify_item,
         $.action_modify_room,
+        $.action_modify_npc,
         $.action_show,
         $.action_add_wedge,
         $.action_add_seq,
@@ -726,6 +733,8 @@ module.exports = grammar({
       seq("modify", "item", field("item_id", $._item_ref), $.item_patch_block),
     action_modify_room: ($) =>
       seq("modify", "room", field("room_id", $._room_ref), $.room_patch_block),
+    action_modify_npc: ($) =>
+      seq("modify", "npc", field("npc_id", $._npc_ref), $.npc_patch_block),
     item_patch_block: ($) => seq("{", repeat1($._item_patch_stmt), "}"),
     _item_patch_stmt: ($) =>
       choice(
@@ -780,6 +789,50 @@ module.exports = grammar({
         field("destination", $._room_ref),
         optional($.exit_block),
       ),
+    npc_patch_block: ($) => seq("{", repeat1($._npc_patch_stmt), "}"),
+    _npc_patch_stmt: ($) =>
+      choice(
+        $.npc_patch_name,
+        $.npc_patch_desc,
+        $.npc_patch_state,
+        $.npc_patch_add_line,
+        $.npc_patch_route,
+        $.npc_patch_random_rooms,
+        $.npc_patch_timing_every,
+        $.npc_patch_timing_on,
+        $.npc_patch_active,
+        $.npc_patch_loop,
+      ),
+    npc_patch_name: ($) => seq("name", field("name", $.entity_name)),
+    npc_patch_desc: ($) =>
+      seq(choice("desc", "description"), field("description", $.entity_desc)),
+    npc_patch_state: ($) =>
+      seq("state", field("state", choice($.npc_state, $.custom_state))),
+    npc_patch_add_line: ($) =>
+      seq(
+        "add",
+        "line",
+        field("dialogue", alias($.string, $.npc_dialogue)),
+        "to",
+        "state",
+        field("state", choice($.npc_state, $.custom_state)),
+      ),
+    npc_patch_route: ($) =>
+      seq("route", "(", sep1(field("room_id", $._room_ref), ","), ")"),
+    npc_patch_random_rooms: ($) =>
+      seq(
+        "random",
+        "rooms",
+        "(",
+        sep1(field("room_id", $._room_ref), ","),
+        ")",
+      ),
+    npc_patch_timing_every: ($) =>
+      seq("timing", "every", field("interval", $.number), "turns"),
+    npc_patch_timing_on: ($) =>
+      seq("timing", "on", "turn", field("turn", $.number)),
+    npc_patch_active: ($) => seq("active", field("active", $.boolean)),
+    npc_patch_loop: ($) => seq("loop", field("loop", $.boolean)),
 
     action_show: ($) =>
       seq("show", field("text", alias($.string, $.player_message))),
