@@ -904,7 +904,13 @@ module.exports = grammar({
     action_despawn_item: ($) =>
       seq("despawn", "item", field("item_id", $._item_ref)),
     action_award_points: ($) =>
-      seq("award", "points", field("points", $.number)),
+      seq(
+        "award",
+        "points",
+        field("points", $.number),
+        "reason",
+        field("award_reason", $.string),
+      ),
     action_lock_item: ($) => seq("lock", "item", field("item_id", $._item_ref)),
     action_unlock_item: ($) =>
       seq("unlock", "item", field("item_id", $._item_ref)),
