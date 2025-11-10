@@ -5331,6 +5331,18 @@
             "type": "SYMBOL",
             "name": "number"
           }
+        },
+        {
+          "type": "STRING",
+          "value": "reason"
+        },
+        {
+          "type": "FIELD",
+          "name": "award_reason",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
         }
       ]
     },

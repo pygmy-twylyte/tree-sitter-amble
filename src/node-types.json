@@ -705,6 +705,16 @@
     "type": "action_award_points",
     "named": true,
     "fields": {
+      "award_reason": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
       "points": {
         "multiple": false,
         "required": true,
@@ -5140,6 +5150,10 @@
     "named": false
   },
   {
+    "type": "reason",
+    "named": false
+  },
+  {
     "type": "refuse",
     "named": false
   },
@@ -5249,11 +5263,11 @@
   },
   {
     "type": "timing",
-    "named": true
+    "named": false
   },
   {
     "type": "timing",
-    "named": false
+    "named": true
   },
   {
     "type": "tired",
