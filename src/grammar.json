@@ -3789,8 +3789,37 @@
           "value": "do"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "priority_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "_action_type"
+        }
+      ]
+    },
+    "priority_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "priority"
+        },
+        {
+          "type": "FIELD",
+          "name": "display_priority",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
         }
       ]
     },

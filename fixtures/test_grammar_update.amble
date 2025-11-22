@@ -1,5 +1,5 @@
 trigger "Award Points Needs A Reason Now" only once
 note "as above"
 when always {
-    do award points -15 reason "You're penalized on general principle."
+    do priority -100 award points -15 reason "You're penalized on general principle."
 }

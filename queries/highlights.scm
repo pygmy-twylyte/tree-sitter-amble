@@ -1,4 +1,5 @@
 ; Highlights file for Amble DSL
+; DSL version 0.63.0
 
 ; Basic Types
 (number) @number
@@ -84,6 +85,7 @@
 (_trigger_cond_atom) @constructor
 (_action_type) @function
 (off_or_state "off" @comment)
+(priority_clause "priority" @embedded)
 
 ; Item Highlights
 (item_def "item" @keyword)

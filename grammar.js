@@ -685,7 +685,9 @@ module.exports = grammar({
     cond_in_rooms: ($) =>
       prec.left(seq("in", "rooms", sep1(field("room_id", $._room_ref), ","))),
 
-    do_action: ($) => seq("do", $._action_type),
+    do_action: ($) => seq("do", optional($.priority_clause), $._action_type),
+    priority_clause: ($) =>
+      seq("priority", field("display_priority", $.number)),
     _action_type: ($) =>
       choice(
         $.action_modify_item,

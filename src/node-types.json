@@ -1967,11 +1967,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "_action_type",
+          "named": true
+        },
+        {
+          "type": "priority_clause",
           "named": true
         }
       ]
@@ -3902,6 +3906,22 @@
     }
   },
   {
+    "type": "priority_clause",
+    "named": true,
+    "fields": {
+      "display_priority": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "quote",
     "named": true,
     "fields": {}
@@ -5127,6 +5147,10 @@
   },
   {
     "type": "present",
+    "named": false
+  },
+  {
+    "type": "priority",
     "named": false
   },
   {
