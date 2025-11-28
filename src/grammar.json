@@ -2148,6 +2148,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "npc_max_hp_stmt"
+        },
+        {
+          "type": "SYMBOL",
           "name": "npc_loc_stmt"
         },
         {
@@ -2203,6 +2207,23 @@
           "content": {
             "type": "SYMBOL",
             "name": "entity_desc"
+          }
+        }
+      ]
+    },
+    "npc_max_hp_stmt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "max_hp"
+        },
+        {
+          "type": "FIELD",
+          "name": "max_hp",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
           }
         }
       ]
@@ -3953,6 +3974,22 @@
         {
           "type": "SYMBOL",
           "name": "action_set_npc_state"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_damage_player"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_heal_player"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_damage_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_heal_npc"
         },
         {
           "type": "SYMBOL",
@@ -5759,6 +5796,243 @@
             "type": "SYMBOL",
             "name": "custom_state"
           }
+        }
+      ]
+    },
+    "action_damage_player": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "damage"
+        },
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "FIELD",
+          "name": "amount",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "effect_duration_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "cause"
+        },
+        {
+          "type": "FIELD",
+          "name": "cause",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "player_message"
+          }
+        }
+      ]
+    },
+    "action_heal_player": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "heal"
+        },
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "FIELD",
+          "name": "amount",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "effect_duration_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "cause"
+        },
+        {
+          "type": "FIELD",
+          "name": "cause",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "player_message"
+          }
+        }
+      ]
+    },
+    "action_damage_npc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "damage"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_npc_ref"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "amount",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "effect_duration_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "cause"
+        },
+        {
+          "type": "FIELD",
+          "name": "cause",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "player_message"
+          }
+        }
+      ]
+    },
+    "action_heal_npc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "heal"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_npc_ref"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "amount",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "effect_duration_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "cause"
+        },
+        {
+          "type": "FIELD",
+          "name": "cause",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "player_message"
+          }
+        }
+      ]
+    },
+    "effect_duration_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "for"
+        },
+        {
+          "type": "FIELD",
+          "name": "duration",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "turns"
         }
       ]
     },

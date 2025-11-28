@@ -429,6 +429,7 @@ module.exports = grammar({
       choice(
         $.npc_name_stmt,
         $.npc_desc_stmt,
+        $.npc_max_hp_stmt,
         $.npc_loc_stmt,
         $.npc_state_stmt,
         $.npc_movement_stmt,
@@ -440,6 +441,7 @@ module.exports = grammar({
         choice("desc", "description"),
         field("npc_description", $.entity_desc),
       ),
+    npc_max_hp_stmt: ($) => seq("max_hp", field("max_hp", $.number)),
     npc_loc_stmt: ($) => seq("location", $.npc_location),
     npc_location: ($) =>
       choice(
@@ -722,6 +724,10 @@ module.exports = grammar({
         $.action_npc_refuse_item,
         $.action_set_npc_active,
         $.action_set_npc_state,
+        $.action_damage_player,
+        $.action_heal_player,
+        $.action_damage_npc,
+        $.action_heal_npc,
         $.action_deny_read,
         $.action_restrict_item,
         $.action_give_to_player,
@@ -982,6 +988,46 @@ module.exports = grammar({
         field("npc_id", $._npc_ref),
         field("state", $.custom_state),
       ),
+    action_damage_player: ($) =>
+      seq(
+        "damage",
+        "player",
+        field("amount", $.number),
+        optional($.effect_duration_clause),
+        "cause",
+        field("cause", alias($.string, $.player_message)),
+      ),
+    action_heal_player: ($) =>
+      seq(
+        "heal",
+        "player",
+        field("amount", $.number),
+        optional($.effect_duration_clause),
+        "cause",
+        field("cause", alias($.string, $.player_message)),
+      ),
+    action_damage_npc: ($) =>
+      seq(
+        "damage",
+        "npc",
+        field("npc_id", $._npc_ref),
+        field("amount", $.number),
+        optional($.effect_duration_clause),
+        "cause",
+        field("cause", alias($.string, $.player_message)),
+      ),
+    action_heal_npc: ($) =>
+      seq(
+        "heal",
+        "npc",
+        field("npc_id", $._npc_ref),
+        field("amount", $.number),
+        optional($.effect_duration_clause),
+        "cause",
+        field("cause", alias($.string, $.player_message)),
+      ),
+    effect_duration_clause: ($) =>
+      seq("for", field("duration", $.number), "turns"),
     action_deny_read: ($) =>
       seq("deny", "read", field("reason", alias($.string, $.player_message))),
     action_restrict_item: ($) =>
