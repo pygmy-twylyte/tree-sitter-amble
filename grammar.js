@@ -76,6 +76,7 @@ module.exports = grammar({
     identifier: ($) => token(prec(-1, /[a-zA-Z0-9_\-:#]+/)),
 
     number: ($) => /-?\d+/,
+    pos_int: ($) => /[1-9]\d*/,
 
     // Strings: single-line '…' and "…", multi-line """…""" and '''…''', and raw r#"…"#
     string: ($) =>
@@ -398,7 +399,7 @@ module.exports = grammar({
         $.consumable_consume_on,
         $.consumable_when_consumed,
       ),
-    consumable_uses: ($) => seq("uses_left", field("uses_left", $.number)),
+    consumable_uses: ($) => seq("uses_left", field("uses_left", $.pos_int)),
     consumable_consume_on: ($) =>
       seq("consume_on", "ability", field("ability", $.item_ability)),
     consumable_when_consumed: ($) => seq("when_consumed", $.when_consumed_opt),
@@ -441,7 +442,7 @@ module.exports = grammar({
         choice("desc", "description"),
         field("npc_description", $.entity_desc),
       ),
-    npc_max_hp_stmt: ($) => seq("max_hp", field("max_hp", $.number)),
+    npc_max_hp_stmt: ($) => seq("max_hp", field("max_hp", $.pos_int)),
     npc_loc_stmt: ($) => seq("location", $.npc_location),
     npc_location: ($) =>
       choice(
@@ -504,6 +505,8 @@ module.exports = grammar({
     _when_event: ($) =>
       choice(
         $.always_event,
+        $.player_death,
+        $.npc_death,
         $.enter_room,
         $.take_item,
         $.touch_item,
@@ -547,6 +550,8 @@ module.exports = grammar({
     // "when" conditions / triggering events
     when_cond: ($) => $._when_event,
     always_event: ($) => "always",
+    player_death: ($) => seq("player", "dies"),
+    npc_death: ($) => seq("npc", field("npc_id", $._npc_ref), "dies"),
     enter_room: ($) => seq("enter", "room", field("room_id", $._room_ref)),
     leave_room: ($) => seq("leave", "room", field("room_id", $._room_ref)),
     take_item: ($) => seq("take", "item", field("item_id", $._item_ref)),
@@ -667,7 +672,7 @@ module.exports = grammar({
         "item",
         field("item_id", $._item_ref),
       ),
-    cond_chance: ($) => seq("chance", field("pct", $.number), "%"),
+    cond_chance: ($) => seq("chance", field("pct", $.pos_int), "%"),
     cond_ambient: ($) =>
       seq(
         "ambient",
@@ -726,8 +731,10 @@ module.exports = grammar({
         $.action_set_npc_state,
         $.action_damage_player,
         $.action_heal_player,
+        $.action_remove_player_effect,
         $.action_damage_npc,
         $.action_heal_npc,
+        $.action_remove_npc_effect,
         $.action_deny_read,
         $.action_restrict_item,
         $.action_give_to_player,
@@ -836,9 +843,9 @@ module.exports = grammar({
         ")",
       ),
     npc_patch_timing_every: ($) =>
-      seq("timing", "every", field("interval", $.number), "turns"),
+      seq("timing", "every", field("interval", $.pos_int), "turns"),
     npc_patch_timing_on: ($) =>
-      seq("timing", "on", "turn", field("turn", $.number)),
+      seq("timing", "on", "turn", field("turn", $.pos_int)),
     npc_patch_active: ($) => seq("active", field("active", $.boolean)),
     npc_patch_loop: ($) => seq("loop", field("loop", $.boolean)),
 
@@ -1006,6 +1013,13 @@ module.exports = grammar({
         "cause",
         field("cause", alias($.string, $.player_message)),
       ),
+    action_remove_player_effect: ($) =>
+      seq(
+        "remove",
+        "player",
+        "effect",
+        field("effect", alias($.string, $.effect_name)),
+      ),
     action_damage_npc: ($) =>
       seq(
         "damage",
@@ -1026,8 +1040,16 @@ module.exports = grammar({
         "cause",
         field("cause", alias($.string, $.player_message)),
       ),
+    action_remove_npc_effect: ($) =>
+      seq(
+        "remove",
+        "npc",
+        field("npc_id", $._npc_ref),
+        "effect",
+        field("effect", alias($.string, $.effect_name)),
+      ),
     effect_duration_clause: ($) =>
-      seq("for", field("duration", $.number), "turns"),
+      seq("for", field("duration", $.pos_int), "turns"),
     action_deny_read: ($) =>
       seq("deny", "read", field("reason", alias($.string, $.player_message))),
     action_restrict_item: ($) =>
@@ -1117,7 +1139,7 @@ module.exports = grammar({
       seq(
         "wedge",
         field("spinner_text", alias($.string, $.spinner_text)),
-        optional(seq("width", field("width", $.number))),
+        optional(seq("width", field("width", $.pos_int))),
       ),
 
     //

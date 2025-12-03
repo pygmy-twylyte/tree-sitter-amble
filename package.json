@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-amble",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "DSL for the Amble game engine.",
   "repository": "https://github.com/pygmy-twylyte/tree-sitter-amble.git",
   "license": "MIT",

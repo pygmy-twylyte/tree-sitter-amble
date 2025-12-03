@@ -224,6 +224,10 @@
       "type": "PATTERN",
       "value": "-?\\d+"
     },
+    "pos_int": {
+      "type": "PATTERN",
+      "value": "[1-9]\\d*"
+    },
     "string": {
       "type": "CHOICE",
       "members": [
@@ -1994,7 +1998,7 @@
           "name": "uses_left",
           "content": {
             "type": "SYMBOL",
-            "name": "number"
+            "name": "pos_int"
           }
         }
       ]
@@ -2223,7 +2227,7 @@
           "name": "max_hp",
           "content": {
             "type": "SYMBOL",
-            "name": "number"
+            "name": "pos_int"
           }
         }
       ]
@@ -2605,6 +2609,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "player_death"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "npc_death"
+        },
+        {
+          "type": "SYMBOL",
           "name": "enter_room"
         },
         {
@@ -2749,6 +2761,40 @@
     "always_event": {
       "type": "STRING",
       "value": "always"
+    },
+    "player_death": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "STRING",
+          "value": "dies"
+        }
+      ]
+    },
+    "npc_death": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_npc_ref"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "dies"
+        }
+      ]
     },
     "enter_room": {
       "type": "SEQ",
@@ -3668,7 +3714,7 @@
           "name": "pct",
           "content": {
             "type": "SYMBOL",
-            "name": "number"
+            "name": "pos_int"
           }
         },
         {
@@ -3985,11 +4031,19 @@
         },
         {
           "type": "SYMBOL",
+          "name": "action_remove_player_effect"
+        },
+        {
+          "type": "SYMBOL",
           "name": "action_damage_npc"
         },
         {
           "type": "SYMBOL",
           "name": "action_heal_npc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "action_remove_npc_effect"
         },
         {
           "type": "SYMBOL",
@@ -4833,7 +4887,7 @@
           "name": "interval",
           "content": {
             "type": "SYMBOL",
-            "name": "number"
+            "name": "pos_int"
           }
         },
         {
@@ -4862,7 +4916,7 @@
           "name": "turn",
           "content": {
             "type": "SYMBOL",
-            "name": "number"
+            "name": "pos_int"
           }
         }
       ]
@@ -5899,6 +5953,36 @@
         }
       ]
     },
+    "action_remove_player_effect": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "remove"
+        },
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "STRING",
+          "value": "effect"
+        },
+        {
+          "type": "FIELD",
+          "name": "effect",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "effect_name"
+          }
+        }
+      ]
+    },
     "action_damage_npc": {
       "type": "SEQ",
       "members": [
@@ -6015,6 +6099,44 @@
         }
       ]
     },
+    "action_remove_npc_effect": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "remove"
+        },
+        {
+          "type": "STRING",
+          "value": "npc"
+        },
+        {
+          "type": "FIELD",
+          "name": "npc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_npc_ref"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "effect"
+        },
+        {
+          "type": "FIELD",
+          "name": "effect",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "effect_name"
+          }
+        }
+      ]
+    },
     "effect_duration_clause": {
       "type": "SEQ",
       "members": [
@@ -6027,7 +6149,7 @@
           "name": "duration",
           "content": {
             "type": "SYMBOL",
-            "name": "number"
+            "name": "pos_int"
           }
         },
         {
@@ -6486,7 +6608,7 @@
                   "name": "width",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "number"
+                    "name": "pos_int"
                   }
                 }
               ]

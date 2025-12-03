@@ -96,6 +96,14 @@
         "named": true
       },
       {
+        "type": "action_remove_npc_effect",
+        "named": true
+      },
+      {
+        "type": "action_remove_player_effect",
+        "named": true
+      },
+      {
         "type": "action_replace_drop_item",
         "named": true
       },
@@ -552,7 +560,15 @@
         "named": true
       },
       {
+        "type": "npc_death",
+        "named": true
+      },
+      {
         "type": "open_item",
+        "named": true
+      },
+      {
+        "type": "player_death",
         "named": true
       },
       {
@@ -1206,6 +1222,48 @@
     }
   },
   {
+    "type": "action_remove_npc_effect",
+    "named": true,
+    "fields": {
+      "effect": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "effect_name",
+            "named": true
+          }
+        ]
+      },
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_npc_ref",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_remove_player_effect",
+    "named": true,
+    "fields": {
+      "effect": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "effect_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "action_replace_drop_item",
     "named": true,
     "fields": {
@@ -1806,7 +1864,7 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "pos_int",
             "named": true
           }
         ]
@@ -2099,7 +2157,7 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "pos_int",
             "named": true
           }
         ]
@@ -2190,12 +2248,17 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "pos_int",
             "named": true
           }
         ]
       }
     }
+  },
+  {
+    "type": "effect_name",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "enter_room",
@@ -3213,6 +3276,22 @@
     }
   },
   {
+    "type": "npc_death",
+    "named": true,
+    "fields": {
+      "npc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_npc_ref",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "npc_def",
     "named": true,
     "fields": {
@@ -3350,7 +3429,7 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "pos_int",
             "named": true
           }
         ]
@@ -3610,7 +3689,7 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "pos_int",
             "named": true
           }
         ]
@@ -3626,7 +3705,7 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "pos_int",
             "named": true
           }
         ]
@@ -4089,6 +4168,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "player_death",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "player_message",
@@ -4665,7 +4749,7 @@
         "required": false,
         "types": [
           {
-            "type": "number",
+            "type": "pos_int",
             "named": true
           }
         ]
@@ -5130,6 +5214,10 @@
     "named": false
   },
   {
+    "type": "dies",
+    "named": false
+  },
+  {
     "type": "direction",
     "named": false
   },
@@ -5151,6 +5239,10 @@
   },
   {
     "type": "eat",
+    "named": false
+  },
+  {
+    "type": "effect",
     "named": false
   },
   {
@@ -5380,6 +5472,10 @@
   {
     "type": "portable",
     "named": false
+  },
+  {
+    "type": "pos_int",
+    "named": true
   },
   {
     "type": "present",
