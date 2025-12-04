@@ -380,6 +380,7 @@ module.exports = grammar({
         "open",
         "closed",
         "locked",
+        "transparentOpen",
         "transparentClosed",
         "transparentLocked",
         "none",

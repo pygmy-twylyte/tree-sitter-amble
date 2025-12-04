@@ -1895,6 +1895,10 @@
         },
         {
           "type": "STRING",
+          "value": "transparentOpen"
+        },
+        {
+          "type": "STRING",
           "value": "transparentClosed"
         },
         {

@@ -5646,6 +5646,10 @@
     "named": false
   },
   {
+    "type": "transparentOpen",
+    "named": false
+  },
+  {
     "type": "trigger",
     "named": false
   },
