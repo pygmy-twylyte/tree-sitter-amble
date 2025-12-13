@@ -308,19 +308,15 @@
         "named": true
       },
       {
+        "type": "item_movability_stmt",
+        "named": true
+      },
+      {
         "type": "item_name_stmt",
         "named": true
       },
       {
-        "type": "item_portable_stmt",
-        "named": true
-      },
-      {
         "type": "item_requires_stmt",
-        "named": true
-      },
-      {
-        "type": "item_restricted_stmt",
         "named": true
       },
       {
@@ -2947,6 +2943,22 @@
     }
   },
   {
+    "type": "item_movability_stmt",
+    "named": true,
+    "fields": {
+      "movability": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "movability",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "item_name_stmt",
     "named": true,
     "fields": {
@@ -2999,19 +3011,15 @@
           "named": true
         },
         {
+          "type": "item_patch_movability",
+          "named": true
+        },
+        {
           "type": "item_patch_name",
           "named": true
         },
         {
-          "type": "item_patch_portable",
-          "named": true
-        },
-        {
           "type": "item_patch_remove_ability",
-          "named": true
-        },
-        {
-          "type": "item_patch_restricted",
           "named": true
         },
         {
@@ -3054,6 +3062,22 @@
     }
   },
   {
+    "type": "item_patch_movability",
+    "named": true,
+    "fields": {
+      "movability": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "movability",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "item_patch_name",
     "named": true,
     "fields": {
@@ -3063,22 +3087,6 @@
         "types": [
           {
             "type": "entity_name",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "item_patch_portable",
-    "named": true,
-    "fields": {
-      "portable": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "boolean",
             "named": true
           }
         ]
@@ -3102,22 +3110,6 @@
     }
   },
   {
-    "type": "item_patch_restricted",
-    "named": true,
-    "fields": {
-      "restricted": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "boolean",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "item_patch_text",
     "named": true,
     "fields": {
@@ -3127,22 +3119,6 @@
         "types": [
           {
             "type": "string",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "item_portable_stmt",
-    "named": true,
-    "fields": {
-      "portable": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "boolean",
             "named": true
           }
         ]
@@ -3169,22 +3145,6 @@
         "types": [
           {
             "type": "item_interaction",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "item_restricted_stmt",
-    "named": true,
-    "fields": {
-      "restricted": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "boolean",
             "named": true
           }
         ]
@@ -3249,6 +3209,22 @@
         "types": [
           {
             "type": "boolean",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "movability",
+    "named": true,
+    "fields": {
+      "note": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "dev_note",
             "named": true
           }
         ]
@@ -5266,11 +5242,19 @@
     "named": false
   },
   {
+    "type": "fixed",
+    "named": false
+  },
+  {
     "type": "flag",
     "named": false
   },
   {
     "type": "for",
+    "named": false
+  },
+  {
+    "type": "free",
     "named": false
   },
   {
@@ -5402,6 +5386,10 @@
     "named": false
   },
   {
+    "type": "movability",
+    "named": false
+  },
+  {
     "type": "movement",
     "named": false
   },
@@ -5467,10 +5455,6 @@
   },
   {
     "type": "points",
-    "named": false
-  },
-  {
-    "type": "portable",
     "named": false
   },
   {

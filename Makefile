@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-amble
 HOMEPAGE_URL := https://github.com/pygmy-twylyte/tree-sitter-amble.git
-VERSION := 0.18.0
+VERSION := 0.19.0
 
 # repository
 SRC_DIR := src

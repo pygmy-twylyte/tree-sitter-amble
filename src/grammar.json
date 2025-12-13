@@ -1597,7 +1597,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "item_portable_stmt"
+          "name": "item_movability_stmt"
         },
         {
           "type": "SYMBOL",
@@ -1606,10 +1606,6 @@
         {
           "type": "SYMBOL",
           "name": "item_text_stmt"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "item_restricted_stmt"
         },
         {
           "type": "SYMBOL",
@@ -1772,36 +1768,72 @@
         }
       ]
     },
-    "item_portable_stmt": {
-      "type": "SEQ",
+    "movability": {
+      "type": "CHOICE",
       "members": [
         {
           "type": "STRING",
-          "value": "portable"
+          "value": "free"
         },
         {
-          "type": "FIELD",
-          "name": "portable",
-          "content": {
-            "type": "SYMBOL",
-            "name": "boolean"
-          }
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "fixed"
+            },
+            {
+              "type": "FIELD",
+              "name": "note",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "string"
+                },
+                "named": true,
+                "value": "dev_note"
+              }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "restricted"
+            },
+            {
+              "type": "FIELD",
+              "name": "note",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "string"
+                },
+                "named": true,
+                "value": "dev_note"
+              }
+            }
+          ]
         }
       ]
     },
-    "item_restricted_stmt": {
+    "item_movability_stmt": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "restricted"
+          "value": "movability"
         },
         {
           "type": "FIELD",
-          "name": "restricted",
+          "name": "movability",
           "content": {
             "type": "SYMBOL",
-            "name": "boolean"
+            "name": "movability"
           }
         }
       ]
@@ -4195,11 +4227,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "item_patch_portable"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "item_patch_restricted"
+          "name": "item_patch_movability"
         },
         {
           "type": "SYMBOL",
@@ -4275,36 +4303,19 @@
         }
       ]
     },
-    "item_patch_portable": {
+    "item_patch_movability": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "portable"
+          "value": "movability"
         },
         {
           "type": "FIELD",
-          "name": "portable",
+          "name": "movability",
           "content": {
             "type": "SYMBOL",
-            "name": "boolean"
-          }
-        }
-      ]
-    },
-    "item_patch_restricted": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "restricted"
-        },
-        {
-          "type": "FIELD",
-          "name": "restricted",
-          "content": {
-            "type": "SYMBOL",
-            "name": "boolean"
+            "name": "movability"
           }
         }
       ]

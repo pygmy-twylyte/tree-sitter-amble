@@ -339,10 +339,9 @@ module.exports = grammar({
         $.item_name_stmt,
         $.item_desc_stmt,
         $.item_loc_stmt,
-        $.item_portable_stmt,
+        $.item_movability_stmt,
         $.item_ability_stmt,
         $.item_text_stmt,
-        $.item_restricted_stmt,
         $.item_container_stmt,
         $.item_requires_stmt,
         $.item_consumable_stmt,
@@ -362,9 +361,14 @@ module.exports = grammar({
         seq("npc", field("npc_id", $._npc_ref)),
         seq("nowhere", field("spawn_note", alias($.string, $.dev_note))),
       ),
-    item_portable_stmt: ($) => seq("portable", field("portable", $.boolean)),
-    item_restricted_stmt: ($) =>
-      seq("restricted", field("restricted", $.boolean)),
+    movability: ($) =>
+      choice(
+        "free",
+        seq("fixed", field("note", alias($.string, $.dev_note))),
+        seq("restricted", field("note", alias($.string, $.dev_note))),
+      ),
+    item_movability_stmt: ($) =>
+      seq("movability", field("movability", $.movability)),
     item_ability_stmt: ($) =>
       seq(
         "ability",
@@ -757,8 +761,7 @@ module.exports = grammar({
         $.item_patch_name,
         $.item_patch_desc,
         $.item_patch_text,
-        $.item_patch_portable,
-        $.item_patch_restricted,
+        $.item_patch_movability,
         $.item_patch_container_state,
         $.item_patch_add_ability,
         $.item_patch_remove_ability,
@@ -767,9 +770,8 @@ module.exports = grammar({
     item_patch_desc: ($) =>
       seq(choice("desc", "description"), field("description", $.entity_desc)),
     item_patch_text: ($) => seq("text", field("text", $.string)),
-    item_patch_portable: ($) => seq("portable", field("portable", $.boolean)),
-    item_patch_restricted: ($) =>
-      seq("restricted", field("restricted", $.boolean)),
+    item_patch_movability: ($) =>
+      seq("movability", field("movability", $.movability)),
     item_patch_container_state: ($) =>
       seq("container", "state", field("container_state", $.off_or_state)),
     off_or_state: ($) => choice("off", $.container_state),

@@ -13,3 +13,18 @@ npc test_npc_for_now {
     location nowhere "doesn't spawn at all"
     max_hp 10
 }
+
+item portable_item {
+    name "Item Name"
+    desc "Item description..."
+    movability free
+    location nowhere ""
+
+}
+
+item fixed_item {
+    name "Fixed Name"
+    desc "Fixed desc..."
+    movability fixed "It is fixed to the wall."
+    location nowhere ""
+}
