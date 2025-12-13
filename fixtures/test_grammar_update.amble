@@ -4,7 +4,8 @@ when always {
     do priority -100 award points -15 reason "You're penalized on general principle."
     do heal player 10 cause "potion"
     do damage player 10 for 5 turns cause "poison"
-
+    do set item movability portable_item restricted "too heavy right now"
+    do set item movability fixed_item free
 }
 
 npc test_npc_for_now {

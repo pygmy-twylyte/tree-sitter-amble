@@ -729,6 +729,7 @@ module.exports = grammar({
         $.action_reveal_exit,
         $.action_push_player,
         $.action_set_item_desc,
+        $.action_set_item_movability,
         $.action_npc_random_dialogue,
         $.action_npc_says,
         $.action_npc_refuse_item,
@@ -970,6 +971,14 @@ module.exports = grammar({
         "description",
         field("item_id", $._item_ref),
         field("text", alias($.string, $.entity_desc)),
+      ),
+    action_set_item_movability: ($) =>
+      seq(
+        "set",
+        "item",
+        "movability",
+        field("item_id", $._item_ref),
+        field("movability", $.movability),
       ),
     action_npc_random_dialogue: ($) =>
       seq("npc", "random", "dialogue", field("npc_id", $._npc_ref)),

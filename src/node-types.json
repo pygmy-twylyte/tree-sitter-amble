@@ -144,6 +144,10 @@
         "named": true
       },
       {
+        "type": "action_set_item_movability",
+        "named": true
+      },
+      {
         "type": "action_set_npc_active",
         "named": true
       },
@@ -1499,6 +1503,32 @@
         "types": [
           {
             "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "action_set_item_movability",
+    "named": true,
+    "fields": {
+      "item_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_item_ref",
+            "named": true
+          }
+        ]
+      },
+      "movability": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "movability",
             "named": true
           }
         ]

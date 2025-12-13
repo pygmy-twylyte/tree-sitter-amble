@@ -4039,6 +4039,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "action_set_item_movability"
+        },
+        {
+          "type": "SYMBOL",
           "name": "action_npc_random_dialogue"
         },
         {
@@ -5705,6 +5709,39 @@
             },
             "named": true,
             "value": "entity_desc"
+          }
+        }
+      ]
+    },
+    "action_set_item_movability": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "item"
+        },
+        {
+          "type": "STRING",
+          "value": "movability"
+        },
+        {
+          "type": "FIELD",
+          "name": "item_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_item_ref"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "movability",
+          "content": {
+            "type": "SYMBOL",
+            "name": "movability"
           }
         }
       ]
