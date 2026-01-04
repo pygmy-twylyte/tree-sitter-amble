@@ -21,6 +21,9 @@ module.exports = grammar({
     $._goal_ref,
     $._spinner_ref,
     $._set_ref,
+    $._game_stmt,
+    $._player_stmt,
+    $._scoring_stmt,
     $._room_stmt,
     $._item_stmt,
     $._npc_stmt,
@@ -37,6 +40,7 @@ module.exports = grammar({
       repeat1(
         choice(
           $.set_decl,
+          $.game_def,
           $.room_def,
           $.item_def,
           $.npc_def,
@@ -77,6 +81,7 @@ module.exports = grammar({
 
     number: ($) => /-?\d+/,
     pos_int: ($) => /[1-9]\d*/,
+    score_threshold: ($) => /\d+(?:\.\d+)?/,
 
     // Strings: single-line '…' and "…", multi-line """…""" and '''…''', and raw r#"…"#
     string: ($) =>
@@ -118,6 +123,44 @@ module.exports = grammar({
         field("room_list", $.set_list),
       ),
     set_list: ($) => seq("(", sep1($._room_ref, ","), ")"),
+
+    //
+    //
+    //
+    //
+    //
+    // GAME DEFINITIONS
+    //
+    //
+    //
+    //
+    //
+    game_def: ($) => seq("game", $.game_block),
+    game_block: ($) => seq("{", repeat($._game_stmt), "}"),
+    _game_stmt: ($) =>
+      choice($.game_title, $.game_intro, $.game_player, $.game_scoring),
+    game_title: ($) => seq("title", field("title", $.entity_name)),
+    game_intro: ($) => seq("intro", field("intro", $.entity_desc)),
+    game_player: ($) => seq("player", $.player_block),
+    player_block: ($) => seq("{", repeat($._player_stmt), "}"),
+    _player_stmt: ($) =>
+      choice($.player_name, $.player_desc, $.player_max_hp, $.player_start),
+    player_name: ($) => seq("name", field("name", $.entity_name)),
+    player_desc: ($) =>
+      seq(choice("desc", "description"), field("description", $.entity_desc)),
+    player_max_hp: ($) => seq("max_hp", field("max_hp", $.pos_int)),
+    player_start: ($) => seq("start", "room", field("room_id", $._room_ref)),
+    game_scoring: ($) => seq("scoring", $.scoring_block),
+    scoring_block: ($) => seq("{", repeat($._scoring_stmt), "}"),
+    _scoring_stmt: ($) => choice($.scoring_title, $.scoring_rank),
+    scoring_title: ($) => seq("report_title", field("title", $.entity_name)),
+    scoring_rank: ($) =>
+      seq(
+        "rank",
+        field("threshold", $.score_threshold),
+        field("title", $.entity_name),
+        field("description", $.entity_desc),
+      ),
 
     //
     //

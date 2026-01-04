@@ -5,6 +5,8 @@
 
 (pos_int) @number
 
+(score_threshold) @number
+
 (boolean) @boolean
 
 ; Entity identifiers
@@ -90,6 +92,46 @@
     "set"
   ] @keyword
   "=" @operator)
+
+; Game configuration
+(game_def
+  "game" @keyword)
+
+(game_title
+  "title" @keyword)
+
+(game_intro
+  "intro" @keyword)
+
+(game_player
+  "player" @keyword)
+
+(player_name
+  "name" @keyword)
+
+(player_desc
+  [
+    "desc"
+    "description"
+  ] @keyword)
+
+(player_max_hp
+  "max_hp" @keyword)
+
+(player_start
+  [
+    "start"
+    "room"
+  ] @keyword)
+
+(game_scoring
+  "scoring" @keyword)
+
+(scoring_title
+  "report_title" @keyword)
+
+(scoring_rank
+  "rank" @keyword)
 
 ; Room specific
 (room_def

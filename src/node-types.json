@@ -204,6 +204,28 @@
     ]
   },
   {
+    "type": "_game_stmt",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "game_intro",
+        "named": true
+      },
+      {
+        "type": "game_player",
+        "named": true
+      },
+      {
+        "type": "game_scoring",
+        "named": true
+      },
+      {
+        "type": "game_title",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_goal_cond",
     "named": true,
     "subtypes": [
@@ -374,6 +396,28 @@
     ]
   },
   {
+    "type": "_player_stmt",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "player_desc",
+        "named": true
+      },
+      {
+        "type": "player_max_hp",
+        "named": true
+      },
+      {
+        "type": "player_name",
+        "named": true
+      },
+      {
+        "type": "player_start",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_room_ref",
     "named": true,
     "subtypes": [
@@ -417,6 +461,20 @@
       },
       {
         "type": "room_visited",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_scoring_stmt",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "scoring_rank",
+        "named": true
+      },
+      {
+        "type": "scoring_title",
         "named": true
       }
     ]
@@ -2427,6 +2485,98 @@
     }
   },
   {
+    "type": "game_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_game_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "game_def",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "game_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "game_intro",
+    "named": true,
+    "fields": {
+      "intro": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "game_player",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "player_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "game_scoring",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "scoring_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "game_title",
+    "named": true,
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "gc_flag_complete",
     "named": true,
     "fields": {
@@ -4176,14 +4326,93 @@
     }
   },
   {
+    "type": "player_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_player_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "player_death",
     "named": true,
     "fields": {}
   },
   {
+    "type": "player_desc",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "player_max_hp",
+    "named": true,
+    "fields": {
+      "max_hp": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pos_int",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "player_message",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "player_name",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "player_start",
+    "named": true,
+    "fields": {
+      "room_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_room_ref",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "presence_pair_block",
@@ -4569,6 +4798,73 @@
     "fields": {}
   },
   {
+    "type": "scoring_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_scoring_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scoring_rank",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      },
+      "threshold": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "score_threshold",
+            "named": true
+          }
+        ]
+      },
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "scoring_title",
+    "named": true,
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "set_decl",
     "named": true,
     "fields": {
@@ -4633,6 +4929,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "game_def",
+          "named": true
+        },
         {
           "type": "goal_def",
           "named": true
@@ -5292,6 +5592,10 @@
     "named": false
   },
   {
+    "type": "game",
+    "named": false
+  },
+  {
     "type": "give",
     "named": false
   },
@@ -5349,6 +5653,10 @@
   },
   {
     "type": "into",
+    "named": false
+  },
+  {
+    "type": "intro",
     "named": false
   },
   {
@@ -5512,6 +5820,10 @@
     "named": false
   },
   {
+    "type": "rank",
+    "named": false
+  },
+  {
     "type": "reached",
     "named": false
   },
@@ -5533,6 +5845,10 @@
   },
   {
     "type": "replace",
+    "named": false
+  },
+  {
+    "type": "report_title",
     "named": false
   },
   {
@@ -5592,6 +5908,14 @@
     "named": false
   },
   {
+    "type": "score_threshold",
+    "named": true
+  },
+  {
+    "type": "scoring",
+    "named": false
+  },
+  {
     "type": "seq",
     "named": false
   },
@@ -5641,6 +5965,10 @@
   },
   {
     "type": "tired",
+    "named": false
+  },
+  {
+    "type": "title",
     "named": false
   },
   {

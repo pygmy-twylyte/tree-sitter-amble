@@ -1,5 +1,4 @@
 ; ===== Definitions =====
-
 (room_def
   room_id: (room_id) @name) @definition.module
 
@@ -18,24 +17,40 @@
 (spinner_def
   name: (spinner_id) @name) @definition.function
 
+(set_decl
+  name: (set_name) @name) @definition.constant
+
+(game_def
+  (game_title
+    title: (entity_name) @name)) @definition.module
 
 ; Optional: docstrings (adjacent leading comments)
-(
-  (comment)+ @doc
+((comment)+ @doc
   .
   (room_def
     room_id: (room_id) @name) @definition.module
   (#strip! @doc "^#\\s*")
-  (#select-adjacent! @doc @definition.module)
-)
-
+  (#select-adjacent! @doc @definition.module))
 
 ; ===== References (via wrappers) =====
 ; These match anywhere you used the *_ref supertypes.
+(_room_ref
+  (room_id) @name) @reference.module
 
-(_room_ref   (room_id)    @name) @reference.module
-(_item_ref   (item_id)    @name) @reference.type
-(_npc_ref    (npc_id)     @name) @reference.type
-(_flag_ref   (flag_name)  @name) @reference.macro
-(_goal_ref   (goal_id)    @name) @reference.module
-(_spinner_ref (spinner_id) @name) @reference.function
+(_item_ref
+  (item_id) @name) @reference.type
+
+(_npc_ref
+  (npc_id) @name) @reference.type
+
+(_flag_ref
+  (flag_name) @name) @reference.macro
+
+(_goal_ref
+  (goal_id) @name) @reference.module
+
+(_spinner_ref
+  (spinner_id) @name) @reference.function
+
+(_set_ref
+  (set_name) @name) @reference.constant

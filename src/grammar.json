@@ -14,6 +14,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "game_def"
+          },
+          {
+            "type": "SYMBOL",
             "name": "room_def"
           },
           {
@@ -228,6 +232,10 @@
       "type": "PATTERN",
       "value": "[1-9]\\d*"
     },
+    "score_threshold": {
+      "type": "PATTERN",
+      "value": "\\d+(?:\\.\\d+)?"
+    },
     "string": {
       "type": "CHOICE",
       "members": [
@@ -440,6 +448,325 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "game_def": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "game"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "game_block"
+        }
+      ]
+    },
+    "game_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_game_stmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "_game_stmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "game_title"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "game_intro"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "game_player"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "game_scoring"
+        }
+      ]
+    },
+    "game_title": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "title"
+        },
+        {
+          "type": "FIELD",
+          "name": "title",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_name"
+          }
+        }
+      ]
+    },
+    "game_intro": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "intro"
+        },
+        {
+          "type": "FIELD",
+          "name": "intro",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_desc"
+          }
+        }
+      ]
+    },
+    "game_player": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "player_block"
+        }
+      ]
+    },
+    "player_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_player_stmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "_player_stmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "player_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "player_desc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "player_max_hp"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "player_start"
+        }
+      ]
+    },
+    "player_name": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "name"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_name"
+          }
+        }
+      ]
+    },
+    "player_desc": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "desc"
+            },
+            {
+              "type": "STRING",
+              "value": "description"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "description",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_desc"
+          }
+        }
+      ]
+    },
+    "player_max_hp": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "max_hp"
+        },
+        {
+          "type": "FIELD",
+          "name": "max_hp",
+          "content": {
+            "type": "SYMBOL",
+            "name": "pos_int"
+          }
+        }
+      ]
+    },
+    "player_start": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "start"
+        },
+        {
+          "type": "STRING",
+          "value": "room"
+        },
+        {
+          "type": "FIELD",
+          "name": "room_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_room_ref"
+          }
+        }
+      ]
+    },
+    "game_scoring": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "scoring"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scoring_block"
+        }
+      ]
+    },
+    "scoring_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_scoring_stmt"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "_scoring_stmt": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "scoring_title"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scoring_rank"
+        }
+      ]
+    },
+    "scoring_title": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "report_title"
+        },
+        {
+          "type": "FIELD",
+          "name": "title",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_name"
+          }
+        }
+      ]
+    },
+    "scoring_rank": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "rank"
+        },
+        {
+          "type": "FIELD",
+          "name": "threshold",
+          "content": {
+            "type": "SYMBOL",
+            "name": "score_threshold"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "title",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_name"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "description",
+          "content": {
+            "type": "SYMBOL",
+            "name": "entity_desc"
+          }
         }
       ]
     },
@@ -7091,6 +7418,9 @@
     "_goal_ref",
     "_spinner_ref",
     "_set_ref",
+    "_game_stmt",
+    "_player_stmt",
+    "_scoring_stmt",
     "_room_stmt",
     "_item_stmt",
     "_npc_stmt",
