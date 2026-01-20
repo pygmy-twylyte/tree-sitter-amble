@@ -497,6 +497,22 @@
         },
         {
           "type": "SYMBOL",
+          "name": "game_slug"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "game_author"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "game_version"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "game_blurb"
+        },
+        {
+          "type": "SYMBOL",
           "name": "game_player"
         },
         {
@@ -518,6 +534,74 @@
           "content": {
             "type": "SYMBOL",
             "name": "entity_name"
+          }
+        }
+      ]
+    },
+    "game_slug": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "slug"
+        },
+        {
+          "type": "FIELD",
+          "name": "slug",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "game_author": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "author"
+        },
+        {
+          "type": "FIELD",
+          "name": "author",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "game_version": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "version"
+        },
+        {
+          "type": "FIELD",
+          "name": "version",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "game_blurb": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "blurb"
+        },
+        {
+          "type": "FIELD",
+          "name": "blurb",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
           }
         }
       ]

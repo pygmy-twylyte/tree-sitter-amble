@@ -208,6 +208,14 @@
     "named": true,
     "subtypes": [
       {
+        "type": "game_author",
+        "named": true
+      },
+      {
+        "type": "game_blurb",
+        "named": true
+      },
+      {
         "type": "game_intro",
         "named": true
       },
@@ -220,7 +228,15 @@
         "named": true
       },
       {
+        "type": "game_slug",
+        "named": true
+      },
+      {
         "type": "game_title",
+        "named": true
+      },
+      {
+        "type": "game_version",
         "named": true
       }
     ]
@@ -2485,6 +2501,22 @@
     }
   },
   {
+    "type": "game_author",
+    "named": true,
+    "fields": {
+      "author": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "game_block",
     "named": true,
     "fields": {},
@@ -2497,6 +2529,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "game_blurb",
+    "named": true,
+    "fields": {
+      "blurb": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2561,6 +2609,22 @@
     }
   },
   {
+    "type": "game_slug",
+    "named": true,
+    "fields": {
+      "slug": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "game_title",
     "named": true,
     "fields": {
@@ -2570,6 +2634,22 @@
         "types": [
           {
             "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "game_version",
+    "named": true,
+    "fields": {
+      "version": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
             "named": true
           }
         ]
@@ -5439,11 +5519,19 @@
     "named": false
   },
   {
+    "type": "author",
+    "named": false
+  },
+  {
     "type": "award",
     "named": false
   },
   {
     "type": "barred",
+    "named": false
+  },
+  {
+    "type": "blurb",
     "named": false
   },
   {
@@ -5928,6 +6016,10 @@
     "named": false
   },
   {
+    "type": "slug",
+    "named": false
+  },
+  {
     "type": "spawn",
     "named": false
   },
@@ -6021,6 +6113,10 @@
   },
   {
     "type": "uses_left",
+    "named": false
+  },
+  {
+    "type": "version",
     "named": false
   },
   {
