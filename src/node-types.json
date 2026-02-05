@@ -116,19 +116,11 @@
         "named": true
       },
       {
-        "type": "action_restrict_item",
-        "named": true
-      },
-      {
         "type": "action_reveal_exit",
         "named": true
       },
       {
-        "type": "action_schedule_in_if",
-        "named": true
-      },
-      {
-        "type": "action_schedule_in_or_on",
+        "type": "action_schedule",
         "named": true
       },
       {
@@ -334,6 +326,10 @@
         "named": true
       },
       {
+        "type": "item_aliases_stmt",
+        "named": true
+      },
+      {
         "type": "item_consumable_stmt",
         "named": true
       },
@@ -363,6 +359,14 @@
       },
       {
         "type": "item_text_stmt",
+        "named": true
+      },
+      {
+        "type": "item_visibility_stmt",
+        "named": true
+      },
+      {
+        "type": "item_visible_when_stmt",
         "named": true
       }
     ]
@@ -473,6 +477,14 @@
       },
       {
         "type": "room_name",
+        "named": true
+      },
+      {
+        "type": "room_scenery_default",
+        "named": true
+      },
+      {
+        "type": "room_scenery_entry",
         "named": true
       },
       {
@@ -674,22 +686,6 @@
         "named": true
       }
     ]
-  },
-  {
-    "type": "ability_target",
-    "named": true,
-    "fields": {
-      "item": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_item_ref",
-            "named": true
-          }
-        ]
-      }
-    }
   },
   {
     "type": "act_on_item",
@@ -1386,22 +1382,6 @@
     }
   },
   {
-    "type": "action_restrict_item",
-    "named": true,
-    "fields": {
-      "item_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_item_ref",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "action_reveal_exit",
     "named": true,
     "fields": {
@@ -1438,71 +1418,29 @@
     }
   },
   {
-    "type": "action_schedule_in_if",
+    "type": "action_schedule",
     "named": true,
     "fields": {
-      "turns": {
+      "body": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "balanced_braces",
             "named": true
           }
         ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "retry_type",
-          "named": true
-        },
-        {
-          "type": "schedule_note",
-          "named": true
-        },
-        {
-          "type": "trigger_block",
-          "named": true
-        },
-        {
-          "type": "trigger_cond",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "action_schedule_in_or_on",
-    "named": true,
-    "fields": {
-      "turns": {
+      },
+      "header": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "number",
+            "type": "schedule_header",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "schedule_note",
-          "named": true
-        },
-        {
-          "type": "trigger_block",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1654,7 +1592,7 @@
         "required": true,
         "types": [
           {
-            "type": "custom_state",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -1857,6 +1795,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "balanced_braces",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "balanced_braces",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2154,7 +2107,7 @@
         "required": true,
         "types": [
           {
-            "type": "custom_state",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -2245,7 +2198,32 @@
             "named": true
           }
         ]
+      },
+      "target": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "consumable_target",
+            "named": true
+          }
+        ]
       }
+    }
+  },
+  {
+    "type": "consumable_target",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2412,7 +2390,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "exit_stmt",
@@ -2498,6 +2476,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "flag_req",
+    "named": true,
+    "fields": {
+      "flag_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_flag_ref",
+            "named": true
+          }
+        ]
+      },
+      "limit": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3020,6 +3024,21 @@
     }
   },
   {
+    "type": "item_aliases_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "item_block",
     "named": true,
     "fields": {},
@@ -3180,6 +3199,20 @@
           }
         ]
       },
+      "owner": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "player",
+            "named": false
+          }
+        ]
+      },
       "room_id": {
         "multiple": false,
         "required": false,
@@ -3251,6 +3284,21 @@
     }
   },
   {
+    "type": "item_patch_aliases",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "item_patch_block",
     "named": true,
     "fields": {},
@@ -3260,6 +3308,10 @@
       "types": [
         {
           "type": "item_patch_add_ability",
+          "named": true
+        },
+        {
+          "type": "item_patch_aliases",
           "named": true
         },
         {
@@ -3284,6 +3336,14 @@
         },
         {
           "type": "item_patch_text",
+          "named": true
+        },
+        {
+          "type": "item_patch_visibility",
+          "named": true
+        },
+        {
+          "type": "item_patch_visible_when",
           "named": true
         }
       ]
@@ -3386,6 +3446,38 @@
     }
   },
   {
+    "type": "item_patch_visibility",
+    "named": true,
+    "fields": {
+      "visibility": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "visibility_state",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_patch_visible_when",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "trigger_cond",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "item_requires_stmt",
     "named": true,
     "fields": {
@@ -3421,6 +3513,38 @@
         "types": [
           {
             "type": "item_detail_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_visibility_stmt",
+    "named": true,
+    "fields": {
+      "visibility": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "visibility_state",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "item_visible_when_stmt",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "trigger_cond",
             "named": true
           }
         ]
@@ -3754,11 +3878,7 @@
         "required": true,
         "types": [
           {
-            "type": "custom_state",
-            "named": true
-          },
-          {
-            "type": "npc_state",
+            "type": "npc_state_value",
             "named": true
           }
         ]
@@ -3905,11 +4025,7 @@
         "required": true,
         "types": [
           {
-            "type": "custom_state",
-            "named": true
-          },
-          {
-            "type": "npc_state",
+            "type": "npc_state_value",
             "named": true
           }
         ]
@@ -3951,29 +4067,31 @@
   {
     "type": "npc_state",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "npc_state_builtin",
-          "named": true
-        },
-        {
-          "type": "npc_state_custom",
-          "named": true
-        }
-      ]
+    "fields": {
+      "custom_state": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "custom_state",
+            "named": true
+          }
+        ]
+      },
+      "state": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
-    "type": "npc_state_builtin",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "npc_state_custom",
+    "type": "npc_state_custom_paren",
     "named": true,
     "fields": {
       "custom_state": {
@@ -4007,7 +4125,7 @@
     "type": "npc_state_set_custom",
     "named": true,
     "fields": {
-      "state": {
+      "custom_state": {
         "multiple": false,
         "required": true,
         "types": [
@@ -4039,7 +4157,7 @@
       "required": true,
       "types": [
         {
-          "type": "npc_state_builtin",
+          "type": "identifier",
           "named": true
         },
         {
@@ -4059,6 +4177,25 @@
       "types": [
         {
           "type": "npc_state",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "npc_state_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "npc_state_custom_paren",
           "named": true
         }
       ]
@@ -4255,6 +4392,22 @@
     }
   },
   {
+    "type": "ovl_npc_custom_state",
+    "named": true,
+    "fields": {
+      "custom_state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "ovl_npc_presence",
     "named": true,
     "fields": {
@@ -4289,7 +4442,7 @@
         "required": true,
         "types": [
           {
-            "type": "npc_state",
+            "type": "ovl_npc_state_value",
             "named": true
           }
         ]
@@ -4317,6 +4470,25 @@
       "types": [
         {
           "type": "npc_state_set_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ovl_npc_state_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "ovl_npc_custom_state",
           "named": true
         }
       ]
@@ -4385,24 +4557,24 @@
     "fields": {
       "ability_name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "ability_name",
             "named": true
           }
         ]
+      },
+      "item": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_item_ref",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "ability_target",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -4544,17 +4716,16 @@
   {
     "type": "required_flags_stmt",
     "named": true,
-    "fields": {
-      "flag_name": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "_flag_ref",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "flag_req",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4567,22 +4738,6 @@
         "types": [
           {
             "type": "_item_ref",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "retry_type",
-    "named": true,
-    "fields": {
-      "policy": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "retry_policy",
             "named": true
           }
         ]
@@ -4828,16 +4983,74 @@
     "type": "room_patch_remove_exit",
     "named": true,
     "fields": {
-      "destination": {
+      "direction": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_room_ref",
+            "type": "exit_dir",
             "named": true
           }
         ]
       }
+    }
+  },
+  {
+    "type": "room_scenery_default",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "room_scenery_desc",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_desc",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "room_scenery_entry",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "entity_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "room_scenery_desc",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4857,23 +5070,7 @@
     }
   },
   {
-    "type": "schedule_note",
-    "named": true,
-    "fields": {
-      "text": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "schedule_note_text",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "schedule_note_text",
+    "type": "schedule_header",
     "named": true,
     "fields": {}
   },
@@ -5153,6 +5350,21 @@
     "fields": {}
   },
   {
+    "type": "string_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "take_from_npc",
     "named": true,
     "fields": {
@@ -5411,6 +5623,11 @@
     }
   },
   {
+    "type": "visibility_state",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "wedge_text",
     "named": true,
     "fields": {}
@@ -5471,6 +5688,10 @@
     "named": false
   },
   {
+    "type": "Unlock",
+    "named": false
+  },
+  {
     "type": "ability",
     "named": false
   },
@@ -5496,6 +5717,10 @@
   },
   {
     "type": "advance",
+    "named": false
+  },
+  {
+    "type": "aliases",
     "named": false
   },
   {
@@ -5532,10 +5757,6 @@
   },
   {
     "type": "blurb",
-    "named": false
-  },
-  {
-    "type": "bored",
     "named": false
   },
   {
@@ -5585,6 +5806,10 @@
   },
   {
     "type": "damage",
+    "named": false
+  },
+  {
+    "type": "default",
     "named": false
   },
   {
@@ -5700,10 +5925,6 @@
     "named": false
   },
   {
-    "type": "happy",
-    "named": false
-  },
-  {
     "type": "has",
     "named": false
   },
@@ -5718,6 +5939,10 @@
   {
     "type": "hidden",
     "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
   },
   {
     "type": "if",
@@ -5772,6 +5997,10 @@
     "named": false
   },
   {
+    "type": "listed",
+    "named": false
+  },
+  {
     "type": "location",
     "named": false
   },
@@ -5789,10 +6018,6 @@
   },
   {
     "type": "loop",
-    "named": false
-  },
-  {
-    "type": "mad",
     "named": false
   },
   {
@@ -5828,10 +6053,6 @@
     "named": false
   },
   {
-    "type": "normal",
-    "named": false
-  },
-  {
     "type": "note",
     "named": false
   },
@@ -5853,10 +6074,6 @@
   },
   {
     "type": "on",
-    "named": false
-  },
-  {
-    "type": "onFalse",
     "named": false
   },
   {
@@ -5956,16 +6173,8 @@
     "named": false
   },
   {
-    "type": "restrict",
-    "named": false
-  },
-  {
     "type": "restricted",
     "named": false
-  },
-  {
-    "type": "retry_policy",
-    "named": true
   },
   {
     "type": "reveal",
@@ -5984,11 +6193,11 @@
     "named": false
   },
   {
-    "type": "sad",
+    "type": "says",
     "named": false
   },
   {
-    "type": "says",
+    "type": "scenery",
     "named": false
   },
   {
@@ -6013,6 +6222,10 @@
   },
   {
     "type": "show",
+    "named": false
+  },
+  {
+    "type": "simple",
     "named": false
   },
   {
@@ -6049,14 +6262,10 @@
   },
   {
     "type": "timing",
-    "named": false
-  },
-  {
-    "type": "timing",
     "named": true
   },
   {
-    "type": "tired",
+    "type": "timing",
     "named": false
   },
   {
@@ -6117,6 +6326,14 @@
   },
   {
     "type": "version",
+    "named": false
+  },
+  {
+    "type": "visibility",
+    "named": false
+  },
+  {
+    "type": "visible",
     "named": false
   },
   {

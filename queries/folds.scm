@@ -103,9 +103,7 @@
 (ovl_npc_state_set) @fold
 
 ; Action sequences in triggers
-(action_schedule_in_or_on) @fold
-
-(action_schedule_in_if) @fold
+(action_schedule) @fold
 
 ; Complex when conditions with multiple parts
 (use_item_on_item) @fold

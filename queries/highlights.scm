@@ -1,5 +1,5 @@
 ; Highlights file for Amble DSL
-; DSL version 0.64.0
+; DSL version 0.66.0-pre
 ; Basic Types
 (number) @number
 
@@ -33,8 +33,6 @@
 
 (custom_state) @variant
 
-(npc_state_builtin) @constant
-
 ; String-type nodes
 (entity_name) @string.special
 
@@ -62,8 +60,6 @@
 (comment) @comment
 
 (dev_note) @comment.doc
-
-(schedule_note) @comment.doc
 
 ; Global Markups
 [
@@ -149,6 +145,21 @@
     "description"
   ] @keyword)
 
+(room_scenery_default
+  [
+    "scenery"
+    "default"
+  ] @keyword)
+
+(room_scenery_entry
+  "scenery" @keyword)
+
+(room_scenery_desc
+  [
+    "desc"
+    "description"
+  ] @keyword)
+
 (ovl_flag_binary
   "overlay" @keyword
   [
@@ -187,6 +198,13 @@
 
 (required_items_stmt
   "required_items" @attribute)
+
+(flag_req
+  [
+    "simple"
+    "seq"
+    "limit"
+  ] @attribute)
 
 (barred_stmt
   "barred" @attribute)
@@ -266,6 +284,19 @@
 
 (_item_stmt) @keyword
 
+(item_visibility_stmt
+  "visibility" @keyword
+  (visibility_state) @variable.special)
+
+(item_visible_when_stmt
+  [
+    "visible"
+    "when"
+  ] @keyword)
+
+(item_aliases_stmt
+  "aliases" @keyword)
+
 (container_state) @variable.special
 
 (item_location
@@ -333,6 +364,19 @@
 (active_stmt
   "active" @keyword)
 
+(item_patch_visibility
+  "visibility" @keyword
+  (visibility_state) @variable.special)
+
+(item_patch_visible_when
+  [
+    "visible"
+    "when"
+  ] @keyword)
+
+(item_patch_aliases
+  "aliases" @keyword)
+
 ; Spinner Highlights
 (spinner_def
   "spinner" @keyword)
@@ -380,3 +424,6 @@
   ] @keyword)
 
 (_goal_cond) @property
+
+(action_schedule
+  "schedule" @keyword)

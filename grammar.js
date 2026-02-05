@@ -83,11 +83,11 @@ module.exports = grammar({
     pos_int: ($) => /[1-9]\d*/,
     score_threshold: ($) => /\d+(?:\.\d+)?/,
 
-    // Strings: single-line '…' and "…", multi-line """…""" and '''…''', and raw r#"…"#
+    // Strings: single-line '…' and "…", multi-line """…""", raw r"…", and raw r#"…"#
     string: ($) =>
       choice(
         token(/\"([^\"\\\n]|\\.)*\"/),
-        token(/'([^'\\\n]|\\.)*'/),
+        token(/'([^'\\]|\\.)*'/),
         token(
           seq(
             '"""',
@@ -95,10 +95,12 @@ module.exports = grammar({
             '"""',
           ),
         ),
-        token(
-          seq("'''", repeat(choice(/[^']/, /'[^']/, /''[^']/, /\\./)), "'''"),
-        ),
-        token(seq('r#"', repeat(choice(/[^\"]/, /\"[^#]/)), '"#')),
+        token(seq('r"', repeat(/[^"]*/), '"')),
+        token(/r#"(?:[^"]|"[^#])*"#/),
+        token(/r##"(?:[^"]|"[^#]|"#[^#])*"##/),
+        token(/r###"(?:[^"]|"[^#]|"#[^#]|"##[^#])*"###/),
+        token(/r####"(?:[^"]|"[^#]|"#[^#]|"##[^#]|"###[^#])*"####/),
+        token(/r#####"(?:[^"]|"[^#]|"#[^#]|"##[^#]|"###[^#]|"####[^#])*"#####/),
       ),
 
     boolean: ($) => choice("true", "false"),
@@ -122,7 +124,7 @@ module.exports = grammar({
         "=",
         field("room_list", $.set_list),
       ),
-    set_list: ($) => seq("(", sep1($._room_ref, ","), ")"),
+    set_list: ($) => seq("(", sep1($._room_ref, ","), optional(","), ")"),
 
     //
     //
@@ -195,6 +197,8 @@ module.exports = grammar({
         $.room_name,
         $.room_desc,
         $.room_visited,
+        $.room_scenery_default,
+        $.room_scenery_entry,
         $.room_exit,
         $.ovl_flag_binary,
         $.ovl_presence_pair,
@@ -210,6 +214,19 @@ module.exports = grammar({
     room_visited: ($) =>
       seq("visited", field("visited", alias($.boolean, $.room_visited))),
 
+    room_scenery_default: ($) =>
+      seq("scenery", "default", field("description", $.entity_desc)),
+    room_scenery_entry: ($) =>
+      prec.right(
+        seq(
+          "scenery",
+          field("name", $.entity_name),
+          optional($.room_scenery_desc),
+        ),
+      ),
+    room_scenery_desc: ($) =>
+      seq(choice("desc", "description"), field("description", $.entity_desc)),
+
     // ----------------- room exits ----------------
     room_exit: ($) =>
       seq(
@@ -220,7 +237,7 @@ module.exports = grammar({
         optional($.exit_block),
       ),
 
-    exit_block: ($) => seq("{", repeat1(seq($.exit_stmt, optional(","))), "}"),
+    exit_block: ($) => seq("{", optional(sep1($.exit_stmt, ",")), "}"),
     exit_stmt: ($) =>
       choice(
         $.required_items_stmt,
@@ -232,11 +249,16 @@ module.exports = grammar({
     required_items_stmt: ($) =>
       seq("required_items", "(", sep1(field("item_id", $._item_ref), ","), ")"),
     required_flags_stmt: ($) =>
-      seq(
-        "required_flags",
-        "(",
-        sep1(field("flag_name", $._flag_ref), ","),
-        ")",
+      seq("required_flags", "(", sep1($.flag_req, ","), ")"),
+    flag_req: ($) =>
+      choice(
+        seq("simple", field("flag_name", $._flag_ref)),
+        seq(
+          "seq",
+          field("flag_name", $._flag_ref),
+          optional(seq("limit", field("limit", $.number))),
+        ),
+        field("flag_name", $._flag_ref),
       ),
     barred_stmt: ($) =>
       seq("barred", field("msg", alias($.string, $.player_message))),
@@ -293,22 +315,12 @@ module.exports = grammar({
         "in",
         "state",
         field("npc_id", $._npc_ref),
-        field("npc_state", $.npc_state),
+        field("npc_state", $.ovl_npc_state_value),
       ),
 
-    npc_state: ($) => choice($.npc_state_builtin, $.npc_state_custom),
+    ovl_npc_state_value: ($) => choice($.identifier, $.ovl_npc_custom_state),
 
-    npc_state_builtin: ($) =>
-      choice("normal", "happy", "bored", "tired", "sad", "mad"),
-
-    npc_state_custom: ($) =>
-      seq(
-        "custom",
-        choice(
-          field("custom_state", $.custom_state),
-          seq("(", field("custom_state", $.custom_state), ")"),
-        ),
-      ),
+    ovl_npc_custom_state: ($) => seq("custom", field("custom_state", $.string)),
 
     ovl_item_in_room: ($) =>
       seq(
@@ -371,11 +383,11 @@ module.exports = grammar({
     npc_state_set_block: ($) => seq("{", repeat1($.npc_state_set_line), "}"),
     npc_state_set_line: ($) =>
       seq(
-        choice($.npc_state_builtin, $.npc_state_set_custom),
+        choice($.identifier, $.npc_state_set_custom),
         field("text", alias($.string, $.ovl_text)),
       ),
     npc_state_set_custom: ($) =>
-      seq("custom", "(", field("state", $.custom_state), ")"),
+      seq("custom", "(", field("custom_state", $.custom_state), ")"),
 
     //
     //
@@ -396,6 +408,9 @@ module.exports = grammar({
         $.item_desc_stmt,
         $.item_loc_stmt,
         $.item_movability_stmt,
+        $.item_visibility_stmt,
+        $.item_visible_when_stmt,
+        $.item_aliases_stmt,
         $.item_ability_stmt,
         $.item_text_stmt,
         $.item_container_stmt,
@@ -411,7 +426,7 @@ module.exports = grammar({
     item_loc_stmt: ($) => seq("location", $.item_location),
     item_location: ($) =>
       choice(
-        seq("inventory", "player"),
+        seq("inventory", field("owner", choice("player", $.identifier))),
         seq("room", field("room_id", $._room_ref)),
         seq("chest", field("chest_id", $._item_ref)),
         seq("npc", field("npc_id", $._npc_ref)),
@@ -425,6 +440,11 @@ module.exports = grammar({
       ),
     item_movability_stmt: ($) =>
       seq("movability", field("movability", $.movability)),
+    item_visibility_stmt: ($) =>
+      seq("visibility", field("visibility", $.visibility_state)),
+    item_visible_when_stmt: ($) =>
+      seq("visible", "when", field("condition", $.trigger_cond)),
+    item_aliases_stmt: ($) => seq("aliases", $.string_list),
     item_ability_stmt: ($) =>
       seq(
         "ability",
@@ -445,6 +465,8 @@ module.exports = grammar({
         "transparentLocked",
         "none",
       ),
+    visibility_state: ($) => choice("listed", "scenery", "hidden"),
+    string_list: ($) => seq($.string, repeat(seq(",", $.string))),
     item_requires_stmt: ($) =>
       seq(
         "requires",
@@ -462,8 +484,14 @@ module.exports = grammar({
       ),
     consumable_uses: ($) => seq("uses_left", field("uses_left", $.pos_int)),
     consumable_consume_on: ($) =>
-      seq("consume_on", "ability", field("ability", $.item_ability)),
+      seq(
+        "consume_on",
+        "ability",
+        field("ability", $.item_ability),
+        optional(field("target", $.consumable_target)),
+      ),
     consumable_when_consumed: ($) => seq("when_consumed", $.when_consumed_opt),
+    consumable_target: ($) => $.identifier,
     when_consumed_opt: ($) =>
       choice(
         "despawn",
@@ -475,6 +503,15 @@ module.exports = grammar({
           ),
         ),
       ),
+
+    npc_state: ($) =>
+      choice(
+        field("state", $.identifier),
+        seq("custom", field("custom_state", $.custom_state)),
+      ),
+    npc_state_value: ($) => choice($.identifier, $.npc_state_custom_paren),
+    npc_state_custom_paren: ($) =>
+      seq("custom", "(", field("custom_state", $.custom_state), ")"),
 
     //
     //
@@ -523,7 +560,8 @@ module.exports = grammar({
         optional($.loop_stmt),
       ),
     movement_type: ($) => choice("route", "random"),
-    room_list: ($) => seq("(", sep1(field("room_id", $._room_ref), ","), ")"),
+    room_list: ($) =>
+      seq("(", sep1(field("room_id", $._room_ref), ","), optional(","), ")"),
     timing_stmt: ($) =>
       seq("timing", field("timing", alias($.identifier, $.timing))),
     active_stmt: ($) => seq("active", field("active", $.boolean)),
@@ -692,8 +730,10 @@ module.exports = grammar({
       seq("if", $.trigger_cond, "{", repeat1($.do_action), "}"),
     trigger_cond: ($) => $._trigger_cond_atom,
 
-    cond_any_group: ($) => seq("any", "(", sep1($.trigger_cond, ","), ")"),
-    cond_all_group: ($) => seq("all", "(", sep1($.trigger_cond, ","), ")"),
+    cond_any_group: ($) =>
+      seq("any", "(", sep1($.trigger_cond, ","), optional(","), ")"),
+    cond_all_group: ($) =>
+      seq("all", "(", sep1($.trigger_cond, ","), optional(","), ")"),
     cond_has_flag: ($) => seq("has", "flag", field("flag_name", $._flag_ref)),
     cond_missing_flag: ($) =>
       seq("missing", "flag", field("flag_name", $._flag_ref)),
@@ -721,7 +761,7 @@ module.exports = grammar({
         "in",
         "state",
         field("npc_id", $._npc_ref),
-        field("state", $.custom_state),
+        field("state", $.identifier),
       ),
     cond_player_in_room: ($) =>
       seq("player", "in", "room", field("room_id", $._room_ref)),
@@ -798,13 +838,11 @@ module.exports = grammar({
         $.action_heal_npc,
         $.action_remove_npc_effect,
         $.action_deny_read,
-        $.action_restrict_item,
         $.action_give_to_player,
         $.action_set_barred_msg,
         $.action_set_container_state,
         $.action_spinner_msg,
-        $.action_schedule_in_or_on,
-        $.action_schedule_in_if,
+        $.action_schedule,
       ),
     action_modify_item: ($) =>
       seq("modify", "item", field("item_id", $._item_ref), $.item_patch_block),
@@ -819,6 +857,9 @@ module.exports = grammar({
         $.item_patch_desc,
         $.item_patch_text,
         $.item_patch_movability,
+        $.item_patch_visibility,
+        $.item_patch_visible_when,
+        $.item_patch_aliases,
         $.item_patch_container_state,
         $.item_patch_add_ability,
         $.item_patch_remove_ability,
@@ -829,6 +870,11 @@ module.exports = grammar({
     item_patch_text: ($) => seq("text", field("text", $.string)),
     item_patch_movability: ($) =>
       seq("movability", field("movability", $.movability)),
+    item_patch_visibility: ($) =>
+      seq("visibility", field("visibility", $.visibility_state)),
+    item_patch_visible_when: ($) =>
+      seq("visible", "when", field("condition", $.trigger_cond)),
+    item_patch_aliases: ($) => seq("aliases", $.string_list),
     item_patch_container_state: ($) =>
       seq("container", "state", field("container_state", $.off_or_state)),
     off_or_state: ($) => choice("off", $.container_state),
@@ -837,11 +883,10 @@ module.exports = grammar({
     item_patch_remove_ability: ($) =>
       seq("remove", "ability", field("ability", $.patch_ability)),
     patch_ability: ($) =>
-      seq(
+      choice(
+        seq("Unlock", "(", field("item", $._item_ref), ")"),
         field("ability_name", alias($.identifier, $.ability_name)),
-        optional($.ability_target),
       ),
-    ability_target: ($) => seq("(", field("item", $._item_ref), ")"),
     room_patch_block: ($) => seq("{", repeat1($._room_patch_stmt), "}"),
     _room_patch_stmt: ($) =>
       choice(
@@ -854,7 +899,7 @@ module.exports = grammar({
     room_patch_desc: ($) =>
       seq(choice("desc", "description"), field("description", $.entity_desc)),
     room_patch_remove_exit: ($) =>
-      seq("remove", "exit", field("destination", $._room_ref)),
+      seq("remove", "exit", field("direction", $.exit_dir)),
     room_patch_add_exit: ($) =>
       seq(
         "add",
@@ -881,8 +926,7 @@ module.exports = grammar({
     npc_patch_name: ($) => seq("name", field("name", $.entity_name)),
     npc_patch_desc: ($) =>
       seq(choice("desc", "description"), field("description", $.entity_desc)),
-    npc_patch_state: ($) =>
-      seq("state", field("state", choice($.npc_state, $.custom_state))),
+    npc_patch_state: ($) => seq("state", field("state", $.npc_state_value)),
     npc_patch_add_line: ($) =>
       seq(
         "add",
@@ -890,16 +934,23 @@ module.exports = grammar({
         field("dialogue", alias($.string, $.npc_dialogue)),
         "to",
         "state",
-        field("state", choice($.npc_state, $.custom_state)),
+        field("state", $.npc_state_value),
       ),
     npc_patch_route: ($) =>
-      seq("route", "(", sep1(field("room_id", $._room_ref), ","), ")"),
+      seq(
+        "route",
+        "(",
+        sep1(field("room_id", $._room_ref), ","),
+        optional(","),
+        ")",
+      ),
     npc_patch_random_rooms: ($) =>
       seq(
         "random",
         "rooms",
         "(",
         sep1(field("room_id", $._room_ref), ","),
+        optional(","),
         ")",
       ),
     npc_patch_timing_every: ($) =>
@@ -1061,7 +1112,7 @@ module.exports = grammar({
         "npc",
         "state",
         field("npc_id", $._npc_ref),
-        field("state", $.custom_state),
+        field("state", $.identifier),
       ),
     action_damage_player: ($) =>
       seq(
@@ -1120,8 +1171,6 @@ module.exports = grammar({
       seq("for", field("duration", $.pos_int), "turns"),
     action_deny_read: ($) =>
       seq("deny", "read", field("reason", alias($.string, $.player_message))),
-    action_restrict_item: ($) =>
-      seq("restrict", "item", field("item_id", $._item_ref)),
     action_give_to_player: ($) =>
       seq(
         "give",
@@ -1156,38 +1205,15 @@ module.exports = grammar({
       seq("spinner", "message", field("spinner", $._spinner_ref)),
 
     // scheduler actions
-    schedule_note: ($) =>
-      seq("note", field("text", alias($.string, $.schedule_note_text))),
-    retry_type: ($) =>
-      seq(
-        "onFalse",
-        field(
-          "policy",
-          alias(
-            choice("cancel", "retryNextTurn", seq("retryAfter", $.number)),
-            $.retry_policy,
-          ),
-        ),
-      ),
-    action_schedule_in_or_on: ($) =>
+    action_schedule: ($) =>
       seq(
         "schedule",
-        choice("in", "on"),
-        field("turns", $.number),
-        optional($.schedule_note),
-        $.trigger_block,
+        optional(field("header", $.schedule_header)),
+        field("body", $.balanced_braces),
       ),
-    action_schedule_in_if: ($) =>
-      seq(
-        "schedule",
-        choice("in", "on"),
-        field("turns", $.number),
-        "if",
-        $.trigger_cond,
-        optional($.retry_type),
-        optional($.schedule_note),
-        $.trigger_block,
-      ),
+    schedule_header: ($) => token(/[^{}]+/),
+    balanced_braces: ($) =>
+      seq("{", repeat(choice($.balanced_braces, token(/[^{}]+/))), "}"),
 
     //
     //
