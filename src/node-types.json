@@ -1426,17 +1426,47 @@
         "required": true,
         "types": [
           {
-            "type": "balanced_braces",
+            "type": "schedule_block",
             "named": true
           }
         ]
       },
-      "header": {
+      "condition": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "schedule_header",
+            "type": "schedule_if_clause",
+            "named": true
+          }
+        ]
+      },
+      "note": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "schedule_note_clause",
+            "named": true
+          }
+        ]
+      },
+      "on_false": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "schedule_on_false_clause",
+            "named": true
+          }
+        ]
+      },
+      "timing": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "schedule_timing_clause",
             "named": true
           }
         ]
@@ -1795,21 +1825,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "balanced_braces",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "balanced_braces",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -5070,9 +5085,98 @@
     }
   },
   {
-    "type": "schedule_header",
+    "type": "schedule_block",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_trigger_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "schedule_if_clause",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "trigger_cond",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "schedule_note_clause",
+    "named": true,
+    "fields": {
+      "note": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dev_note",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "schedule_on_false_behavior",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "schedule_on_false_clause",
+    "named": true,
+    "fields": {
+      "behavior": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "schedule_on_false_behavior",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "schedule_timing_clause",
+    "named": true,
+    "fields": {
+      "turn": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pos_int",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "scoring_block",
@@ -5760,6 +5864,10 @@
     "named": false
   },
   {
+    "type": "cancel",
+    "named": false
+  },
+  {
     "type": "cause",
     "named": false
   },
@@ -6077,6 +6185,10 @@
     "named": false
   },
   {
+    "type": "onFalse",
+    "named": false
+  },
+  {
     "type": "once",
     "named": false
   },
@@ -6174,6 +6286,10 @@
   },
   {
     "type": "restricted",
+    "named": false
+  },
+  {
+    "type": "retryNextTurn",
     "named": false
   },
   {

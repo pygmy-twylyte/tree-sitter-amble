@@ -1208,12 +1208,22 @@ module.exports = grammar({
     action_schedule: ($) =>
       seq(
         "schedule",
-        optional(field("header", $.schedule_header)),
-        field("body", $.balanced_braces),
+        field("timing", $.schedule_timing_clause),
+        optional(field("condition", $.schedule_if_clause)),
+        optional(field("on_false", $.schedule_on_false_clause)),
+        optional(field("note", $.schedule_note_clause)),
+        field("body", $.schedule_block),
       ),
-    schedule_header: ($) => token(/[^{}]+/),
-    balanced_braces: ($) =>
-      seq("{", repeat(choice($.balanced_braces, token(/[^{}]+/))), "}"),
+    schedule_timing_clause: ($) =>
+      seq(choice("in", "on"), field("turn", $.pos_int)),
+    schedule_if_clause: ($) => seq("if", field("condition", $.trigger_cond)),
+    schedule_on_false_clause: ($) =>
+      seq("onFalse", field("behavior", $.schedule_on_false_behavior)),
+    schedule_on_false_behavior: ($) =>
+      choice("cancel", "retryNextTurn", $.identifier),
+    schedule_note_clause: ($) =>
+      seq("note", field("note", alias($.string, $.dev_note))),
+    schedule_block: ($) => seq("{", repeat1($._trigger_stmt), "}"),
 
     //
     //

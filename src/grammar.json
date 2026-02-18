@@ -7203,14 +7203,54 @@
           "value": "schedule"
         },
         {
+          "type": "FIELD",
+          "name": "timing",
+          "content": {
+            "type": "SYMBOL",
+            "name": "schedule_timing_clause"
+          }
+        },
+        {
           "type": "CHOICE",
           "members": [
             {
               "type": "FIELD",
-              "name": "header",
+              "name": "condition",
               "content": {
                 "type": "SYMBOL",
-                "name": "schedule_header"
+                "name": "schedule_if_clause"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "on_false",
+              "content": {
+                "type": "SYMBOL",
+                "name": "schedule_on_false_clause"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "note",
+              "content": {
+                "type": "SYMBOL",
+                "name": "schedule_note_clause"
               }
             },
             {
@@ -7223,19 +7263,111 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "balanced_braces"
+            "name": "schedule_block"
           }
         }
       ]
     },
-    "schedule_header": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[^{}]+"
-      }
+    "schedule_timing_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "in"
+            },
+            {
+              "type": "STRING",
+              "value": "on"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "turn",
+          "content": {
+            "type": "SYMBOL",
+            "name": "pos_int"
+          }
+        }
+      ]
     },
-    "balanced_braces": {
+    "schedule_if_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "trigger_cond"
+          }
+        }
+      ]
+    },
+    "schedule_on_false_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "onFalse"
+        },
+        {
+          "type": "FIELD",
+          "name": "behavior",
+          "content": {
+            "type": "SYMBOL",
+            "name": "schedule_on_false_behavior"
+          }
+        }
+      ]
+    },
+    "schedule_on_false_behavior": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "cancel"
+        },
+        {
+          "type": "STRING",
+          "value": "retryNextTurn"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "schedule_note_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "note"
+        },
+        {
+          "type": "FIELD",
+          "name": "note",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            "named": true,
+            "value": "dev_note"
+          }
+        }
+      ]
+    },
+    "schedule_block": {
       "type": "SEQ",
       "members": [
         {
@@ -7243,22 +7375,10 @@
           "value": "{"
         },
         {
-          "type": "REPEAT",
+          "type": "REPEAT1",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "balanced_braces"
-              },
-              {
-                "type": "TOKEN",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[^{}]+"
-                }
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_trigger_stmt"
           }
         },
         {
