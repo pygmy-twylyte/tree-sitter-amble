@@ -46,7 +46,7 @@
 
 (item_detail_text) @string
 
-(wedge_text) @string
+(spinner_entry_text) @string
 
 (quote) @string
 
@@ -381,10 +381,11 @@
 (spinner_def
   "spinner" @keyword)
 
-(spinner_stmt
+(action_add_entry
   [
-    "wedge"
-    "width"
+    "add"
+    "entry"
+    "spinner"
   ] @keyword)
 
 ; Goal Highlights

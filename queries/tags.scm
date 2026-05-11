@@ -21,8 +21,9 @@
   name: (set_name) @name) @definition.constant
 
 (game_def
-  (game_title
-    title: (entity_name) @name)) @definition.module
+  (game_block
+    (game_title
+      title: (entity_name) @name))) @definition.module
 
 ; Optional: docstrings (adjacent leading comments)
 ((comment)+ @doc
@@ -51,6 +52,3 @@
 
 (_spinner_ref
   (spinner_id) @name) @reference.function
-
-(_set_ref
-  (set_name) @name) @reference.constant

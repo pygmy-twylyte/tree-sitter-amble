@@ -4704,7 +4704,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "action_add_wedge"
+          "name": "action_add_entry"
         },
         {
           "type": "SYMBOL",
@@ -5806,7 +5806,7 @@
         }
       ]
     },
-    "action_add_wedge": {
+    "action_add_entry": {
       "type": "SEQ",
       "members": [
         {
@@ -5815,7 +5815,7 @@
         },
         {
           "type": "STRING",
-          "value": "wedge"
+          "value": "entry"
         },
         {
           "type": "FIELD",
@@ -5827,29 +5827,8 @@
               "name": "string"
             },
             "named": true,
-            "value": "wedge_text"
+            "value": "spinner_entry_text"
           }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "width"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "number"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
         },
         {
           "type": "STRING",
@@ -7419,7 +7398,7 @@
           "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
-            "name": "spinner_stmt"
+            "name": "spinner_entry"
           }
         },
         {
@@ -7428,16 +7407,12 @@
         }
       ]
     },
-    "spinner_stmt": {
+    "spinner_entry": {
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "wedge"
-        },
-        {
           "type": "FIELD",
-          "name": "spinner_text",
+          "name": "text",
           "content": {
             "type": "ALIAS",
             "content": {
@@ -7447,31 +7422,6 @@
             "named": true,
             "value": "spinner_text"
           }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "width"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "width",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "pos_int"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
         }
       ]
     },
@@ -7905,7 +7855,11 @@
     "_when_event",
     "_trigger_cond_atom",
     "_action_type",
-    "_goal_cond"
+    "_goal_cond",
+    "_item_patch_stmt",
+    "_room_patch_stmt",
+    "_npc_patch_stmt",
+    "_consumable_stmt"
   ],
   "reserved": {}
 }

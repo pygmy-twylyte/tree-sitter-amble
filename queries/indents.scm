@@ -65,7 +65,7 @@
 (_goal_stmt) @return
 
 ; Spinner statements should align with their block
-(spinner_stmt) @return
+(spinner_entry) @return
 
 ; Exit statements should align with their block
 (exit_stmt) @return

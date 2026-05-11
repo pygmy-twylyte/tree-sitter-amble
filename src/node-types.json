@@ -4,15 +4,15 @@
     "named": true,
     "subtypes": [
       {
+        "type": "action_add_entry",
+        "named": true
+      },
+      {
         "type": "action_add_flag",
         "named": true
       },
       {
         "type": "action_add_seq",
-        "named": true
-      },
-      {
-        "type": "action_add_wedge",
         "named": true
       },
       {
@@ -186,6 +186,24 @@
     ]
   },
   {
+    "type": "_consumable_stmt",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "consumable_consume_on",
+        "named": true
+      },
+      {
+        "type": "consumable_uses",
+        "named": true
+      },
+      {
+        "type": "consumable_when_consumed",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_flag_ref",
     "named": true,
     "subtypes": [
@@ -308,6 +326,52 @@
     ]
   },
   {
+    "type": "_item_patch_stmt",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "item_patch_add_ability",
+        "named": true
+      },
+      {
+        "type": "item_patch_aliases",
+        "named": true
+      },
+      {
+        "type": "item_patch_container_state",
+        "named": true
+      },
+      {
+        "type": "item_patch_desc",
+        "named": true
+      },
+      {
+        "type": "item_patch_movability",
+        "named": true
+      },
+      {
+        "type": "item_patch_name",
+        "named": true
+      },
+      {
+        "type": "item_patch_remove_ability",
+        "named": true
+      },
+      {
+        "type": "item_patch_text",
+        "named": true
+      },
+      {
+        "type": "item_patch_visibility",
+        "named": true
+      },
+      {
+        "type": "item_patch_visible_when",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_item_ref",
     "named": true,
     "subtypes": [
@@ -367,6 +431,52 @@
       },
       {
         "type": "item_visible_when_stmt",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_npc_patch_stmt",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "npc_patch_active",
+        "named": true
+      },
+      {
+        "type": "npc_patch_add_line",
+        "named": true
+      },
+      {
+        "type": "npc_patch_desc",
+        "named": true
+      },
+      {
+        "type": "npc_patch_loop",
+        "named": true
+      },
+      {
+        "type": "npc_patch_name",
+        "named": true
+      },
+      {
+        "type": "npc_patch_random_rooms",
+        "named": true
+      },
+      {
+        "type": "npc_patch_route",
+        "named": true
+      },
+      {
+        "type": "npc_patch_state",
+        "named": true
+      },
+      {
+        "type": "npc_patch_timing_every",
+        "named": true
+      },
+      {
+        "type": "npc_patch_timing_on",
         "named": true
       }
     ]
@@ -433,6 +543,28 @@
       },
       {
         "type": "player_start",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_room_patch_stmt",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "room_patch_add_exit",
+        "named": true
+      },
+      {
+        "type": "room_patch_desc",
+        "named": true
+      },
+      {
+        "type": "room_patch_name",
+        "named": true
+      },
+      {
+        "type": "room_patch_remove_exit",
         "named": true
       }
     ]
@@ -714,6 +846,32 @@
     }
   },
   {
+    "type": "action_add_entry",
+    "named": true,
+    "fields": {
+      "spinner": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_spinner_ref",
+            "named": true
+          }
+        ]
+      },
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "spinner_entry_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "action_add_flag",
     "named": true,
     "fields": {
@@ -739,42 +897,6 @@
         "types": [
           {
             "type": "flag_name",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "number",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "action_add_wedge",
-    "named": true,
-    "fields": {
-      "spinner": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "_spinner_ref",
-            "named": true
-          }
-        ]
-      },
-      "text": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "wedge_text",
             "named": true
           }
         ]
@@ -2186,15 +2308,7 @@
       "required": false,
       "types": [
         {
-          "type": "consumable_consume_on",
-          "named": true
-        },
-        {
-          "type": "consumable_uses",
-          "named": true
-        },
-        {
-          "type": "consumable_when_consumed",
+          "type": "_consumable_stmt",
           "named": true
         }
       ]
@@ -3322,43 +3436,7 @@
       "required": true,
       "types": [
         {
-          "type": "item_patch_add_ability",
-          "named": true
-        },
-        {
-          "type": "item_patch_aliases",
-          "named": true
-        },
-        {
-          "type": "item_patch_container_state",
-          "named": true
-        },
-        {
-          "type": "item_patch_desc",
-          "named": true
-        },
-        {
-          "type": "item_patch_movability",
-          "named": true
-        },
-        {
-          "type": "item_patch_name",
-          "named": true
-        },
-        {
-          "type": "item_patch_remove_ability",
-          "named": true
-        },
-        {
-          "type": "item_patch_text",
-          "named": true
-        },
-        {
-          "type": "item_patch_visibility",
-          "named": true
-        },
-        {
-          "type": "item_patch_visible_when",
+          "type": "_item_patch_stmt",
           "named": true
         }
       ]
@@ -3909,43 +3987,7 @@
       "required": true,
       "types": [
         {
-          "type": "npc_patch_active",
-          "named": true
-        },
-        {
-          "type": "npc_patch_add_line",
-          "named": true
-        },
-        {
-          "type": "npc_patch_desc",
-          "named": true
-        },
-        {
-          "type": "npc_patch_loop",
-          "named": true
-        },
-        {
-          "type": "npc_patch_name",
-          "named": true
-        },
-        {
-          "type": "npc_patch_random_rooms",
-          "named": true
-        },
-        {
-          "type": "npc_patch_route",
-          "named": true
-        },
-        {
-          "type": "npc_patch_state",
-          "named": true
-        },
-        {
-          "type": "npc_patch_timing_every",
-          "named": true
-        },
-        {
-          "type": "npc_patch_timing_on",
+          "type": "_npc_patch_stmt",
           "named": true
         }
       ]
@@ -4944,19 +4986,7 @@
       "required": true,
       "types": [
         {
-          "type": "room_patch_add_exit",
-          "named": true
-        },
-        {
-          "type": "room_patch_desc",
-          "named": true
-        },
-        {
-          "type": "room_patch_name",
-          "named": true
-        },
-        {
-          "type": "room_patch_remove_exit",
+          "type": "_room_patch_stmt",
           "named": true
         }
       ]
@@ -5370,7 +5400,7 @@
       "required": true,
       "types": [
         {
-          "type": "spinner_stmt",
+          "type": "spinner_entry",
           "named": true
         }
       ]
@@ -5403,6 +5433,27 @@
     }
   },
   {
+    "type": "spinner_entry",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "spinner_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "spinner_entry_text",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "spinner_id",
     "named": true,
     "fields": {},
@@ -5415,32 +5466,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "spinner_stmt",
-    "named": true,
-    "fields": {
-      "spinner_text": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "spinner_text",
-            "named": true
-          }
-        ]
-      },
-      "width": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "pos_int",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -5732,11 +5757,6 @@
     "fields": {}
   },
   {
-    "type": "wedge_text",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "when_cond",
     "named": true,
     "fields": {},
@@ -5974,6 +5994,10 @@
   },
   {
     "type": "enter",
+    "named": false
+  },
+  {
+    "type": "entry",
     "named": false
   },
   {
@@ -6457,19 +6481,11 @@
     "named": false
   },
   {
-    "type": "wedge",
-    "named": false
-  },
-  {
     "type": "when",
     "named": false
   },
   {
     "type": "when_consumed",
-    "named": false
-  },
-  {
-    "type": "width",
     "named": false
   },
   {

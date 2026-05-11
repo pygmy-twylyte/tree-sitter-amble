@@ -7,5 +7,7 @@ module.exports =
     : require("node-gyp-build")(root);
 
 try {
-  module.exports.nodeTypeInfo = require("../../src/node-types.json");
+  const nodeTypeInfo = require("../../src/node-types.json");
+  module.exports.nodeTypeInfo = nodeTypeInfo;
+  module.exports.language.nodeTypeInfo = nodeTypeInfo;
 } catch (_) {}

@@ -1,0 +1,8 @@
+spinner weather {
+  "mist"
+  "rain"
+}
+
+trigger "change weather" when always {
+  do add entry "hail" spinner weather
+}

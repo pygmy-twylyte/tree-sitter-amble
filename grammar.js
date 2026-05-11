@@ -33,6 +33,10 @@ module.exports = grammar({
     $._trigger_cond_atom,
     $._action_type,
     $._goal_cond,
+    $._item_patch_stmt,
+    $._room_patch_stmt,
+    $._npc_patch_stmt,
+    $._consumable_stmt,
   ],
 
   rules: {
@@ -802,7 +806,7 @@ module.exports = grammar({
         $.action_modify_room,
         $.action_modify_npc,
         $.action_show,
-        $.action_add_wedge,
+        $.action_add_entry,
         $.action_add_seq,
         $.action_replace_item,
         $.action_replace_drop_item,
@@ -962,12 +966,11 @@ module.exports = grammar({
 
     action_show: ($) =>
       seq("show", field("text", alias($.string, $.player_message))),
-    action_add_wedge: ($) =>
+    action_add_entry: ($) =>
       seq(
         "add",
-        "wedge",
-        field("text", alias($.string, $.wedge_text)),
-        optional(seq("width", $.number)),
+        "entry",
+        field("text", alias($.string, $.spinner_entry_text)),
         "spinner",
         field("spinner", $._spinner_ref),
       ),
@@ -1238,13 +1241,9 @@ module.exports = grammar({
     //
     spinner_def: ($) =>
       seq("spinner", field("name", $.spinner_id), $.spinner_block),
-    spinner_block: ($) => seq("{", repeat1($.spinner_stmt), "}"),
-    spinner_stmt: ($) =>
-      seq(
-        "wedge",
-        field("spinner_text", alias($.string, $.spinner_text)),
-        optional(seq("width", field("width", $.pos_int))),
-      ),
+    spinner_block: ($) => seq("{", repeat1($.spinner_entry), "}"),
+    spinner_entry: ($) =>
+      seq(field("text", alias($.string, $.spinner_text))),
 
     //
     //
